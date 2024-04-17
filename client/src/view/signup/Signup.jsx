@@ -10,7 +10,7 @@ const Signup = () => {
     const { signup, isAutenticated, errors: RegisterErrors } = useAuth()
 
     useEffect(() => {
-        if (isAutenticated) navigate('/home-client')
+        if (isAutenticated) navigate('/home')
     }, [isAutenticated])
 
     const onSubmit = async (values) => {

@@ -11,7 +11,7 @@ const SignIn = () => {
 
 
     useEffect(() => {
-        if (isAutenticated) navigate('/home-client')
+        if (isAutenticated) navigate('/home')
     }, [isAutenticated])
 
 
