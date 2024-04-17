@@ -27,9 +27,11 @@ function App() {
             <Route element={<ProtectedRoute requiredRole="seller" />} >
               <Route path="/seller-dashboard" element={<HomeSeller />} />
             </Route>
+
             <Route element={<ProtectedRoute requiredRole="admin" />} >
-              <Route path="/seller-dashboard" element={<HomeAdmin />} />
+              <Route path="/admin-dashboard" element={<HomeAdmin />} />
             </Route>
+
           </Routes>
         </main>
       </BrowserRouter>

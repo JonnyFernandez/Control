@@ -1,21 +1,20 @@
 // ProtectedRoute.jsx
 import { Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "../context/useAuth";
-import PropType from 'prop-types'
 
-const ProtectedRoute = ({ requiredRole }) => {
-    const { Loading, isAutenticated, user } = useAuth();
 
-    if (Loading) return <h1>Loading...</h1>;
+const ProtectedRoute = () => {
+    const { Loading, isAutenticated } = useAuth()
 
-    if (!isAutenticated) return <Navigate to="/login" replace />;
-    if (requiredRole && user.type !== requiredRole) return <Navigate to="/unauthorized" replace />;
+    if (Loading) return <h1> Loading...</h1>
 
-    return <Outlet />;
+    if (!Loading && !isAutenticated) return <Navigate to={'/login'} replace />
+
+    return (
+        <Outlet />
+    )
 }
 
-ProtectedRoute.propTypes = {
-    requiredRole: PropType.string.isRequired
-}
+
 
 export default ProtectedRoute;
