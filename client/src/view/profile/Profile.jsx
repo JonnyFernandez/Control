@@ -1,8 +1,13 @@
+
+
 const Profile = () => {
+
+
     return (
-        <div>Profile</div>
-    )
+        <div>
+            perfil
+        </div>
+    );
 }
 
-
-export default Profile
+export default Profile;

@@ -1,6 +1,10 @@
+import Nav from "../../components/nav/Nav"
+
 const HomeClient = () => {
     return (
-        <div>HomeClient</div>
+        <div>
+            <Nav />
+        </div>
     )
 }
 
