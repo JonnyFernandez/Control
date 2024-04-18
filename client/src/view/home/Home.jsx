@@ -1,12 +1,20 @@
 import Nav from "../../components/nav/Nav"
+import Footer from "../../components/footer/Footer"
+import H from "./Home.module.css"
 
-const HomeClient = () => {
+
+const Home = () => {
     return (
-        <div>
+        <div className={H.home}>
             <Nav />
+            <div className={H.body}>
+
+            </div>
+            <Footer />
+
         </div>
     )
 }
 
 
-export default HomeClient
+export default Home
