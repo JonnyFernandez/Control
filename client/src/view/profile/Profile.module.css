@@ -1,16 +1,3 @@
-:root {
-    --color-white: hsl(0, 0%, 95%);
-    --color-black: hsl(0, 8%, 10%);
-    --color-open-btn-bg: hsla(0, 0%, 14%, 0.058);
-    --color-hover-tab: hsl(227, 100%, 90%);
-    --p-inline: 0.75rem;
-    --p-block: 0.5rem;
-    --row-gap: 1rem;
-    --col-gap: 1.5rem;
-    --border-radius: 0.75rem;
-}
-    
-
 .sidebar {
     height: 188px;
     width: 75px;

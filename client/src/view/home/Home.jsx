@@ -11,13 +11,7 @@ const Home = () => {
             <div className={H.body}>
                 <div className={H.botonera}>Botonera</div>
                 <div className={H.container}>
-                    <div className={H.containerLeft}>
 
-                        <h2>filtro</h2>
-                        <h2>filtro</h2>
-                        <h2>filtro</h2>
-
-                    </div>
                     <div className={H.containerRight}>
                         <Card />
                         <Card />

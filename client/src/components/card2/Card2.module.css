@@ -1,0 +1,62 @@
+.card{
+    position: relative; /* Añadimos posición relativa a .card */
+    width: 420px;
+    height: 170px;
+    background-color: var(--card-color);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    gap: 20px;
+     /* background-color: red; */
+    /* justify-content: space-between; */
+    
+}
+
+.container{
+    width: 90%;
+    height: 90%;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.left{
+  position: absolute; /* Añadimos posición absoluta a .left */
+  left: 0; /* Fijamos el borde izquierdo a la esquina izquierda de .card */  
+  width: 40%;
+  height: 90%;
+  background-color: antiquewhite;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+
+.right{
+  width: 90%;
+  height: 95%;
+  background-color: rgb(186, 145, 90);
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+  margin-left: 20px;
+  margin-right: 5px;
+}
+.right div{
+    display: flex;
+    justify-content: start;
+    margin-top: .5em;
+    margin-left: 150px;
+}
+.action{
+    width: 30px;
+    height: 150px;
+    /* background-color: red; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+

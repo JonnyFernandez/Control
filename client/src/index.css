@@ -1,0 +1,10 @@
+:root {
+    --color-border: rgb(255 255 255 / 16%);
+    --Primari-color: rgb(23, 99, 203);
+    --Second-color: #e5eaebe3;
+    --Footer-color: #e5eaebdd;
+    --white-mode: rgb(30, 30, 30);
+    --boxShadow-color: 0px 0px 5px rgba(0, 0, 0, 0.467);
+    --card-color: #ffffff;
+    --card-boxShadow: #5d5858 0px 0px 0px 0.517629px;
+}

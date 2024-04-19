@@ -29,26 +29,21 @@
     margin-top: 30px;   
     display: flex;
     flex-direction: row; 
-    justify-content: space-around;
+    background-color: red;
+    justify-content: center;
+    align-items: center;
    
  
 }
-.containerLeft{  
-  height: 50px;
-  width: 15%;
-  display: flex;
-  flex-direction: column;  
-  align-items: center;
-  background-color: aqua;
-}
+
 .containerRight{
   height: auto;
   width: 80%;
-  margin: 0 auto;
+  margin-left: 7px;
+ 
   display: grid;
-  gap: 10px; /* Margen entre las tarjetas */
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr)); /* Cambio de auto-fit a auto-fill */
-  overflow-x: hidden;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr));
+  /* gap: 10px; */
 
 }
 /* .cardContainer{
