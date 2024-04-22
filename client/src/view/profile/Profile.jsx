@@ -1,11 +1,11 @@
-
+import NavAdmin from "../../components/navAdmin/navAdmin";
 
 const Profile = () => {
 
 
     return (
         <div>
-            perfil
+            <NavAdmin />
         </div>
     );
 }
