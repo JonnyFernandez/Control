@@ -17,8 +17,8 @@ export const prodSlice = createSlice({
 
 
         getAllProd: (state, action) => {
-            state.allchars = action.payload
-            state.backupChar = action.payload
+            state.allProd = action.payload
+            state.backupProd = action.payload
         },
         getProd_ById: (state, action) => {
             state.detail = action.payload
