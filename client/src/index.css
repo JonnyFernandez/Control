@@ -6,5 +6,7 @@
     --white-mode: rgb(30, 30, 30);
     --boxShadow-color: 0px 0px 5px rgba(0, 0, 0, 0.467);
     --card-color: #ffffff;
-    --card-boxShadow: #5d5858 0px 0px 0px 0.517629px;
+    --cardSecond-color: rgb(131, 130, 111);
+    --card-boxShadow-white-mode: 0px 0px 10px rgb(81, 79, 77);
+    --image-boxShadow-white-mode: 0px 0px 10px rgb(245, 243, 241);
 }

@@ -1,7 +1,7 @@
 import Nav from "../../components/nav/Nav"
 import Footer from "../../components/footer/Footer"
 import H from "./Home.module.css"
-import Card from "../../components/card/Card"
+import Card3 from "../../components/card3/Card3"
 
 
 const Home = () => {
@@ -12,17 +12,15 @@ const Home = () => {
                 <div className={H.botonera}>Botonera</div>
                 <div className={H.container}>
 
-                    <div className={H.containerRight}>
-                        <Card />
-                        <Card />
-                        <Card />
-                        <Card />
-                        <Card />
-                        <Card />
-                        <Card />
-                        <Card />
-                        <Card />
-                        <Card />
+                    <div className={H.containerCards}>
+                        <Card3 />
+                        <Card3 />
+                        <Card3 />
+                        <Card3 />
+                        <Card3 />
+                        <Card3 />
+                        <Card3 />
+
                     </div>
                 </div>
 
