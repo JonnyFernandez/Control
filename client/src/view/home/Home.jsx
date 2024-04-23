@@ -1,7 +1,7 @@
 import Nav from "../../components/nav/Nav"
 import Footer from "../../components/footer/Footer"
 import H from "./Home.module.css"
-import Card3 from "../../components/card3/Card3"
+import Card from "../../components/card/Card"
 import { getProd } from "../../api/prod"
 import { getAllProd } from "../../redux/prodSlice"
 import { useDispatch, useSelector } from 'react-redux'
@@ -36,7 +36,7 @@ const Home = () => {
                     <div className={H.containerCards}>
                         {
                             prod.length > 0
-                                ? (prod.map(item => <Card3 key={item.id} id={item.id} name={item.name} price={item.price} stock={item.stock} image={item.image} />))
+                                ? (prod.map(item => <Card key={item.id} id={item.id} name={item.name} price={item.price} stock={item.stock} image={item.image} />))
                                 : 'No hay productos en la DB'
                         }
 

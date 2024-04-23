@@ -1,6 +1,7 @@
 :root {
     --color-border: rgb(255 255 255 / 16%);
-    --Primari-color: rgb(23, 99, 203);
+    --Primari-color: #ff8000;
+    /* --Primari-color: rgb(23, 99, 203); */
     --Second-color: #e5eaebe3;
     --Footer-color: #e5eaebdd;
     --white-mode: rgb(30, 30, 30);
