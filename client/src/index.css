@@ -10,4 +10,15 @@
     --cardSecond-color: rgb(131, 130, 111);
     --card-boxShadow-white-mode: 0px 0px 10px rgb(81, 79, 77);
     --image-boxShadow-white-mode: 0px 0px 10px rgb(245, 243, 241);
+    /* paleta de colores de sideBar */
+    --color-white: hsl(0, 0%, 95%);
+    --color-black: hsl(0, 8%, 10%);
+    --color-open-btn-bg: hsl(0, 14%, 93%);
+    --color-hover-tab: hsl(227, 100%, 90%);
+   
+    --p-inline: 0.1rem;
+    --p-block: 0.5rem;
+    --row-gap: 1rem;
+    --col-gap: 1.5rem;
+    --border-radius: 0.75rem;
 }
