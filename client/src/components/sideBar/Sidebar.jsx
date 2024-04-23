@@ -1,22 +1,32 @@
 import { useState } from "react";
 import "./style.css"; // Importa los estilos CSS
-// import react from "../../assets"; // Importa la imagen del react
-import { NAVLINKS } from "../../data/NavLinks";
+
 
 function Sidebar() {
 
-    const dato = NAVLINKS()
+    const dato = [
+        {
+            name: "pepe",
+            path: "/",
+            icon: "icono"
+
+
+        },
+    ]
     const [isHover, setIsHover] = useState(false);
 
     return (
         <aside className={`sidebar ${isHover ? "active" : ""}`}>
+
+
             <div className="open-btn" onClick={() => setIsHover(prev => !prev)}>
-                <span className="material-symbols-outlined">chevron_right</span>
+                <span className="material-symbols-outlined">Menu</span>
             </div>
+
+
             <div className="wrapper">
                 <div className="top_wrapper">
                     <div className="header">
-                        {/* <span className="header-react"><img src={react} alt="" /></span> */}
                         <div className="header-details">
                             <span className="header-name">Lorem, ipsum.</span>
                             <span className="header-email">lorem@gmail.com</span>

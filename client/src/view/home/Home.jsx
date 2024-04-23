@@ -7,6 +7,7 @@ import { getAllProd } from "../../redux/prodSlice"
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from "react"
 
+
 const Home = () => {
     const dispatch = useDispatch()
 

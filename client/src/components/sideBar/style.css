@@ -12,12 +12,13 @@
 }
 
 .sidebar {
-    height: 108vh;
-    width: 75px;
+    height: 80vh;
+    width: 50px;
     background-color: var(--color-white);
     color: var(--color-black);
     position: relative;
     transition: width 1.25s ease-in;
+    /* background-color: aqua; */
 }
 
 .sidebar .wrapper {
@@ -27,8 +28,10 @@
     width: 300px;
     height: 100%;
     padding: 1rem 1.25rem;
-    clip-path: inset(0 75% 8% 0);
+    clip-path: inset(100% 75% 20% 50%);
+    /* efecto que desaparece los iconos */
     transition: clip-path 1.25s ease-in;
+    background-color: var(--second-color);
 }
 
 .open-btn {
@@ -66,11 +69,11 @@
 }
 
 .sidebar.active {
-    width: 380px;
+    width: 340px;
 }
 
 .sidebar.active .wrapper {
-    clip-path: inset(0 0% 0 0);
+    clip-path: inset(0% 0% 0% 0%);
 }
 /* ----------------------------------------- */
 .sidebar .header {
@@ -103,7 +106,7 @@
     justify-content: space-between;
     border: 1px solid black;
     border-radius: 1rem;
-    padding-inline: var(--p-inline);
+    /* padding-inline: var(--p-inline); */
 }
 
 .sidebar .search-icon {
