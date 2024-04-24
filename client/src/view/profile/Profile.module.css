@@ -1,6 +1,7 @@
 .profile{
     height: 100vh;
     background-color: var(--Second-color);
+    
 
 }
  
@@ -9,4 +10,17 @@
     height: 83%;
     /* background-color: rgb(45, 44, 42); */
     margin-top: 120px;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+
+}
+
+.item1{
+    float: left;
+}
+.item2{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
 }
