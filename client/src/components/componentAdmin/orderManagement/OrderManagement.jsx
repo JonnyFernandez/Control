@@ -1,11 +1,11 @@
-import w from './OrederManagement.module.css'
+import w from './OrderManagement.module.css'
 
-const OrederManagement = () => {
+const OrderManagement = () => {
     return (
         <>
-            <h1>OrederManagement</h1>
+            <h1>OrderManagement</h1>
         </>
     )
 }
 
-export default OrederManagement
+export default OrderManagement

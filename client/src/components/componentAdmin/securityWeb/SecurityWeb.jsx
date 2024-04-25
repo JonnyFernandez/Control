@@ -1,11 +1,11 @@
-import d from './Security.module.css'
+import d from './SecurityWeb.module.css'
 
-const Security = () => {
+const SecurityWeb = () => {
     return (
         <>
-            <h1>Security</h1>
+            <h1>SecurityWeb</h1>
         </>
     )
 }
 
-export default Security
+export default SecurityWeb
