@@ -1,14 +1,11 @@
 import NavAdmin from "../../components/navAdmin/navAdmin";
 import Sidebar from "../../components/sideBar/Sidebar";
 import p from './Profile.module.css'
+import Card from '../../components/card/Card'
+
 
 
 const Profile = () => {
-
-    const selector = (data) => {
-        alert(data)
-    }
-
 
 
     return (
@@ -16,99 +13,31 @@ const Profile = () => {
             <NavAdmin />
             <div className={p.body}>
 
-                <div className={p.item1}>
-                    <Sidebar selector={selector} />
+                <div className={p.left}>
+                    <Sidebar />
                 </div>
 
-                <div className={p.item2}>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
-                    <h1>Hello world</h1>
+                <div className={p.right}>
+                    <h1>hwllo wold</h1>
+                    <h1>hwllo wold</h1>
+                    <h1>hwllo wold</h1>
+                    <h1>hwllo wold</h1>
+                    <h1>hwllo wold</h1>
+                    <h1>hwllo wold</h1>
+                    <h1>hwllo wold</h1>
+                    <h1>hwllo wold</h1>
+                    <h1>hwllo wold</h1>
+                    <h1>hwllo wold</h1>
+                    <h1>hwllo wold</h1>
+                    <h1>hwllo wold</h1>
+                    <h1>hwllo wold</h1>
+                    <h1>hwllo wold</h1>
+                    <h1>hwllo wold</h1>
+                    <h1>hwllo wold</h1>
+
+
                 </div>
+
 
             </div>
         </div>
