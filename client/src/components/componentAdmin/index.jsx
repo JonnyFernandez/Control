@@ -8,5 +8,6 @@ import Reporting from "./reporting/Reporting";
 import SecurityWeb from "./securityWeb/SecurityWeb";
 import SettingsWeb from "./settingsWeb/SettingsWeb";
 import NavAdmin from "./navAdmin/navAdmin";
+import Modal from "./modal/Modal";
 
-export { CustomerManagement, ContentManagement, CreateProd, Help, Marketing, OrderManagement, Reporting, SecurityWeb, SettingsWeb, NavAdmin }
+export { Modal, CustomerManagement, ContentManagement, CreateProd, Help, Marketing, OrderManagement, Reporting, SecurityWeb, SettingsWeb, NavAdmin }

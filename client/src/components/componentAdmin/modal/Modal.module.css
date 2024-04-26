@@ -1,0 +1,62 @@
+/* // ModalLanding.module.css */
+.overlay {
+    position: fixed;
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.5s;
+    /* background-color: red; */
+}
+
+.modal {
+    position: fixed;
+    z-index: 2;
+    width: 400px;
+    height: 500px;
+    top: 50%;
+    left: 50%;
+    background: #e2dede;
+    border-radius: 12px;
+    padding: 0 40px 50px;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 10px 30px rgba(86, 84, 84, 0.24);  
+  
+}
+
+@keyframes overlay-in {
+    0% { transform: scale(0, 0.004); }
+    33% { transform: scale(1, 0.004); }
+    66%, 100% { transform: scale(1, 1); }
+}
+
+.overlay {
+    z-index: 1;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.75);
+}
+
+.overlay.open {
+    visibility: visible;
+    opacity: 1;
+    animation: overlay-in 1s both;
+}
+
+@keyframes modal-in {
+    0%, 66% {
+        opacity: 0;
+        visibility: hidden;
+        transform: translate(-50%, -40%);
+    }
+    100% {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+.overlay.open.modal {
+    opacity: 1;
+    visibility: visible;
+    animation: modal-in 1s;
+}
