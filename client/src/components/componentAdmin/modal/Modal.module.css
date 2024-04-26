@@ -10,8 +10,8 @@
 .modal {
     position: fixed;
     z-index: 2;
-    width: 400px;
-    height: 500px;
+    width: auto;
+    height: auto;
     top: 50%;
     left: 50%;
     background: #e2dede;

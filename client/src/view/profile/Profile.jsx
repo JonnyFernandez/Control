@@ -8,7 +8,7 @@ import { NavAdmin, CustomerManagement, ContentManagement, CreateProd, Help, Mark
 
 const Profile = () => {
 
-    const [prod, setProd] = useState(false)
+    const [prod, setProd] = useState(true)
     const [customer, setCustomer] = useState(false)
     const [content, setContent] = useState(false)
     const [createProd, setCreateProd] = useState(false)

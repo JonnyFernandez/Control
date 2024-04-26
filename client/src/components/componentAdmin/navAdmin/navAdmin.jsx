@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import n from "./navAdmin.module.css";
 import { NavLink } from "react-router-dom";
-import { Modal } from '../index'
+import { CreateProd, Modal } from '../index'
 
 const NavAdmin = () => {
 
@@ -28,7 +28,7 @@ const NavAdmin = () => {
                 <div className={n.div3}>
                     <div onClick={() => setIsOpen(!isOpen)}> Agregar Producto  </div>
 
-                    <Modal isOpen={isOpen} toggleOpen={toggleOpen} />
+                    <Modal isOpen={isOpen} toggleOpen={toggleOpen} children={<CreateProd />} />
 
                 </div>
             </div>
