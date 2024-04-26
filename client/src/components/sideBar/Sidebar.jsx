@@ -7,9 +7,6 @@ function Sidebar({ selector }) {
     const [isHover, setIsHover] = useState(false);
 
 
-
-
-
     return (
         <aside className={`${styles.sidebar} ${isHover ? styles.active : ""}`}>
 
@@ -32,7 +29,7 @@ function Sidebar({ selector }) {
                     </div>
 
                     <nav className={styles.navMenu}>
-                        {/* <button className={styles.navMenuItem} value={''} >Gestión de productos</button> */}
+                        <button className={styles.navMenuItem} value={'prod'} onClick={(e) => selector(e.target.value)}>Gestión de productos</button>
                         <button className={styles.navMenuItem} value={'orders'} onClick={(e) => selector(e.target.value)}>Gestión de pedidos</button>
                         <button className={styles.navMenuItem} value={'client'} onClick={(e) => selector(e.target.value)}>Gestión de clientes</button>
                         <button className={styles.navMenuItem} value={'report'} onClick={(e) => selector(e.target.value)}>Análisis y reportes</button>

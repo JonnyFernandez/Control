@@ -1,15 +1,16 @@
 import { useState } from "react";
-import NavAdmin from "../../components/navAdmin/navAdmin";
 import Sidebar from "../../components/sideBar/Sidebar";
 import p from './Profile.module.css'
-import { CustomerManagement, ContentManagement, CreateProd, Help, Marketing, OrderManagement, Reporting, SecurityWeb, SettingsWeb } from '../../components/componentAdmin/index'
+import { NavAdmin, CustomerManagement, ContentManagement, CreateProd, Help, Marketing, OrderManagement, Reporting, SecurityWeb, SettingsWeb } from '../../components/componentAdmin/index'
+
 
 
 
 const Profile = () => {
 
-    const [customer, setCustomer] = useState(true)
-    const [content, setContent] = useState(true)
+    const [prod, setProd] = useState(false)
+    const [customer, setCustomer] = useState(false)
+    const [content, setContent] = useState(false)
     const [createProd, setCreateProd] = useState(false)
     const [help, setHelp] = useState(false)
     const [marketing, setMarketing] = useState(false)
@@ -20,8 +21,117 @@ const Profile = () => {
 
 
     const selector = (data) => {
-        alert(`${data}`)
-    }
+        switch (data) {
+            case "prod":
+                setProd(true)
+                setCustomer(false)
+                setContent(false)
+                setCreateProd(false)
+                setHelp(false)
+                setMarketing(false)
+                setOrder(false)
+                setReporting(false)
+                setSecurity(false)
+                setSettings(false)
+                break
+            case "orders":
+                setProd(false)
+                setCustomer(false)
+                setContent(false)
+                setCreateProd(false)
+                setHelp(false)
+                setMarketing(false)
+                setOrder(true)
+                setReporting(false)
+                setSecurity(false)
+                setSettings(false)
+                break
+            case "client":
+                setProd(false)
+                setCustomer(true)
+                setContent(false)
+                setCreateProd(false)
+                setHelp(false)
+                setMarketing(false)
+                setOrder(false)
+                setReporting(false)
+                setSecurity(false)
+                setSettings(false)
+                break
+            case "report":
+                setProd(false)
+                setCustomer(false)
+                setContent(false)
+                setCreateProd(false)
+                setHelp(false)
+                setMarketing(false)
+                setOrder(false)
+                setReporting(true)
+                setSecurity(false)
+                setSettings(false)
+                break
+            case "marketing":
+                setProd(false)
+                setCustomer(false)
+                setContent(false)
+                setCreateProd(false)
+                setHelp(false)
+                setMarketing(true)
+                setOrder(false)
+                setReporting(false)
+                setSecurity(false)
+                setSettings(false)
+                break
+            case "content":
+                setProd(false)
+                setCustomer(false)
+                setContent(true)
+                setCreateProd(false)
+                setHelp(false)
+                setMarketing(false)
+                setOrder(false)
+                setReporting(false)
+                setSecurity(false)
+                setSettings(false)
+                break
+            case "setting":
+                setProd(false)
+                setCustomer(false)
+                setContent(false)
+                setCreateProd(false)
+                setHelp(false)
+                setMarketing(false)
+                setOrder(false)
+                setReporting(false)
+                setSecurity(false)
+                setSettings(true)
+                break
+            case "security":
+                setProd(false)
+                setCustomer(false)
+                setContent(false)
+                setCreateProd(false)
+                setHelp(false)
+                setMarketing(false)
+                setOrder(false)
+                setReporting(false)
+                setSecurity(true)
+                setSettings(false)
+                break
+            case "help":
+                setProd(false)
+                setCustomer(false)
+                setContent(false)
+                setCreateProd(false)
+                setHelp(true)
+                setMarketing(false)
+                setOrder(false)
+                setReporting(false)
+                setSecurity(false)
+                setSettings(false)
+                break
+        }
+    };
 
     return (
         <div className={p.profile}>
@@ -33,16 +143,16 @@ const Profile = () => {
                 </div>
 
                 <div className={p.right}>
-
+                    {prod && <h1>Productos</h1>}
                     {customer && <CustomerManagement />}
                     {content && <ContentManagement />}
                     {createProd && <CreateProd />}
-                    {/* <Help />
-                    <Marketing />
-                    <OrderManagement />
-                    <Reporting />
-                    <SecurityWeb />
-                    <SettingsWeb /> */}
+                    {help && <Help />}
+                    {marketing && <Marketing />}
+                    {order && <OrderManagement />}
+                    {reporting && <Reporting />}
+                    {security && <SecurityWeb />}
+                    {settings && <SettingsWeb />}
 
                 </div>
 

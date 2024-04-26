@@ -7,5 +7,6 @@ import OrderManagement from "./orderManagement/OrderManagement";
 import Reporting from "./reporting/Reporting";
 import SecurityWeb from "./securityWeb/SecurityWeb";
 import SettingsWeb from "./settingsWeb/SettingsWeb";
+import NavAdmin from "./navAdmin/navAdmin";
 
-export { CustomerManagement, ContentManagement, CreateProd, Help, Marketing, OrderManagement, Reporting, SecurityWeb, SettingsWeb }
+export { CustomerManagement, ContentManagement, CreateProd, Help, Marketing, OrderManagement, Reporting, SecurityWeb, SettingsWeb, NavAdmin }
