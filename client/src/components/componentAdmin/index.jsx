@@ -9,5 +9,5 @@ import SecurityWeb from "./securityWeb/SecurityWeb";
 import SettingsWeb from "./settingsWeb/SettingsWeb";
 import NavAdmin from "./navAdmin/navAdmin";
 import Modal from "./modal/Modal";
-
-export { Modal, CustomerManagement, ContentManagement, CreateProd, Help, Marketing, OrderManagement, Reporting, SecurityWeb, SettingsWeb, NavAdmin }
+import CustomerProd from "./customerProd/CustomerProd";
+export { CustomerProd, Modal, CustomerManagement, ContentManagement, CreateProd, Help, Marketing, OrderManagement, Reporting, SecurityWeb, SettingsWeb, NavAdmin }

@@ -25,20 +25,9 @@
 }
 
 .right{
-  width: 1450px;
+  width: 1470px;
   height: auto;
   margin-left:3.5rem ;
   /* background-color: rebeccapurple; */
 
 }
-/* .right{
-    max-width: 1500px;
-    margin-left: 3.5rem;
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 2rem;
-
-    overflow-x: hidden;
-
-} */

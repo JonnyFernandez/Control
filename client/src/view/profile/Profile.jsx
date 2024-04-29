@@ -1,8 +1,8 @@
 import { useState } from "react";
 import Sidebar from "../../components/sideBar/Sidebar";
 import p from './Profile.module.css'
-import { NavAdmin, CustomerManagement, ContentManagement, CreateProd, Help, Marketing, OrderManagement, Reporting, SecurityWeb, SettingsWeb } from '../../components/componentAdmin/index'
-
+import { CustomerProd, NavAdmin, CustomerManagement, ContentManagement, CreateProd, Help, Marketing, OrderManagement, Reporting, SecurityWeb, SettingsWeb } from '../../components/componentAdmin/index'
+import Footer from '../../components/footer/Footer'
 
 
 
@@ -143,7 +143,7 @@ const Profile = () => {
                 </div>
 
                 <div className={p.right}>
-                    {prod && <h1>Productos</h1>}
+                    {prod && <CustomerProd />}
                     {customer && <CustomerManagement />}
                     {content && <ContentManagement />}
                     {createProd && <CreateProd />}
@@ -155,9 +155,9 @@ const Profile = () => {
                     {settings && <SettingsWeb />}
 
                 </div>
-
-
             </div>
+            <Footer />
+
         </div>
     );
 }

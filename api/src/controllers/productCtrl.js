@@ -71,7 +71,7 @@ module.exports = {
           },
         ],
       });
-
+      // console.log(aux);
       // return aux
 
       return aux.map(item => {
@@ -86,7 +86,7 @@ module.exports = {
           status: item.stock >= 1 ? true : false,
           code: item.code,
           stock: parseFloat(item.stock),
-          price: parseFloat(item.price),
+          price: Number(item.price).toFixed(2),
           off: parseFloat(item.off),
           discount: item.off > 0 ? parseFloat(item.cost * item.off) : 0,
           realPrice: parseFloat(item.price) + parseFloat(item.cost * item.off),
@@ -108,13 +108,13 @@ module.exports = {
 
 
   update: async (id, name, image, description, brand, distributor, stock, cost, off, category, iva, iibb, others, gain, user) => {
-      const userDB = await User.findByPk(user)
-      const matchProd = await Product.findByPk(id)
-      
-      if( (userDB.type !== "admin") && stock < matchProd.stock ){
-        throw new Error('Only admins can reduce stock manually.')
+    const userDB = await User.findByPk(user)
+    const matchProd = await Product.findByPk(id)
 
-      }
+    if ((userDB.type !== "admin") && stock < matchProd.stock) {
+      throw new Error('Only admins can reduce stock manually.')
+
+    }
 
     matchProd.name = name || matchProd.name;
     matchProd.image = image || matchProd.image;

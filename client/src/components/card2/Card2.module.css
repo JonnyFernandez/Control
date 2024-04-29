@@ -1,62 +1,28 @@
-.card{
-    position: relative; /* Añadimos posición relativa a .card */
-    width: 420px;
-    height: 170px;
-    background-color: var(--card-color);
+.cardList{
+    width: 100%;
+    height: 50px;
+    /* background-color: var(--card-color); */
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
-    padding: 5px;
-    gap: 20px;
-     /* background-color: red; */
-    /* justify-content: space-between; */
+    margin-bottom: 10px;  
+    border: 0.5px solid black;
     
 }
-
-.container{
-    width: 90%;
-    height: 90%;
-    position: relative;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    
+.item1{
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  font-weight: bold;
+  font-size: 0.875rem;
+  color: #000;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 20rem;
+  margin-left: 2rem;
 }
-
-.left{
-  position: absolute; /* Añadimos posición absoluta a .left */
-  left: 0; /* Fijamos el borde izquierdo a la esquina izquierda de .card */  
-  width: 40%;
-  height: 90%;
-  background-color: antiquewhite;
-  border-top-right-radius: 15px;
-  border-bottom-right-radius: 15px;
+.cardList:hover{
+  background-color: rgb(0, 170, 255);
+  transition: 0.2s;
 }
-
-.right{
-  width: 90%;
-  height: 95%;
-  background-color: rgb(186, 145, 90);
-  border-top-right-radius: 15px;
-  border-bottom-right-radius: 15px;
-  margin-left: 20px;
-  margin-right: 5px;
-}
-.right div{
-    display: flex;
-    justify-content: start;
-    margin-top: .5em;
-    margin-left: 150px;
-}
-.action{
-    width: 30px;
-    height: 150px;
-    /* background-color: red; */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-}
-
