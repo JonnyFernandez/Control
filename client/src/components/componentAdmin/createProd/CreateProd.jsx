@@ -1,48 +1,31 @@
-import c from './CreateProd.module.css'
-import { useForm } from 'react-hook-form'
-import { useEffect } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import r from './CreateProd.module.css'
+// import Validation from '../ValidateProd/Validation'
 import axios from 'axios'
-// import { useTasks } from '../context/TaskContext' funcion para enviar la peticion
+// import { createProd } from '../../../redux/actions'
+// import { codeToProd } from '../../../utils/codes'
+import Swal from 'sweetalert2';
+import { postProd } from '../../../api/prod';
+
 
 const CreateProd = () => {
 
 
-    const navigate = useNavigate()
-    const params = useParams()
 
-    const { register, handleSubmit, formState: { errors }, setValue, watch } = useForm();
-    // const { createTask, getTask, updateTask } = useTasks()
+    const [inputs, setInputs] = useState({ name: '', image: '', description: '', stock: '', cost: '', off: '', category: '', iva: '', iibb: '', others: '', gain: '' })
+    const [errors, setErrors] = useState({ name: '', image: '', description: '', stock: '', cost: '', off: '', category: '' })
+    const [showMore, setShowMore] = useState(false)
+    const [showInputs, setShowInputs] = useState(true)
 
-    useEffect(() => {
-        async function loadTask() {
-            if (params.id) {
-                // const task = await getTask(params.id)
-                // seteo los valores del input 
-                setValue('title', task.title)
-                setValue('description', task.description)
-            }
-        }
-        loadTask()
-    }, [])
+    const toggleMore = () => setShowInputs(prev => !prev)
 
-    const onSubmit = async (values) => {
-        console.log(values);
-        // if (params.id) {
-        //     updateTask(params.id, values)
-        // } else {
-        //     createTask(values)
-        // }
-        // navigate('/task')
-    };
+
+    console.log(inputs);
+
+
 
     const handleUploadImage = async (event) => {
         const file = event.target.files[0];
-        if (!file) {
-            console.error('No se ha seleccionado ningún archivo.');
-            return;
-        }
-
         const formData = new FormData();
         formData.append('file', file);
         formData.append('upload_preset', 'assistt_file');
@@ -51,77 +34,229 @@ const CreateProd = () => {
             const response = await axios.post('https://api.cloudinary.com/v1_1/dkx6y2e2z/image/upload', formData, {
                 headers: { 'Content-Type': 'multipart/form-data' },
             });
-            setValue('image', response.data.secure_url); // Aquí actualizamos el valor del campo 'image' con la URL de la imagen
+
+            // Actualiza el estado 'image' con la URL de la imagen procesada
+            setInputs({ ...inputs, image: response.data.secure_url });
+
+            // Limpia el input de carga de imagen
+            event.target.value = '';
         } catch (error) {
             console.error('Error al cargar la imagen:', error);
+            // Muestra un mensaje de error al usuario
             alert('Error al cargar la imagen. Inténtalo de nuevo.');
         }
     };
 
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        setInputs({ ...inputs, [name]: value });
+        // setErrors(Validation({ ...inputs, [name]: value }));
+    };
+
+    const handleSelect = (event) => {
+        let value = event.target.value
+        setInputs({ ...inputs, category: value })
+    }
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        // if (Object.values(inputs).some(value => !value)) {
+        //     Swal.fire({
+        //         icon: 'error',
+        //         title: 'Error',
+        //         text: 'Por favor, completa todos los campos y sube una imagen.',
+        //     });
+        //     return;
+        // }
+
+        await postProd(inputs);
+
+
+        // setInputs({ image: '', name: '', description: '', supplie_type: '', stock: '', price: '' });
+        // setErrors({ image: '', name: '', description: '', supplie_type: '', stock: '', price: '' });
+
+
+        // Swal.fire({
+        //     icon: 'success',
+        //     title: 'Éxito',
+        //     text: 'Producto agregado exitosamente.',
+        // });
+    };
+
     return (
-        <div className={c.prod} >
-            <div className={c.container}>
 
-                <h1 className={c.title1}>Ingresar Producto</h1>
-
-                <form onSubmit={handleSubmit(onSubmit)} className={c.formulario}>
-
-                    {/* <label htmlFor="name">Nombre</label> */}
-                    <input type="name"  {...register('name', { required: false })} className={c.inputs} placeholder='Nombre' autoFocus />
-                    {errors.name && <p className='text-red-500'>Name is required</p>}
-
-                    {/* <label htmlFor="image">Imagen</label> */}
-                    <input type="file"  {...register('image', { required: false })} className={c.inputs} placeholder='Imagen' autoFocus onChange={handleUploadImage} />
-                    {errors.image && <p className='text-red-500'>Image is required</p>}
-
-                    {/* <label htmlFor="description">Description</label> */}
-                    <input type="text"  {...register('description', { required: false })} className={c.inputs} placeholder='Description' autoFocus />
-                    {errors.description && <p className='text-red-500'>Description is required</p>}
-
-                    {/* <label htmlFor="brand">Marca</label> */}
-                    <input type="text"  {...register('brand', { required: false })} className={c.inputs} placeholder='Marca' autoFocus />
-                    {errors.brand && <p className='text-red-500'>Marca is required</p>}
-
-                    {/* <label htmlFor="distributor">Distributor</label> */}
-                    <input type="text"  {...register('distributor', { required: false })} className={c.inputs} placeholder='Distributor' autoFocus />
-                    {errors.distributor && <p className='text-red-500'>Distributor is required</p>}
-
-                    {/* <label htmlFor="stock">stock</label> */}
-                    <input type="number"  {...register('stock', { required: false })} className={c.inputs} placeholder='stock' autoFocus />
-                    {errors.stock && <p className='text-red-500'>stock is required</p>}
-
-                    {/* <label htmlFor="name">cost</label> */}
-                    <input type="step "  {...register('cost', { required: false })} className={c.inputs} placeholder='cost' autoFocus />
-                    {errors.cost && <p className='text-red-500'>cost is required</p>}
-
-                    {/* <label htmlFor="off">off</label> */}
-                    <input type="step "  {...register('off', { required: false })} className={c.inputs} placeholder='off' autoFocus />
-                    {errors.off && <p className='text-red-500'>cost is required</p>}
-
-                    {/* <label htmlFor="category">category</label> */}
-                    <input type="text"  {...register('category', { required: false })} className={c.inputs} placeholder='category' autoFocus />
-                    {errors.category && <p className='text-red-500'>category is required</p>}
-
-                    {/* <label htmlFor="name">iva</label> */}
-                    <input type="step "  {...register('iva', { required: false })} className={c.inputs} placeholder='iva' autoFocus />
-                    {errors.iva && <p className='text-red-500'>iva is required</p>}
-
-                    {/* <label htmlFor="iibb">iibb</label> */}
-                    <input type="step "  {...register('iibb', { required: false })} className={c.inputs} placeholder='iibb' autoFocus />
-                    {errors.iibb && <p className='text-red-500'>iibb is required</p>}
-
-                    {/* <label htmlFor="others">others</label> */}
-                    <input type="step "  {...register('others', { required: false })} className={c.inputs} placeholder='others' autoFocus />
-                    {errors.others && <p className='text-red-500'>iibb is required</p>}
-
-                    {/* <label htmlFor="gain">gain</label> */}
-                    <input type="step "  {...register('gain', { required: false })} className={c.inputs} placeholder='gain' autoFocus />
-                    {errors.gain && <p className='text-red-500'>iibb is required</p>}
-
-                    <button type='submit' className='bg-indigo-500 px-10 py-2 rounded-md'>Save</button>
-                </form>
+        <div className={r.CreateProd}>
+            <div className={r.header}>
+                <h4 className={r.title}>Agregar Productos</h4>
             </div>
+            <div className={r.body}>
+                <div className={r.bodyLeft}>
+                    <div>
+                        {
+                            inputs.image
+                                ? (<div><img src={inputs.image} className={r.image1} alt="image" /></div>)
+                                : (<div> <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" fill="currentColor" className="bi bi-image" viewBox="0 0 16 16">
+                                    <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" />
+                                    <path d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12" />
+                                </svg> </div>)
+                        }
 
+                    </div>
+                </div>
+                <div className={r.bodyRight}>
+
+                    <form className={r.form} onSubmit={handleSubmit}>
+
+                        {showInputs && <div className={r.divs}>
+                            <label className={r.labels}>Imagen </label>
+                            <input className={`${r.inputs} ${r.inputs_file}`} type="file"
+                                name="image"
+                                onChange={handleUploadImage} />
+                        </div>
+                        }
+
+                        {showInputs && <div className={r.divs}>
+                            <label htmlFor="" className={r.labels}>Nombre</label>
+                            <input
+                                className={`${r.inputs} ${r.inputs_file}`}
+                                type="text"
+                                name='name'
+                                onChange={handleChange}
+                                value={inputs.name}
+                                placeholder={'Agregar Nombre'}
+                            />
+                            <p className={r.error}>{errors.name}</p>
+                        </div>}
+
+
+
+                        {showInputs && <div className={r.divs}>
+                            <label htmlFor="" className={r.labels}>Descripción</label>
+                            <input className={`${r.inputs} ${r.inputs_file}`}
+                                type="text"
+                                name='description'
+                                onChange={handleChange}
+                                value={inputs.description}
+                                placeholder='Ingresar Descripcion'
+                            />
+                            <p className={r.error}>{errors.description}</p>
+                        </div>}
+
+                        {showInputs && <div className={r.divs}>
+                            <label htmlFor="" className={r.labels}>Categoria</label>
+                            <select name="" id="" onChange={handleSelect} className={r.select}>
+                                <option value="">Categoria</option>
+                                <option value="quimica">Quimica</option>
+                                <option value="libreria">Libreria</option>
+                                <option value="jugueteria">Jugueteria</option>
+                                <option value="limpieza">Limpieza</option>
+                                <option value="sueltos">Sueltos</option>
+                                <option value="piscina">Piscina</option>
+                                <option value="bazar">Bazar</option>
+                                <option value="plasticos">plasticos</option>
+                                <option value="perfumeria">Perfumeria</option>
+                                <option value="indumentaria">Perfumeria</option>
+                                <option value="otros">Otros</option>
+                            </select>
+
+                        </div>}
+
+                        {showInputs && <div className={r.divs}>
+                            <label htmlFor="" className={r.labels}>Stock</label>
+                            <input className={`${r.inputs} ${r.inputs_file}`}
+                                type="number"
+                                name='stock'
+                                onChange={handleChange}
+                                value={inputs.stock}
+                                placeholder='Ingresar Stock/ numero entero'
+                            />
+                            <p className={r.error}>{errors.stock}</p>
+                        </div>}
+
+                        {showInputs && <div className={r.divs}>
+                            <label htmlFor="" className={r.labels}>Precio</label>
+                            <input className={`${r.inputs} ${r.inputs_file}`}
+                                type="number"
+                                name='cost'
+                                onChange={handleChange}
+                                value={inputs.cost}
+                                placeholder='Ingresar Precio/numero entero'
+                            />
+                            <p className={r.error}>{errors.cost}</p>
+                        </div>}
+
+
+                        {
+                            !showInputs && <div className={r.divs}>
+                                <label htmlFor="" className={r.labels}>Iva</label>
+                                <input className={`${r.inputs} ${r.inputs_file}`}
+                                    type="number"
+                                    name='iva'
+                                    onChange={handleChange}
+                                    value={inputs.iva}
+                                    placeholder='Ingresar IVA'
+                                />
+                                <p className={r.error}>{errors.iva}</p>
+                            </div>
+                        }
+                        {
+                            !showInputs && <div className={r.divs}>
+                                <label htmlFor="" className={r.labels}>IIBB</label>
+                                <input className={`${r.inputs} ${r.inputs_file}`}
+                                    type="number"
+                                    name='iibb'
+                                    onChange={handleChange}
+                                    value={inputs.iibb}
+                                    placeholder='Ingresar IIBB'
+                                />
+                                <p className={r.error}>{errors.iibb}</p>
+                            </div>
+                        }
+                        {
+                            !showInputs && <div className={r.divs}>
+                                <label htmlFor="" className={r.labels}>Otros</label>
+                                <input className={`${r.inputs} ${r.inputs_file}`}
+                                    type="number"
+                                    name='others'
+                                    onChange={handleChange}
+                                    value={inputs.others}
+                                    placeholder='Otros impuestos'
+                                />
+                                <p className={r.error}>{errors.others}</p>
+                            </div>
+                        }
+                        {
+                            !showInputs && <div className={r.divs}>
+                                <label htmlFor="" className={r.labels}>Ganancia</label>
+                                <input className={`${r.inputs} ${r.inputs_file}`}
+                                    type="number"
+                                    name='gain'
+                                    onChange={handleChange}
+                                    value={inputs.gain}
+                                    placeholder='Ingresar Ganancia'
+                                />
+                                <p className={r.error}>{errors.gain}</p>
+                            </div>
+                        }
+                        {
+                            !showInputs && <div className={r.divs}>
+                                <label htmlFor="" className={r.labels}>Descuento</label>
+                                <input className={`${r.inputs} ${r.inputs_file}`}
+                                    type="number"
+                                    name='off'
+                                    onChange={handleChange}
+                                    value={inputs.off}
+                                    placeholder='Ingresar Ganancia'
+                                />
+                                <p className={r.error}>{errors.off}</p>
+                            </div>
+                        }
+
+                        <button className={`${r.btnVerde}`} type='submit'>Agregar</button>
+
+                    </form>
+                    <button className={`${r.btnVerde}`} onClick={toggleMore}>Agregar Impu</button>
+                </div>
+            </div>
         </div>
     )
 }

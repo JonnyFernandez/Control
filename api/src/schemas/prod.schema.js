@@ -10,28 +10,28 @@ const postProdSchema = z.object({
         .string({ required_error: "description is required" }),
 
     brand: z
-        .string({ required_error: "brand is required" }),
+        .string({ required_error: "brand is required" }).optional(),
     distributor: z
-        .string({ required_error: "distributor is required" }),
+        .string({ required_error: "distributor is required" }).optional(),
     stock: z
         .number({ required_error: "stock is required" }),
     cost: z
         .number({ required_error: "cost is required" }),
     off: z
-        .number({ required_error: "off is required" }),
+        .number({ required_error: "off is required" }).optional(),
 
     category: z
         .string({ required_error: 'category is required' }).refine(value => ['libreria', 'limpieza', 'otros', 'jugueteria', 'quimica', 'sueltos', 'piscina', 'bazar', 'plasticos', 'perfumeria', 'indumentaria'].includes(value), {
             message: "Invalid category value, must be one of: 'libreria', 'limpieza', 'otros', 'jugueteria', 'quimica', 'sueltos', 'piscina', 'bazar', 'plasticos', 'perfumeria', 'indumentaria' "
         }),
     iva: z
-        .number({ required_error: "iva is required" }),
+        .number({ required_error: "iva is required" }).optional(),
     iibb: z
-        .number({ required_error: "iibb is required" }),
+        .number({ required_error: "iibb is required" }).optional(),
     others: z
-        .number({ required_error: "others is required" }),
+        .number({ required_error: "others is required" }).optional(),
     gain: z
-        .number({ required_error: "gain is required" }),
+        .number({ required_error: "gain is required" }).optional(),
 
 });
 const updateProdSchema = z.object({
