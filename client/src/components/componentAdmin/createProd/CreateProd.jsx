@@ -14,13 +14,11 @@ const CreateProd = () => {
 
     const [inputs, setInputs] = useState({ name: '', image: '', description: '', stock: '', cost: '', off: '', category: '', iva: '', iibb: '', others: '', gain: '' })
     const [errors, setErrors] = useState({ name: '', image: '', description: '', stock: '', cost: '', off: '', category: '' })
-    const [showMore, setShowMore] = useState(false)
     const [showInputs, setShowInputs] = useState(true)
 
     const toggleMore = () => setShowInputs(prev => !prev)
 
 
-    console.log(inputs);
 
 
 
@@ -254,7 +252,8 @@ const CreateProd = () => {
                         <button className={`${r.btnVerde}`} type='submit'>Agregar</button>
 
                     </form>
-                    <button className={`${r.btnVerde}`} onClick={toggleMore}>Agregar Impu</button>
+                    {showInputs && <button className={`${r.btnVerde}`} onClick={toggleMore}>Impuestos y Ganancia</button>}
+                    {!showInputs && <button className={`${r.btnVerde}`} onClick={toggleMore}>Volver a Informacion</button>}
                 </div>
             </div>
         </div>
