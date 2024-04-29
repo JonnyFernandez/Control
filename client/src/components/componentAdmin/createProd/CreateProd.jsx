@@ -1,9 +1,7 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import r from './CreateProd.module.css'
-// import Validation from '../ValidateProd/Validation'
+import Validation from '../../../utils/validateProd'
 import axios from 'axios'
-// import { createProd } from '../../../redux/actions'
-// import { codeToProd } from '../../../utils/codes'
 import Swal from 'sweetalert2';
 import { postProd } from '../../../api/prod';
 
@@ -13,7 +11,7 @@ const CreateProd = () => {
 
 
     const [inputs, setInputs] = useState({ name: '', image: '', description: '', stock: '', cost: '', off: '', category: '', iva: '', iibb: '', others: '', gain: '' })
-    const [errors, setErrors] = useState({ name: '', image: '', description: '', stock: '', cost: '', off: '', category: '' })
+    const [errors, setErrors] = useState({})
     const [showInputs, setShowInputs] = useState(true)
 
     const toggleMore = () => setShowInputs(prev => !prev)
@@ -48,7 +46,7 @@ const CreateProd = () => {
     const handleChange = (event) => {
         const { name, value } = event.target;
         setInputs({ ...inputs, [name]: value });
-        // setErrors(Validation({ ...inputs, [name]: value }));
+        setErrors(Validation({ ...inputs, [name]: value }));
     };
 
     const handleSelect = (event) => {
@@ -57,48 +55,50 @@ const CreateProd = () => {
     }
     const handleSubmit = async (event) => {
         event.preventDefault();
-        // if (Object.values(inputs).some(value => !value)) {
-        //     Swal.fire({
-        //         icon: 'error',
-        //         title: 'Error',
-        //         text: 'Por favor, completa todos los campos y sube una imagen.',
-        //     });
-        //     return;
-        // }
+        if (Object.values(errors).some(value => value)) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Información incompleta.',
+            });
+            return;
+        }
 
         await postProd(inputs);
 
 
-        // setInputs({ image: '', name: '', description: '', supplie_type: '', stock: '', price: '' });
-        // setErrors({ image: '', name: '', description: '', supplie_type: '', stock: '', price: '' });
+        setInputs({ name: '', image: '', description: '', stock: '', cost: '', off: '', category: '', iva: '', iibb: '', others: '', gain: '' });
+        setErrors({});
 
 
-        // Swal.fire({
-        //     icon: 'success',
-        //     title: 'Éxito',
-        //     text: 'Producto agregado exitosamente.',
-        // });
+        Swal.fire({
+            icon: 'success',
+            title: 'Éxito',
+            text: 'Producto agregado exitosamente.',
+        });
     };
 
     return (
 
-        <div className={r.CreateProd}>
+        <div className={r.prod}>
             <div className={r.header}>
                 <h4 className={r.title}>Agregar Productos</h4>
             </div>
-            <div className={r.body}>
-                <div className={r.bodyLeft}>
-                    <div>
-                        {
-                            inputs.image
-                                ? (<div><img src={inputs.image} className={r.image1} alt="image" /></div>)
-                                : (<div> <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" fill="currentColor" className="bi bi-image" viewBox="0 0 16 16">
-                                    <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" />
-                                    <path d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12" />
-                                </svg> </div>)
-                        }
 
-                    </div>
+            <div className={r.body}>
+
+                <div className={r.bodyLeft}>
+
+                    {
+                        inputs.image
+                            ? (<div><img src={inputs.image} className={r.image1} alt="image" /></div>)
+                            : (<div> <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" fill="currentColor" className="bi bi-image" viewBox="0 0 16 16">
+                                <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" />
+                                <path d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12" />
+                            </svg> </div>)
+                    }
+
+
                 </div>
                 <div className={r.bodyRight}>
 
@@ -155,7 +155,7 @@ const CreateProd = () => {
                                 <option value="indumentaria">Perfumeria</option>
                                 <option value="otros">Otros</option>
                             </select>
-
+                            <p className={r.error}>{errors.category}</p>
                         </div>}
 
                         {showInputs && <div className={r.divs}>
@@ -163,6 +163,7 @@ const CreateProd = () => {
                             <input className={`${r.inputs} ${r.inputs_file}`}
                                 type="number"
                                 name='stock'
+                                min={0}
                                 onChange={handleChange}
                                 value={inputs.stock}
                                 placeholder='Ingresar Stock/ numero entero'
@@ -171,18 +172,19 @@ const CreateProd = () => {
                         </div>}
 
                         {showInputs && <div className={r.divs}>
-                            <label htmlFor="" className={r.labels}>Precio</label>
+                            <label htmlFor="" className={r.labels}>Costo Base</label>
                             <input className={`${r.inputs} ${r.inputs_file}`}
                                 type="number"
                                 name='cost'
                                 onChange={handleChange}
                                 value={inputs.cost}
+                                min={0}
                                 placeholder='Ingresar Precio/numero entero'
                             />
                             <p className={r.error}>{errors.cost}</p>
                         </div>}
 
-
+                        {/*                                      impuestos y ganancias                   */}
                         {
                             !showInputs && <div className={r.divs}>
                                 <label htmlFor="" className={r.labels}>Iva</label>
@@ -252,8 +254,8 @@ const CreateProd = () => {
                         <button className={`${r.btnVerde}`} type='submit'>Agregar</button>
 
                     </form>
-                    {showInputs && <button className={`${r.btnVerde}`} onClick={toggleMore}>Impuestos y Ganancia</button>}
-                    {!showInputs && <button className={`${r.btnVerde}`} onClick={toggleMore}>Volver a Informacion</button>}
+                    {showInputs && <button className={`${r.btnAzul}`} onClick={toggleMore}>Impuestos y Ganancia</button>}
+                    {!showInputs && <button className={`${r.btnAzul}`} onClick={toggleMore}>Volver a Informacion</button>}
                 </div>
             </div>
         </div>

@@ -1,10 +1,8 @@
-.addProd {
-    background-color: #f9f9f9;
-    width: 95%;
-    height: 100%;
+.prod {
+    width: 600px;
+    height: 500px;
     display: flex;
     flex-direction: column;
-
     border-radius: 10px;
     color: #333;
     margin-right: 30px;
@@ -21,17 +19,20 @@
     justify-content: space-evenly;
     background-color: #6b7280;
     border-radius: 10px  10px 0 0;
+    /* background-color: red; */
 }
 
 .body {
-    height: 90%;
+    height: 100%;
     width: 100%;
     background-color: #f5f5f5;
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     border-radius: 15px;
+    /* background-color: red; */
+   
 }
 
 .bodyLeft {
@@ -41,26 +42,23 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    
-    /* background-color: red; */
+    border-radius: inherit;
 }
+
 
 
 .image1{
     width: 100%;
-    height: 150px; 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 10px;
-    
-    transition: transform 0.3s;
-    box-shadow: 0px 0px 10px rgb(135, 134, 134);
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 90%;
+    border-radius: inherit;
+    transition: 0.5s ease-in-out;
+  border-radius: 15px;
 }
 
-/* .bodyLeft div {
-    margin-top: 20px;
-} */
+
+
 
 .inputs_file {
     width: 100%;
@@ -69,7 +67,7 @@
     border: 1px solid #ccc;
     border-radius: 5px;
     outline: none;
-    background-color: #f5f5f5;
+    background-color: #373333;
     font-family: 'Poppins', sans-serif;
     transition: border-bottom .5s;
     color: #333;
@@ -78,7 +76,7 @@
 
 .bodyRight {
     width: 60%; 
-    height: 100%;
+    height: 500px;
     background-color: #888597a1;
     display: flex;
     flex-direction: column;
@@ -161,7 +159,20 @@
     width: 100%; 
     padding: 10px; 
     margin-top: 4px; 
-    background-color: #655fda; 
+    background-color: #50ff05b5; 
+    color: rgb(17, 16, 16); 
+    border: none; 
+    border-radius: 2px; 
+    cursor: pointer; 
+    font-size: 16px; 
+    font-weight: bold; 
+    transition: background-color 0.3s; 
+}
+.btnAzul {
+    width: 100%; 
+    padding: 10px; 
+    margin-top: 4px; 
+    background-color: #090d1a; 
     color: white; 
     border: none; 
     border-radius: 2px; 
@@ -172,7 +183,12 @@
 }
 
 .btnVerde:hover {
-    background-color: #2b3893; 
+    background-color: #5b6df5; 
+    color: white;
+}
+.btnAzul:hover {
+    background-color: #5b6df5; 
+    color: white;
 }
 
 .title {
