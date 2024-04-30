@@ -2,8 +2,7 @@ import c from './Card2.module.css'
 
 
 const Card2 = (props) => {
-    // const { id, name, image, description, brand, distributor, status, code, stock, price, off, discount, realPrice, category, user, iva, iibb, others, gain, reviews, likes } = props
-    console.log(props.reviews);
+
     return (
         <div className={c.cardList}>
             <div className={c.item1}>Cod: {props.code || "Codigo"}</div>

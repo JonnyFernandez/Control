@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { getAllProd } from '../../../redux/prodSlice'
 import { useEffect } from 'react'
 import { getProd } from '../../../api/prod'
-
+import Paginado from '../../paginado/Paginado'
 
 const CustomerProd = () => {
     const dispatch = useDispatch()
@@ -23,8 +23,18 @@ const CustomerProd = () => {
     }, [dispatch])
 
 
-    const prod = useSelector(state => state.prod.allProd)
-    console.log(prod);
+    const { allProd, currentPage } = useSelector(state => state.prod)
+    // ---------------------------------Paginado--------------------------
+    // PAGINATION VARS
+    const cardsInPage = 15;
+    const totalCards = allProd.length;
+    const lastIndex = currentPage * cardsInPage;
+    const firstIndex = lastIndex - cardsInPage;
+    const cardsShowed = allProd.slice(firstIndex, lastIndex);
+
+
+
+
 
     return (
         <div className={m.prod}>
@@ -45,10 +55,10 @@ const CustomerProd = () => {
 
 
             </div>
-            <div className={m.botonera}> Botonera </div>
+            <div className={m.botonera}> <Paginado cardsInPage={cardsInPage} totalCards={totalCards} currentPage={currentPage} /> </div>
             <div className={m.body}>
                 {
-                    prod && prod.map(item => {
+                    cardsShowed && cardsShowed.map(item => {
                         return <Card2 key={item.code} name={item.name} code={item.code} price={item.price} category={item.category} stock={item.stock} likes={item.likes.map(item => item.like)} reviews={item.reviews.map(item => item)} />
                     })
                 }

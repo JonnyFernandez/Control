@@ -1,0 +1,47 @@
+.pagination {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    padding: 0;
+    justify-content: center;
+  }
+  
+  .paginationItem {
+    margin-right: 10px;
+  }
+  .buttonAlert{
+    background-color: #ff8000;
+    border-radius: 5px;
+    font-family:  'Poppins', sans-serif;
+    padding: 7px 10px;
+    border-color: aliceblue;
+  }
+  .mesageAlert{
+    font-family:  'Poppins', sans-serif;
+    font-weight: 300;
+    font-size: 1.2rem;
+  }
+
+  .paginationButton {
+    background-color: #ff8000;
+    color: white;
+    font-family:  'Poppins', sans-serif;
+    border-radius: 5px;
+    padding: 5px 18px;
+    cursor: pointer;
+    border-color: aliceblue;
+  }
+ 
+  
+  .activeButton {
+    background-color:  #47C7FC;
+    box-shadow: 0 0 10px 5px rgb(199, 188, 156);
+  }
+  
+/* Otros estilos */
+
+.disabledButton {
+  opacity: 0.5; 
+  pointer-events: none; 
+ 
+}

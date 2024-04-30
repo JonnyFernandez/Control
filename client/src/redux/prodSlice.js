@@ -5,6 +5,7 @@ const initialState = {
     allProd: [],
     backupProd: [],
     detail: [],
+    currentPage: 1,
     paginate: [],
     cart: [],
 }
@@ -26,6 +27,24 @@ export const prodSlice = createSlice({
         paginate: (state, action) => {
             state.paginate = action.payload
         },
+        setCurrentPage: (state, action) => {
+            const page = action.payload;
+            state.currentPage = page
+        },
+        setPrevPage: (state, action) => {
+            state.currentPage--
+        },
+        setNextPage: (state, action) => {
+            state.currentPage++
+        },
+        searchName: (state, action) => {
+            const name = action.payload;
+            if (name == null) {
+                state.allProd = state.backupProd;
+            } else {
+                state.allProd = state.backupProd.filter(products => products.name.toLowerCase().includes(name.toLowerCase()))
+            }
+        },
 
 
         // addToFavorites: (state, action) => {
@@ -44,5 +63,5 @@ export const prodSlice = createSlice({
 })
 
 
-export const { getAllProd, getProd_ById, paginate } = prodSlice.actions //esto seria como las actions
+export const { getAllProd, getProd_ById, setPrevPage, searchName, setNextPage, setCurrentPage, } = prodSlice.actions //esto seria como las actions
 export default prodSlice.reducer
