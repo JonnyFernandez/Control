@@ -1,15 +1,35 @@
-.cardList{
-    width: 98%;
-    height: 30px;;   
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    margin-bottom: 10px;  
-    border: 0.5px solid black;
-    
+.card {
+  width: 98%;
+  height: 30px;   
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 10px;  
+  border: 0.5px solid black;
 }
-.item1{
+
+.cardList {
+  background-color: rgba(6, 239, 6, 0.603);
+}
+
+.cardListYellow {
+  background-color: rgb(215, 242, 95);
+}
+
+.cardListRed {
+  background-color: rgb(242, 110, 95);
+}
+
+.card:hover {
+  background-color: #47C7FC;
+  transition: 0.2s;
+  box-shadow: 0 0 10px 5px rgb(199, 188, 156);
+  padding: 5px;
+
+}
+
+.item1 {
   display: flex;
   justify-content: start;
   align-items: center;
@@ -21,9 +41,4 @@
   width: 20rem;
   height: 30px;
   margin-left: 2rem;
-}
-.cardList:hover{
-  background-color: #47C7FC;
-  transition: 0.2s;
-  box-shadow: 0 0 10px 5px rgb(199, 188, 156);
 }

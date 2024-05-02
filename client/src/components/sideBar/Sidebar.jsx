@@ -23,10 +23,10 @@ function Sidebar({ selector }) {
                         <span className={styles.headerEmail}>tapiasgroup@gmail.com</span>
                     </div>
 
-                    <div className={styles.searchBox}>
+                    {/* <div className={styles.searchBox}>
                         <span className={`${styles.materialSymbolsOutlined} ${styles.searchIcon}`}>search</span>
                         <input type="text" name="searchBox" placeholder="Search..." />
-                    </div>
+                    </div> */}
 
                     <nav className={styles.navMenu}>
                         <button className={styles.navMenuItem} value={'prod'} onClick={(e) => selector(e.target.value)}>Gestión de productos</button>
