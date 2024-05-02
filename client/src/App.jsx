@@ -3,7 +3,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 // import ProtectedRoute from "./protectedRoutes/ProtectedRoute";
-import { Cart, Home, Landing, Profile, SignIn, SingUp, UpdatePassword } from "./view";
+import { Cart, Home, Landing, Profile, SignIn, SingUp, UpdatePassword, DetailsAdmin } from "./view";
 
 
 function App() {
@@ -20,7 +20,7 @@ function App() {
             <Route path="/cart" element={<Cart />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/detail/:id" element={<h1>Detalles</h1>} />
-            <Route path="/details-card2/:id" element={<h1>Details Card2</h1>} />
+            <Route path="/details-card2/:id" element={<DetailsAdmin />} />
 
 
 

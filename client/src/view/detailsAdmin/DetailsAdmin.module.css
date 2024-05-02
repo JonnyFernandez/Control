@@ -1,0 +1,31 @@
+.bodyAdmin{
+    width: 100%;
+    height:auto;
+    margin-top: 120px;
+    display: flex;
+    /* position: relative; */
+}
+
+.container{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+ 
+
+}
+.left{
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ width: 30%;
+ height: 580px;
+ background-color: red;
+}
+.right{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 70%;
+    height: 580px;
+    background-color: rgb(159, 151, 151);
+}

@@ -6,5 +6,6 @@ import Profile from "./profile/Profile"
 import SignIn from "./signin/Signin"
 import SingUp from "./signup/Signup"
 import UpdatePassword from "./updatePassword/UpdatePassword"
+import DetailsAdmin from "./detailsAdmin/DetailsAdmin";
 
-export { Cart, Home, Landing, Profile, SignIn, SingUp, UpdatePassword }
+export { DetailsAdmin, Cart, Home, Landing, Profile, SignIn, SingUp, UpdatePassword }

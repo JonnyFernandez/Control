@@ -1,14 +1,14 @@
 import React from "react";
 import { useState } from "react";
 import n from "./navAdmin.module.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { CreateProd, Modal } from '../index'
 
 const NavAdmin = () => {
-
+    const location = useLocation();
     const [isOpen, setIsOpen] = useState(false);
     const toggleOpen = () => setIsOpen(!isOpen);
-
+    console.log(location.pathname);
 
     return (
         <div className={n.nav}>
@@ -20,17 +20,24 @@ const NavAdmin = () => {
                 <div>DarMode</div>
             </div>
             <div className={n.down}>
-                <div className={n.div1}>Menu</div>
-                <div className={n.div2}>
 
-                    {/* <input type="text" placeholder="Buscar Product" /> */}
-                </div>
-                <div className={n.div3}>
-                    <div onClick={() => setIsOpen(!isOpen)}> Agregar Producto  </div>
-
-                    <Modal isOpen={isOpen} toggleOpen={toggleOpen} children={<CreateProd />} />
-
-                </div>
+                {
+                    location.pathname.includes('details-card2')
+                        ? <>
+                            <NavLink to={'/profile'} className={n.div1}>back</NavLink>
+                            <div className={n.div1}>Información De Prodcto</div>
+                            <div>misma categoria</div>
+                        </>
+                        : <>
+                            <div className={n.div1}>Menu</div>
+                            <div className={n.div2}>
+                            </div>
+                            <div className={n.div3}>
+                                <div onClick={() => setIsOpen(!isOpen)} className={n.div}> Agregar Producto  </div>
+                                <Modal isOpen={isOpen} toggleOpen={toggleOpen} children={<CreateProd />} />
+                            </div>
+                        </>
+                }
             </div>
         </div>
     );
