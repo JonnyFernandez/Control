@@ -5,6 +5,7 @@ const initialState = {
     allProd: [],
     backupProd: [],
     detail: [],
+    detailAdmin: [],
     currentPage: 1,
     paginate: [],
     cart: [],
@@ -68,7 +69,11 @@ export const prodSlice = createSlice({
             } else if (data === '') {
                 state.allProd = state.backupProd;
             }
+        }, searchById: (state, action) => {
+            const id = action.payload;
+            state.detailAdmin = state.backupProd.find(products => products.id === Number(id))
         },
+
 
 
 
@@ -88,5 +93,5 @@ export const prodSlice = createSlice({
 })
 
 
-export const { getAllProd, getProd_ById, Offer, setPrevPage, searchCategory, serchStock, setNextPage, setCurrentPage, } = prodSlice.actions //esto seria como las actions
+export const { getAllProd, getProd_ById, searchById, Offer, setPrevPage, searchCategory, serchStock, setNextPage, setCurrentPage, } = prodSlice.actions //esto seria como las actions
 export default prodSlice.reducer

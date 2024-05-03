@@ -8,7 +8,6 @@ const NavAdmin = () => {
     const location = useLocation();
     const [isOpen, setIsOpen] = useState(false);
     const toggleOpen = () => setIsOpen(!isOpen);
-    console.log(location.pathname);
 
     return (
         <div className={n.nav}>

@@ -33,4 +33,16 @@ export const postProd = async (data) => {
         console.error('Error en la petición:', error);
         throw error;
     }
-}
+};
+
+
+// export const getProdById = async (id) => {
+//     try {
+//         const res = await axios(`/prod`);
+//         return res.data;
+//     } catch (error) {
+//         console.error('Error en la petición:', error);
+//         throw error;
+//     }
+// }
+
