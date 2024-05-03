@@ -89,7 +89,7 @@ module.exports = {
           price: Number(item.price).toFixed(2),
           off: parseFloat(item.off),
           discount: item.off > 0 ? parseFloat(item.cost * item.off) : 0,
-          realPrice: parseFloat(item.price) + parseFloat(item.cost * item.off),
+          realPrice: (parseFloat(item.price) + parseFloat(item.cost * item.off)).toFixed(2),
           category: item.category,
           user: item.user,
           iva: parseFloat(item.iva),

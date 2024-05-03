@@ -46,11 +46,11 @@ const DetailsAdmin = () => {
                             <div>IIBB: {detailAdmin.iibb * 100}%</div>
                             <div>IVA: {detailAdmin.iva * 100}%</div>
                             <div>Otros: {detailAdmin.others * 100}%</div>
-                            <div>Likes: {detailAdmin.likes.length}</div>
+                            <div>Likes: {detailAdmin.likes?.length}</div>
                             <div>Estatus: {detailAdmin.status ? 'Activo' : 'No Activo'}</div>
                             <div>Stock: {detailAdmin.stock}</div>
                             <div>creado: {new Date(detailAdmin.createdAt).toLocaleString()} </div>
-                            <div>Comentarios: {detailAdmin.reviews.map(item => <span>{item}</span>)}</div>
+                            <div>Comentarios: {detailAdmin.reviews?.map((item, index) => <span key={index}>{item}</span>)}</div>
 
                         </div>
                     </div>
