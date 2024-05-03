@@ -50,6 +50,7 @@ const DetailsAdmin = () => {
                             <div>Estatus: {detailAdmin.status ? 'Activo' : 'No Activo'}</div>
                             <div>Stock: {detailAdmin.stock}</div>
                             <div>creado: {new Date(detailAdmin.createdAt).toLocaleString()} </div>
+                            <div>Costo Neto: {detailAdmin.cost}</div>
                             <div>Comentarios: {detailAdmin.reviews?.map((item, index) => <span key={index}>{item}</span>)}</div>
 
                         </div>

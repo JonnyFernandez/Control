@@ -40,11 +40,7 @@ export const prodSlice = createSlice({
             const name = action.payload;
             state.allProd = state.backupProd.filter(products => products.category.toLowerCase().includes(name.toLowerCase()))
 
-            // if (name == null) {
-            //     state.allProd = state.backupProd;
-            // } else {
-            //     state.allProd = state.backupProd.filter(products => products.category.toLowerCase().includes(name.toLowerCase()))
-            // }
+
         },
         serchStock: (state, action) => {
             const data = action.payload;
@@ -73,6 +69,17 @@ export const prodSlice = createSlice({
             const id = action.payload;
             state.detailAdmin = state.backupProd.find(products => products.id === Number(id))
         },
+        searchByNameProd: (state, action) => {
+            const name = action.payload
+            if (name == null) {
+                state.allProd = state.backupProd;
+            } else {
+                state.allProd = state.backupProd.filter(products => products.name.toLowerCase().includes(name.toLowerCase()))
+            }
+        },
+        resetPro: (state, action) => {
+            state.allProd = state.backupProd;
+        }
 
 
 
@@ -93,5 +100,5 @@ export const prodSlice = createSlice({
 })
 
 
-export const { getAllProd, getProd_ById, searchById, Offer, setPrevPage, searchCategory, serchStock, setNextPage, setCurrentPage, } = prodSlice.actions //esto seria como las actions
+export const { getAllProd, searchByNameProd, resetPro, getProd_ById, searchById, Offer, setPrevPage, searchCategory, serchStock, setNextPage, setCurrentPage, } = prodSlice.actions //esto seria como las actions
 export default prodSlice.reducer

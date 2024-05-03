@@ -82,6 +82,7 @@ module.exports = {
           image: item.image,
           description: item.description,
           brand: item.brand,
+          cost: Number(item.cost).toFixed(2),
           distributor: item.distributor,
           status: item.stock >= 1 ? true : false,
           code: item.code,
