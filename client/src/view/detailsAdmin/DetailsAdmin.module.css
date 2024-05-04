@@ -11,13 +11,13 @@
     width: 100%;
 }
 
-.left {
+.left  {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 50%; /* Cambio a ancho completo en dispositivos móviles */
     height: 580px; /* Reducción de altura para dispositivos móviles */
-    background-color: red;
+    /* background-color: rgb(147, 145, 145); */
 }
 
 .right {
@@ -26,15 +26,53 @@
     align-items: center;
     width: 50%; /* Cambio a ancho completo en dispositivos móviles */
     height: 580px; /* Reducción de altura para dispositivos móviles */
-    background-color: rgb(159, 151, 151);
+    position: relative;
 }
 
-.containerImputs{
+.card {
+    position: relative;
+    perspective: 1000px;
+    height: 580px;
+    width: 80%;
+    transition: transform 0.6s;
     display: flex;
-    flex-direction: column;
-    /* background-color: rebeccapurple; */
-    width: 90%;
-    height: 500px;
+    justify-content: center;
+    align-items: center;
+}
+
+.front, .back {
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+    backface-visibility: hidden;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    position: absolute;
+    display: flex;
+    flex-direction: column;    
+    border: none;
+    border-radius: 2rem;
+    padding: 2rem;
+    box-shadow: 4px 12px 40px 6px rgba(0,0,0,0.09);
+    background-color: hsl(0, 0%, 100%);
+}
+
+.back{
+    background-color: rgb(238, 245, 245);
+}
+
+.flip {
+    transform: rotateY(180deg); /* Girar al otro lado */
+}
+
+.right .card.flip {
+    transform: rotateY(0deg); /* Corregir la rotación para mostrar el contenido frontal */
+}
+
+.right button {
+    position: absolute;
+    bottom: 20px; /* Ajusta la distancia desde la parte inferior */
+    right: 20px; /* Ajusta la distancia desde el lado derecho */
 }
 
 /* Media query para ajustes en dispositivos móviles */
@@ -42,10 +80,8 @@
     .left, .right {
         height: auto; /* Cambio a altura automática en dispositivos móviles */
         width: 100%;
-      
     }
-    .container{
-    flex-direction: column; /* Cambio a dirección de columna en dispositivos móviles */
-
+    .container {
+        flex-direction: column; /* Cambio a dirección de columna en dispositivos móviles */
     }
 }

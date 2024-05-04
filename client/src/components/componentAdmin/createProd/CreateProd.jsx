@@ -30,7 +30,7 @@ const CreateProd = () => {
             const response = await axios.post('https://api.cloudinary.com/v1_1/dkx6y2e2z/image/upload', formData, {
                 headers: { 'Content-Type': 'multipart/form-data' },
             });
-
+            console.log(response.data.secure_url);
             // Actualiza el estado 'image' con la URL de la imagen procesada
             setInputs({ ...inputs, image: response.data.secure_url });
 
