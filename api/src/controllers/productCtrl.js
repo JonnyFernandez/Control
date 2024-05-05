@@ -1,5 +1,5 @@
 const { Product, Review, Like, User } = require('../db')
-const { Op } = require('sequelize')
+const { Op, where } = require('sequelize')
 const utils = require('../utils/loader_info');
 
 
@@ -166,21 +166,51 @@ module.exports = {
     return "Prod successfully deleted"
   },
   getCode: async (id) => {
-    const aux = await Product.findByPk(id)
-    return aux
-  },
-  // getCode: async (code) => {
-  //   const aux = await Product.findOne({
-  //     where: {
-  //       code: {
-  //         [Op.iLike]: "%" + code + "%"
-  //       }
-  //     },
+    const aux = await Product.findOne({
+      where: {
+        id: id
+      },
+      include: [
+        {
+          model: Review,
+          attributes: ["review",],
+        },
+        {
+          model: Like,
+          attributes: ["like", "id"],
+        },
+      ]
+    })
+    return {
+      id: aux.id,
+      name: aux.name,
+      image: aux.image,
+      description: aux.description,
+      brand: aux.brand,
+      cost: Number(aux.cost).toFixed(2),
+      distributor: aux.distributor,
+      status: aux.stock >= 1 ? true : false,
+      code: aux.code,
+      stock: parseFloat(aux.stock),
+      price: Number(aux.price).toFixed(2),
+      off: parseFloat(aux.off),
+      discount: aux.off > 0 ? parseFloat(aux.cost * aux.off) : 0,
+      realPrice: (parseFloat(aux.price) + parseFloat(aux.cost * aux.off)).toFixed(2),
+      category: aux.category,
+      user: aux.user,
+      iva: parseFloat(aux.iva),
+      iibb: parseFloat(aux.iibb),
+      others: parseFloat(aux.others),
+      gain: parseFloat(aux.gain),
+      reviews: aux.Reviews.map(el => el.review),
+      likes: aux.Likes.map(item => { return { "like": item.like, "id": item.id } }),
+      createdAt: aux.createdAt,
+      updatedAt: aux.updatedAt
+    }
 
-  //   })
-  //   if (!aux) throw new Error('This code not exist')
-  //   return aux
-  // },
+
+
+  },
 
 
 };

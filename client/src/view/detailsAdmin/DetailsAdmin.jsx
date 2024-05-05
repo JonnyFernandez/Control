@@ -27,7 +27,7 @@ const DetailsAdmin = () => {
 
     const prod = useSelector(state => state.prod.detailAdmin)
 
-
+    console.log(prod);
     return (
         <div>
             <NavAdmin />
@@ -41,31 +41,93 @@ const DetailsAdmin = () => {
                     <div className={d.right}>
                         <div className={`${d.card} ${isFlipped ? d.flip : ''}`}>
                             <div className={d.front}>
-                                <h3>Descripción de Produto</h3>
+                                <h3>{prod?.name}</h3>
+
                                 <div className={d.divInfo}>
                                     <h6>Codigo:</h6>
                                     <span >{prod?.code}</span>
                                 </div>
+                                <div className={d.divInfo}>
+                                    <h6>Descripción:</h6>
+                                    <span>{prod?.description}</span>
+                                </div>
 
-                                <div>Nombre: {prod?.name}</div>
-                                <div>Descripción: {prod?.description}</div>
-                                <div>Marca: {prod?.brand}</div>
-                                <div>Categoria: {prod?.category}</div>
-                                <div>Descuento: {prod?.discount}</div>
-                                <div>Distribuidor: {prod?.distributor}</div>
-                                <div>Precio Venta: {prod?.price}</div>
-                                <div>Precio Bruto: {prod?.realPrice}</div>
-                                <div>Descuento aplicado: {prod?.off * 100}%</div>
-                                <div>Ganancia: {prod?.gain * 100}%</div>
-                                <div>IIBB: {prod?.iibb * 100}%</div>
-                                <div>IVA: {prod?.iva * 100}%</div>
-                                <div>Otros: {prod?.others * 100}%</div>
-                                <div>Likes: {prod?.likes?.length}</div>
-                                <div>Estatus: {prod?.status ? 'Activo' : 'No Activo'}</div>
-                                <div>Stock: {prod?.stock}</div>
-                                <div>creado: {new Date(prod?.createdAt).toLocaleString()} </div>
-                                <div>Costo Neto: {prod?.cost}</div>
-                                <div>Comentarios: {prod?.reviews?.map((item, index) => <span key={index}>{item}</span>)}</div>
+                                {/* <div className={d.divInfo}>
+                                    <h6>Marca:</h6>
+                                    <span>{prod?.brand}</span>
+                                </div> */}
+                                <div className={d.divInfo}>
+                                    <h6>Categoria</h6>
+                                    <span>{prod?.category}</span>
+                                </div>
+                                <div className={d.divInfo}>
+                                    <h6>Descuento:</h6>
+                                    <span>$ {prod?.discount}</span>
+                                </div>
+                                {/* <div className={d.divInfo}>
+                                    <h6>Distribuidor:</h6>
+                                    <span>{prod?.distributor}</span>
+                                </div> */}
+                                <div className={d.divInfo}>
+                                    <h6>Precio Venta: </h6>
+                                    <span>$ {prod?.price}</span>
+                                </div>
+                                <div className={d.divInfo}>
+                                    <h6>Precio Bruto:</h6>
+                                    <span>$ {prod?.realPrice}</span>
+                                </div>
+                                <div className={d.divInfo}>
+                                    <h6>Costo Neto</h6>
+                                    <span>{prod?.cost}</span>
+                                </div>
+                                <div className={d.divInfo}>
+                                    <h6>Off Aplicado:</h6>
+                                    <span>{prod?.off * 100}%</span>
+                                </div>
+                                <div className={d.divInfo}>
+                                    <h6>Ganancia:</h6>
+                                    <span>{prod?.gain * 100}%</span>
+                                </div>
+                                <div className={d.divInfo}>
+                                    <h6>IIBB:</h6>
+                                    <span>{prod?.iibb * 100}%</span>
+                                </div>
+                                <div className={d.divInfo}>
+                                    <h6>IVA:</h6>
+                                    <span>{prod?.iva * 100}%</span>
+                                </div>
+                                <div className={d.divInfo}>
+                                    <h6>Otros:</h6>
+                                    <span>{prod?.others * 100}%</span>
+                                </div>
+                                {/* <div className={d.divInfo}>
+                                    <h6>Likes:</h6>
+                                    <span>{prod?.likes?.length}</span>
+                                </div> */}
+                                <div className={d.divInfo}>
+                                    <h6>Estatus:</h6>
+                                    <span>{prod?.status ? 'Activo' : 'No Activo'}</span>
+                                </div>
+                                <div className={d.divInfo}>
+                                    <h6>Stock:</h6>
+                                    <span>{prod?.stock}</span>
+                                </div>
+                                <div className={d.divInfo}>
+                                    <h6>Creado:</h6>
+                                    <span>{new Date(prod?.createdAt).toLocaleString()}</span>
+                                </div>
+                                <div className={d.divInfo}>
+                                    <h6>Actualizado:</h6>
+                                    <span>{new Date(prod?.updatedAt).toLocaleString()}</span>
+                                </div>
+
+
+
+                                {/* <div>Comentarios: {prod?.reviews?.map((item, index) => <span key={index}>{item}</span>)}</div> */}
+
+
+
+
 
                             </div>
                             <div className={`${d.back} ${!isFlipped ? d.flip : ''}`}>

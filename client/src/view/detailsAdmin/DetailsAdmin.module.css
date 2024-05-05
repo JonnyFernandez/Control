@@ -89,7 +89,6 @@
 
 /* -------------Css del la Front Card */
 .front h3{
-    /* background-color: red; */
     width: 100%;
 }
 
@@ -99,12 +98,31 @@
     flex-wrap: wrap;
     gap: 5px;
 }
-.divInfo span{
-    background-color: red;
-    display: flex;
-    justify-content: center;
+.divInfo h6{
+    width: 20%;
 }
 
+.divInfo span {
+    width: 70%;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.divInfo span:hover {
+    overflow: visible;
+    white-space: normal;
+    text-overflow: clip;
+    animation: marquee 5s linear infinite;
+
+}
+
+/* @keyframes marquee {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+} */
 
 
 
