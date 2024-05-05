@@ -66,8 +66,8 @@ export const prodSlice = createSlice({
                 state.allProd = state.backupProd;
             }
         }, searchById: (state, action) => {
-            const id = action.payload;
-            state.detailAdmin = state.backupProd.find(products => products.id === Number(id))
+            // const id = action.payload;
+            state.detailAdmin = action.payload
         },
         searchByNameProd: (state, action) => {
             const name = action.payload

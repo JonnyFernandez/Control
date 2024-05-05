@@ -5,17 +5,28 @@ import Footer from '../../components/footer/Footer'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { searchById } from '../../redux/prodSlice'
+import { getProdById } from '../../api/prod'
 
 const DetailsAdmin = () => {
-    const dispatch = useDispatch()
+    const [isFlipped, setIsFlipped] = useState(false); // Inicialmente la tarjeta no está activa
     const { id } = useParams()
-    const [active, setActive] = useState(false); // Inicialmente la tarjeta no está activa
+
+    const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(searchById(id))
+        const fetchData = async () => {
+            try {
+                const prodData = await getProdById(id)
+                dispatch(searchById(prodData))
+            } catch (error) {
+                console.error('Error fetching user data:', error);
+            }
+        }
+        fetchData()
     }, [])
 
-    const { detailAdmin } = useSelector(state => state.prod)
+    const prod = useSelector(state => state.prod.detailAdmin)
+
 
     return (
         <div>
@@ -24,68 +35,61 @@ const DetailsAdmin = () => {
                 <div className={d.container}>
                     <div className={d.left}>
                         <div className={d.imageBox}>
-                            <img src={detailAdmin?.image} alt="image" />
+                            <img src={prod?.image} alt="image" />
                         </div>
                     </div>
                     <div className={d.right}>
-                        <div className={`${d.card} ${active ? d.flip : ''}`}>
+                        <div className={`${d.card} ${isFlipped ? d.flip : ''}`}>
                             <div className={d.front}>
-                                <div>Codigo: {detailAdmin?.code}</div>
-                                <div>Nombre: {detailAdmin?.name}</div>
-                                <div>Descripción: {detailAdmin?.description}</div>
-                                <div>Marca: {detailAdmin?.brand}</div>
-                                <div>Categoria: {detailAdmin?.category}</div>
-                                <div>Descuento: {detailAdmin?.discount}</div>
-                                <div>Distribuidor: {detailAdmin?.distributor}</div>
-                                <div>Precio Venta: {detailAdmin?.price}</div>
-                                <div>Precio Bruto: {detailAdmin?.realPrice}</div>
-                                <div>Descuento aplicado: {detailAdmin?.off * 100}%</div>
-                                <div>Ganancia: {detailAdmin?.gain * 100}%</div>
-                                <div>IIBB: {detailAdmin?.iibb * 100}%</div>
-                                <div>IVA: {detailAdmin?.iva * 100}%</div>
-                                <div>Otros: {detailAdmin?.others * 100}%</div>
-                                <div>Likes: {detailAdmin?.likes?.length}</div>
-                                <div>Estatus: {detailAdmin?.status ? 'Activo' : 'No Activo'}</div>
-                                <div>Stock: {detailAdmin?.stock}</div>
-                                <div>creado: {new Date(detailAdmin?.createdAt).toLocaleString()} </div>
-                                <div>Costo Neto: {detailAdmin?.cost}</div>
-                                <div>Comentarios: {detailAdmin?.reviews?.map((item, index) => <span key={index}>{item}</span>)}</div>
+                                <h3>Descripción de Produto</h3>
+                                <div className={d.divInfo}>
+                                    <h6>Codigo:</h6>
+                                    <span >{prod?.code}</span>
+                                </div>
+
+                                <div>Nombre: {prod?.name}</div>
+                                <div>Descripción: {prod?.description}</div>
+                                <div>Marca: {prod?.brand}</div>
+                                <div>Categoria: {prod?.category}</div>
+                                <div>Descuento: {prod?.discount}</div>
+                                <div>Distribuidor: {prod?.distributor}</div>
+                                <div>Precio Venta: {prod?.price}</div>
+                                <div>Precio Bruto: {prod?.realPrice}</div>
+                                <div>Descuento aplicado: {prod?.off * 100}%</div>
+                                <div>Ganancia: {prod?.gain * 100}%</div>
+                                <div>IIBB: {prod?.iibb * 100}%</div>
+                                <div>IVA: {prod?.iva * 100}%</div>
+                                <div>Otros: {prod?.others * 100}%</div>
+                                <div>Likes: {prod?.likes?.length}</div>
+                                <div>Estatus: {prod?.status ? 'Activo' : 'No Activo'}</div>
+                                <div>Stock: {prod?.stock}</div>
+                                <div>creado: {new Date(prod?.createdAt).toLocaleString()} </div>
+                                <div>Costo Neto: {prod?.cost}</div>
+                                <div>Comentarios: {prod?.reviews?.map((item, index) => <span key={index}>{item}</span>)}</div>
 
                             </div>
-                            <div className={`${d.back} ${!active ? d.flip : ''}`}>
-                                <label htmlFor="">Nombre</label>
-                                <input type="text" placeholder={detailAdmin?.name} />
-                                <label htmlFor="">Descripcion</label>
-                                <input type="text" placeholder={detailAdmin?.description} />
-                                <label htmlFor="">Category</label>
-                                <select>
-                                    <option value="">Categorya</option>
-                                    <option value="">Categorya</option>
-                                </select>
-                                <label htmlFor="">Descuento</label>
-                                <input type="text" placeholder={detailAdmin?.discount} />
-                                <label htmlFor="">Distribuidor</label>
-                                <input type="text" placeholder={detailAdmin?.distributor} />
-                                <label htmlFor="">Precio</label>
-                                <input type="text" placeholder={detailAdmin?.price} />
-                                <label htmlFor="">precio Bruto</label>
-                                <input type="text" placeholder={detailAdmin?.realPrice} />
-                                <label htmlFor="">% off</label>
-                                <input type="text" placeholder={detailAdmin?.off * 100} />
-                                <label htmlFor="">% IVA</label>
-                                <input type="text" placeholder={detailAdmin?.iva * 100} />
-                                <label htmlFor="">% IIBB</label>
-                                <input type="text" placeholder={detailAdmin?.iibb * 100} />
-                                <label htmlFor="">% Others</label>
-                                <input type="text" placeholder={detailAdmin?.others * 100} />
-                                <label htmlFor="">% Local</label>
-                                <input type="text" placeholder={detailAdmin?.gain * 100} />
+                            <div className={`${d.back} ${!isFlipped ? d.flip : ''}`}>
+
+
+
+                                <h2>Back Card</h2>
+
+
+
+
+
+
+
+
+
+
+
 
 
                             </div>
 
                         </div>
-                        <button onClick={() => setActive(prev => !prev)}>review</button>
+                        <button onClick={() => setIsFlipped(prev => !prev)}>review</button>
                     </div>
                 </div>
             </div>

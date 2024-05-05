@@ -165,21 +165,22 @@ module.exports = {
     await Product.destroy({ where: { id } })
     return "Prod successfully deleted"
   },
-  getCode: async (code) => {
-    const aux = await Product.findOne({
-      where: {
-        code: {
-          [Op.iLike]: "%" + code + "%"
-        }
-      },
-
-    })
-    if (!aux) throw new Error('This code not exist')
+  getCode: async (id) => {
+    const aux = await Product.findByPk(id)
     return aux
   },
-  // updateStockAdmin:(user, id, stock)=>{
+  // getCode: async (code) => {
+  //   const aux = await Product.findOne({
+  //     where: {
+  //       code: {
+  //         [Op.iLike]: "%" + code + "%"
+  //       }
+  //     },
 
-  // }
+  //   })
+  //   if (!aux) throw new Error('This code not exist')
+  //   return aux
+  // },
 
 
 };

@@ -60,9 +60,9 @@ module.exports = {
     }
   },
   getByCode: async (req, res) => {
-    const { code } = req.params;
+    const { id } = req.params;
     try {
-      const codeProd = await Ctrl.getCode(code);
+      const codeProd = await Ctrl.getCode(id);
       res.status(201).json(codeProd);
     } catch (error) {
       res.status(400).json({ message: [error.message] });

@@ -93,13 +93,13 @@ prod.get("/", [handleProd.getAll]);
 
 /**
  * @swagger
- * /api/prod/{code}:
+ * /api/prod/{id}:
  *   get:
  *     summary: Obtener Producto por su Codigo
  *     description: Obtener Producto por su Codigo.
  *     parameters:
  *       - in: path
- *         name: code
+ *         name: id
  *         description: Ingrese codigo Identificador de Producto 
  *         required: true
  *         schema:
@@ -111,7 +111,7 @@ prod.get("/", [handleProd.getAll]);
  *         description: No autorizado (Token no válido)
  */
 
-prod.get("/:code", [handleProd.getByCode]); //get and get by query
+prod.get("/:id", [handleProd.getByCode]); //get prod by id
 /**
  * @swagger
  * /api/prod/{id}:
