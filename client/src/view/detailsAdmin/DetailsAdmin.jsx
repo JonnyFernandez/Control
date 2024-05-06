@@ -1,17 +1,18 @@
 import d from './DetailsAdmin.module.css'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { NavAdmin } from '../../components/componentAdmin'
 import Footer from '../../components/footer/Footer'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { searchById } from '../../redux/prodSlice'
 import { getProdById } from '../../api/prod'
-import { updateProduct } from '../../api/prod'
+import { updateProduct, updateStatusProd, deleteProd } from '../../api/prod'
 import axios from 'axios'
 import Swal from 'sweetalert2'
 
 const DetailsAdmin = () => {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const { id } = useParams()
     const [isFlipped, setIsFlipped] = useState(false); // Inicialmente la tarjeta no está activa
     const [data, setData] = useState({ image: '', description: '', stock: '', cost: '', off: '', iva: '', iibb: '', others: '', gain: '' })
@@ -26,7 +27,7 @@ const DetailsAdmin = () => {
             }
         }
         fetchData();
-    }, [id])
+    }, [id, dispatch])
 
     const prod = useSelector(state => state.prod.detailAdmin)
 
@@ -99,6 +100,64 @@ const DetailsAdmin = () => {
     };
 
 
+    const handlePause = async () => {
+        if (prod.stock === 0) {
+            Swal.fire('¡Error!', 'Agregar Stock', 'error');
+            return;
+        }
+        const newStatus = prod.status;
+        try {
+            const response = await updateStatusProd(id);
+            if (response.status === 201) {
+                const prodData = await getProdById(id);
+                dispatch(searchById(prodData));
+                const message = newStatus ? 'pausado' : 'activado';
+                Swal.fire('¡Éxito!', `El producto ha sido ${message} exitosamente.`, 'success');
+            } else {
+                throw new Error('Error al actualizar el estado del producto.');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            Swal.fire('¡Error!', 'Ha ocurrido un error. Inténtalo de nuevo más tarde.', 'error');
+        }
+    };
+
+
+
+    const handleRemoveProd = async () => {
+        // Mostrar la alerta de confirmación
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: '¿Quieres eliminar este producto?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar'
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                try {
+                    const res = await deleteProd(id);
+                    if (res.status === 201) {
+                        Swal.fire('¡Éxito!', 'Producto eliminado exitosamente', 'success').then(() => {
+                            navigate('/profile');
+                        });
+                    } else {
+                        throw new Error('Error al eliminar el producto.');
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    Swal.fire('¡Error!', 'Ha ocurrido un error. Inténtalo de nuevo más tarde.', 'error');
+                }
+            }
+        });
+    };
+
+
+
+
+
 
 
 
@@ -125,8 +184,8 @@ const DetailsAdmin = () => {
                             }
 
                             <div className={d.subImage} >
-                                <div className={d.deleteProd}>Eliminar Producto</div>
-                                <div className={d.pauseProd}>Pausar Producto</div>
+                                <div className={d.deleteProd} onClick={handleRemoveProd}>Eliminar Producto</div>
+                                <div className={d.pauseProd} onClick={handlePause}>{prod?.status ? 'Pausar Producto' : 'Activar Producto'}</div>
                             </div>
                         </div>
                     </div>
@@ -139,10 +198,7 @@ const DetailsAdmin = () => {
                                     <h6>Codigo:</h6>
                                     <span >{prod?.code}</span>
                                 </div>
-                                {/* <div className={d.divInfo}>
-                                    <h6>Descripción:</h6>
-                                    <span>{prod?.description}</span>
-                                </div> */}
+
                                 <div className={d.divInfo}>
                                     <h6>Categoria</h6>
                                     <span>{prod?.category}</span>
@@ -186,7 +242,7 @@ const DetailsAdmin = () => {
                                 </div>
                                 <div className={d.divInfo}>
                                     <h6>Estatus:</h6>
-                                    <span>{prod?.status ? 'Activo' : 'No Activo'}</span>
+                                    <span>{prod?.status ? 'Activo' : 'Pausado'}</span>
                                 </div>
                                 <div className={d.divInfo}>
                                     <h6>Stock:</h6>

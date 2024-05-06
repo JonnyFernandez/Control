@@ -67,3 +67,5 @@ export const updateProduct = async (id, data) => {
     }
 }
 
+export const updateStatusProd = async (id) => await axios.put(`/prod/status/${id}`)
+export const deleteProd = async (id) => await axios.delete(`/prod/${id}`)
