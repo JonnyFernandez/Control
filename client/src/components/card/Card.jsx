@@ -17,7 +17,7 @@ const Card = (products) => {
         <div className={style.card}>
             <div className={style.cardContent}>
                 <Link to={`/detail/${id}`} className={`${style['text-decoration-none']}`}>
-                    <img src={image} alt="product" className={style.image} />
+                    {image ? <img src={image} alt="product" className={style.image} /> : <img src="https://i.pinimg.com/564x/c9/36/cd/c936cdc3b4004f05bf4f5cfa0a671524.jpg" alt="image" className={style.image} />}
                     <div className={style.textcenter}>
                         <h4>{name}</h4>
                         <p>Precio: {price}</p>

@@ -40,7 +40,7 @@ module.exports = {
           description: item.description,
           brand: item.brand,
           distributor: item.distributor,
-          status: item.stock >= 1 ? true : false,
+          status: item.status && item.stock >= 1 ? true : false,
           code: item.code,
           stock: item.stock,
           price: Number(item.price).toFixed(2),
@@ -84,7 +84,7 @@ module.exports = {
           brand: item.brand,
           cost: Number(item.cost).toFixed(2),
           distributor: item.distributor,
-          status: item.stock >= 1 ? true : false,
+          status: item.status && item.stock >= 1 ? true : false,
           code: item.code,
           stock: parseFloat(item.stock),
           price: Number(item.price).toFixed(2),
@@ -182,6 +182,7 @@ module.exports = {
       ]
     })
     return {
+
       id: aux.id,
       name: aux.name,
       image: aux.image,
@@ -189,7 +190,7 @@ module.exports = {
       brand: aux.brand,
       cost: Number(aux.cost).toFixed(2),
       distributor: aux.distributor,
-      status: aux.stock >= 1 ? true : false,
+      status: aux.status && aux.stock >= 1 ? true : false,
       code: aux.code,
       stock: parseFloat(aux.stock),
       price: Number(aux.price).toFixed(2),
