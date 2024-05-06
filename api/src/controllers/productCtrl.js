@@ -136,6 +136,15 @@ module.exports = {
     return matchProd
 
   },
+  UpdateState: async (id) => {
+    const Prod = await Product.findByPk(id)
+    Prod.status = !Prod.status
+    await Prod.save()
+    return Prod.status ? `Codigo ${Prod.code} Activado` : `Codigo ${Prod.code} Pausado`
+
+  },
+
+
   UpdateByCategory: async (off, category) => {
     const res = await Product.update({ off: off }, {
       where: {

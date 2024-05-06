@@ -298,5 +298,25 @@ prod.delete("/:id", [validateToken.authRequire], [handleProd.delete]);
 
 
 
+/**
+ * @swagger
+ * /api/prod/status/{id}:
+ *   put:
+ *     summary: Cambiar Estado
+ *     description: Cambiar el estado de un producto.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         description: Ingrese codigo Identificador de Producto 
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Personaje obtenido exitosamente
+ *       401:
+ *         description: No autorizado (Token no válido)
+ */
+prod.put("/status/:id", [validateToken.authRequire], [handleProd.updateStatus]);
 
 module.exports = prod;

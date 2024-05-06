@@ -31,6 +31,16 @@ module.exports = {
       res.status(400).json({ message: [error.message] });
     }
   },
+  updateStatus: async (req, res) => {
+    const { id } = req.params
+    try {
+      const aux = await Ctrl.UpdateState(id)
+      res.status(201).json(aux);
+
+    } catch (error) {
+      res.status(400).json({ message: [error.message] });
+    }
+  },
   updateByCategory: async (req, res) => {
     const { off, category } = req.body;
 
