@@ -6,12 +6,15 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { searchById } from '../../redux/prodSlice'
 import { getProdById } from '../../api/prod'
+import { updateProduct } from '../../api/prod'
+import axios from 'axios'
+import Swal from 'sweetalert2'
 
 const DetailsAdmin = () => {
-    const [isFlipped, setIsFlipped] = useState(false); // Inicialmente la tarjeta no está activa
-    const { id } = useParams()
-
     const dispatch = useDispatch()
+    const { id } = useParams()
+    const [isFlipped, setIsFlipped] = useState(false); // Inicialmente la tarjeta no está activa
+    const [data, setData] = useState({ image: '', description: '', stock: '', cost: '', off: '', iva: '', iibb: '', others: '', gain: '' })
 
     useEffect(() => {
         const fetchData = async () => {
@@ -22,12 +25,90 @@ const DetailsAdmin = () => {
                 console.error('Error fetching user data:', error);
             }
         }
-        fetchData()
-    }, [])
+        fetchData();
+    }, [id])
 
     const prod = useSelector(state => state.prod.detailAdmin)
 
-    console.log(prod);
+
+
+
+
+
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        setData({ ...data, [name]: value });
+    };
+
+
+    const handleUploadImage = async (event) => {
+        const file = event.target.files[0];
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('upload_preset', 'assistt_file');
+        try {
+            const response = await axios.post('https://api.cloudinary.com/v1_1/dkx6y2e2z/image/upload', formData, {
+                headers: { 'Content-Type': 'multipart/form-data' },
+            });
+            setData({ ...data, image: response.data.secure_url });
+        } catch (error) {
+            console.error('Error al cargar la imagen:', error);
+            alert('Error al cargar la imagen. Inténtalo de nuevo.');
+        }
+    };
+
+    const toggleFlipped = () => setIsFlipped(prev => !prev)
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+
+        // Mostrar la alerta de confirmación
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: '¿Quieres actualizar la información?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, actualizar',
+            cancelButtonText: 'Cancelar'
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                try {
+                    const response = await updateProduct(id, data);
+                    if (response.status === 201) {
+                        Swal.fire(
+                            '¡Actualizado!',
+                            'La información ha sido actualizada exitosamente.',
+                            'success'
+                        );
+                        setData({ image: '', description: '', stock: '', cost: '', off: '', iva: '', iibb: '', others: '', gain: '' });
+                        toggleFlipped();
+                    }
+                } catch (error) {
+                    console.error('Error al actualizar el producto:', error);
+                    let messageError = error.response.data.message;
+                    Swal.fire(
+                        'Error',
+                        `${messageError}`,
+                        'error'
+                    );
+                }
+            }
+        });
+    };
+
+
+
+
+
+
+
+
+
+
+
+
     return (
         <div>
             <NavAdmin />
@@ -35,7 +116,18 @@ const DetailsAdmin = () => {
                 <div className={d.container}>
                     <div className={d.left}>
                         <div className={d.imageBox}>
-                            <img src={prod?.image} alt="image" />
+                            {
+                                data.image
+                                    ? <img src={data.image} alt="image" />
+                                    : prod.image
+                                        ? <img src={prod?.image} alt="image" />
+                                        : <img src="https://i.pinimg.com/564x/c9/36/cd/c936cdc3b4004f05bf4f5cfa0a671524.jpg" alt="image" />
+                            }
+
+                            <div className={d.subImage} >
+                                <div className={d.deleteProd}>Eliminar Producto</div>
+                                <div className={d.pauseProd}>Pausar Producto</div>
+                            </div>
                         </div>
                     </div>
                     <div className={d.right}>
@@ -51,11 +143,6 @@ const DetailsAdmin = () => {
                                     <h6>Descripción:</h6>
                                     <span>{prod?.description}</span>
                                 </div>
-
-                                {/* <div className={d.divInfo}>
-                                    <h6>Marca:</h6>
-                                    <span>{prod?.brand}</span>
-                                </div> */}
                                 <div className={d.divInfo}>
                                     <h6>Categoria</h6>
                                     <span>{prod?.category}</span>
@@ -64,10 +151,7 @@ const DetailsAdmin = () => {
                                     <h6>Descuento:</h6>
                                     <span>$ {prod?.discount}</span>
                                 </div>
-                                {/* <div className={d.divInfo}>
-                                    <h6>Distribuidor:</h6>
-                                    <span>{prod?.distributor}</span>
-                                </div> */}
+
                                 <div className={d.divInfo}>
                                     <h6>Precio Venta: </h6>
                                     <span>$ {prod?.price}</span>
@@ -100,10 +184,6 @@ const DetailsAdmin = () => {
                                     <h6>Otros:</h6>
                                     <span>{prod?.others * 100}%</span>
                                 </div>
-                                {/* <div className={d.divInfo}>
-                                    <h6>Likes:</h6>
-                                    <span>{prod?.likes?.length}</span>
-                                </div> */}
                                 <div className={d.divInfo}>
                                     <h6>Estatus:</h6>
                                     <span>{prod?.status ? 'Activo' : 'No Activo'}</span>
@@ -121,37 +201,60 @@ const DetailsAdmin = () => {
                                     <span>{new Date(prod?.updatedAt).toLocaleString()}</span>
                                 </div>
 
-
-
-                                {/* <div>Comentarios: {prod?.reviews?.map((item, index) => <span key={index}>{item}</span>)}</div> */}
-
-
-
-
-
                             </div>
+
+
+
+
                             <div className={`${d.back} ${!isFlipped ? d.flip : ''}`}>
+                                <h3>Editar Producto: {prod.code}</h3>
+
+                                <form className={d.form2} onSubmit={handleSubmit}>
+                                    <input type="file" onChange={handleUploadImage} />
+                                    <input type="text" onChange={handleChange} name='description' value={data.description} placeholder='description' />
+                                    <input type="number" min={0} onChange={handleChange} name='stock' value={data.stock} placeholder='stock' />
+                                    <input type="number" min={0} onChange={handleChange} name='cost' value={data.cost} placeholder='cost' />
+                                    <input type="number" min={0} onChange={handleChange} name='off' value={data.off} placeholder='off' />
+                                    <input type="number" min={0} onChange={handleChange} name='iva' value={data.iva} placeholder='iva' />
+                                    <input type="number" onChange={handleChange} name='iibb' value={data.iibb} placeholder='iibb' />
+                                    <input type="number" min={0} onChange={handleChange} name='others' value={data.others} placeholder='others' />
+                                    <input type="number" min={0} onChange={handleChange} name='gain' value={data.gain} placeholder='gain' />
+
+
+                                    <div className={d.divButtonSubmit}>
+                                        <button>Actualizar</button>
+                                    </div>
 
 
 
-                                <h2>Back Card</h2>
-
-
-
-
-
-
-
-
-
-
-
-
+                                </form>
 
                             </div>
 
                         </div>
-                        <button onClick={() => setIsFlipped(prev => !prev)}>review</button>
+
+
+                        <button className={d.change} onClick={toggleFlipped}>
+                            {
+                                !isFlipped
+                                    ? <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" className="bi bi-pencil-square" viewBox="0 0 16 16">
+                                        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                                        <path fillRule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
+                                    </svg>
+                                    : <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" className="bi bi-arrow-return-left" viewBox="0 0 16 16">
+                                        <path fillRule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5" />
+                                    </svg>
+
+                            }
+
+                        </button>
+
+
+
+
+
+
+
                     </div>
                 </div>
             </div>

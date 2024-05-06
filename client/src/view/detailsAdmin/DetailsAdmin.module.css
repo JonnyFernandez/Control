@@ -3,6 +3,7 @@
     height: auto;
     margin-top: 120px;
     display: flex;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .container {
@@ -18,7 +19,10 @@
     width: 50%; /* Cambio a ancho completo en dispositivos móviles */
     height: 580px; /* Reducción de altura para dispositivos móviles */
     /* background-color: rgb(147, 145, 145); */
+    position: relative;
 }
+
+
 
 .right {
     display: flex;
@@ -70,14 +74,19 @@
     transform: rotateY(0deg); /* Corregir la rotación para mostrar el contenido frontal */
 }
 
-.right button {
+.change {
     position: absolute;
-    bottom: 20px; /* Ajusta la distancia desde la parte inferior */
-    right: 20px; /* Ajusta la distancia desde el lado derecho */
+    padding: 10px 20px;
+    background-color:var(--Primari-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    bottom: 10px;
+    right: 15px;
 }
 
 
-
+/* Imagen */
 .imageBox{
     width: 80%;
     height: 580px;
@@ -85,7 +94,46 @@
     background-size: cover;
     display: flex;
     justify-content: center;
+    position: relative;
 }
+.subImage {
+    position: absolute;
+    top: 20px;
+    right: 0px;
+    /* Posiciona el elemento en la esquina superior derecha */
+}
+
+.deleteProd, .pauseProd{
+    background-color: rgba(255, 255, 255, 0.297);
+    border: 1px solid black;
+    color: black;
+    width:200px ;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    font-size:small;
+    font-weight: bold;
+    margin-bottom: 10px;
+    border-radius: 15px;
+}
+
+.pauseProd:hover{
+    /* border: none; */
+    background-color: rgba(255, 255, 0, 0.777);
+    transition: 1s;
+    border-radius: 5px;
+
+}
+.deleteProd:hover{
+    border: none;
+    background-color: red;
+    transition: 1s;
+    border-radius: 5px;
+    
+
+}   
 
 /* -------------Css del la Front Card */
 .front h3{
@@ -126,7 +174,47 @@
 
 
 
+/* Imformacion de Edicion de prod */
 
+
+.form2 {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 5px;
+}
+
+.form2 input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+}
+
+.form2 input[type="file"] {
+    border: none;
+    padding: 0;
+}
+
+.divButtonSubmit {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.divButtonSubmit button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+  
+    
+}
+
+.divButtonSubmit button:hover {
+    background-color: #0056b3;
+    transition: 0.3s;
+}
 
 
 

@@ -21,4 +21,7 @@
     --row-gap: 1rem;
     --col-gap: 1.5rem;
     --border-radius: 0.75rem;
+
+    /* coloes de detais admin */
+    --isLike: #47C7FC
 }

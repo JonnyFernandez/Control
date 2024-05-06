@@ -45,4 +45,25 @@ export const getProdById = async (id) => {
         throw error;
     }
 }
+export const updateProduct = async (id, data) => {
+    const info = {
+        image: data.image,
+        description: data.description,
+        stock: Number(data.stock),
+        cost: Number(data.cost),
+        off: Number(data.off) / 100,
+        iva: Number(data.iva) / 100,
+        iibb: Number(data.iibb) / 100,
+        others: Number(data.others) / 100,
+        gain: Number(data.gain) / 100,
+    }
+
+    try {
+        const res = await axios.put(`/prod/${id}`, info);
+        return res;
+    } catch (error) {
+        console.error('Error en la petición:', error);
+        throw error;
+    }
+}
 
