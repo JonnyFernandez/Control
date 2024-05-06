@@ -133,16 +133,16 @@ const DetailsAdmin = () => {
                     <div className={d.right}>
                         <div className={`${d.card} ${isFlipped ? d.flip : ''}`}>
                             <div className={d.front}>
-                                <h3>{prod?.name}</h3>
+                                <h3>{prod?.description}</h3>
 
                                 <div className={d.divInfo}>
                                     <h6>Codigo:</h6>
                                     <span >{prod?.code}</span>
                                 </div>
-                                <div className={d.divInfo}>
+                                {/* <div className={d.divInfo}>
                                     <h6>Descripción:</h6>
                                     <span>{prod?.description}</span>
-                                </div>
+                                </div> */}
                                 <div className={d.divInfo}>
                                     <h6>Categoria</h6>
                                     <span>{prod?.category}</span>
