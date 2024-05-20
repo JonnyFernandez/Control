@@ -1,17 +1,84 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import style from './Card.module.css';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { addFav, removeFav, resetPro, addCart, removeCard } from "../../redux/prodSlice";
+
 // import { addToCart } from '../../redux/slices/productsData';
 
 const Card = (products) => {
     const { id, name, price, image } = products;
 
+    const [autorized, setAutorized] = useState(true)
+    const numeroFormateado = price.toLocaleString('es-ES');
+    const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
+    const storedFav = JSON.parse(localStorage.getItem('fav')) || [];
+
     const dispatch = useDispatch();
-    const handleAddToCart = () => {
-        // dispatch(addToCart(products));
-        alert('cart')
+    const { favorites, shoppingCart } = useSelector(state => state.prod)
+
+    const [fav, setFav] = useState(false)
+    const [cart, setCart] = useState(false)
+
+
+    useEffect(() => {
+        dispatch(resetPro())
+        favorites.forEach((el) => {
+            if (el.id === id) {
+                setFav(true);
+            }
+        });
+    }, [favorites]);
+
+    useEffect(() => {
+        dispatch(resetPro())
+
+        shoppingCart.forEach((item) => {
+            if (item.id === id) {
+                setCart(true);
+            }
+        });
+    }, [shoppingCart]);
+
+
+
+    const handleFav = () => {
+        if (fav) {
+            setFav(false)
+            dispatch(removeFav(id))
+        } else {
+            setFav(true)
+            dispatch(addFav(products))
+        };
+
+        const updatedFav = fav
+            ? storedFav.filter(item => item.id !== id)
+            : [...storedFav, products];
+
+        localStorage.setItem('fav', JSON.stringify(updatedFav));
     };
+
+    const handleCart = () => {
+        if (cart) {
+            setCart(false)
+            dispatch(removeCard(id))
+
+        } else {
+            setCart(true)
+            dispatch(addCart(products))
+        }
+
+        const updatedCart = cart
+            ? storedCart.filter(item => item.id !== id)
+            : [...storedCart, products];
+
+        localStorage.setItem('cart', JSON.stringify(updatedCart));
+    }
+
+
+
+
+
 
     return (
         <div className={style.card}>
@@ -20,10 +87,55 @@ const Card = (products) => {
                     {image ? <img src={image} alt="product" className={style.image} /> : <img src="https://i.pinimg.com/564x/c9/36/cd/c936cdc3b4004f05bf4f5cfa0a671524.jpg" alt="image" className={style.image} />}
                     <div className={style.textcenter}>
                         <h4>{name}</h4>
-                        <p>Precio: {price}</p>
+                        {autorized && <p>Precio: {numeroFormateado}</p>}
+
                     </div>
                 </Link>
-                <button className={`${style.buttonCard} ${style.addEffect}`} onClick={handleAddToCart}>Añadir</button>
+
+                <div>
+                    {autorized && <button className={`${style.buttonChat} ${style.ChatEffect}`} value={'review'} onClick={handleCart}>
+                        {cart
+                            ? (
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="rgb(41, 132, 244)" className="bi bi-cart-fill" viewBox="0 0 16 16">
+                                    <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
+                                </svg>
+                            )
+                            : (
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-cart" viewBox="0 0 16 16">
+                                    <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
+                                </svg>
+                            )
+                        }
+                    </button>}
+
+                    {autorized && <button className={`${style.buttonCard} ${style.addEffect}`} >
+                        Comprar
+                    </button>}
+
+
+
+
+
+
+
+                    {autorized && <button className={`${style.buttonChat} ${style.ChatEffect}`} value={'mark'} onClick={handleFav}>
+                        {
+                            fav ?
+                                (<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="rgb(41, 132, 244)" className="bi bi-heart-fill" viewBox="0 0 16 16">
+                                    <path fillRule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314" />
+                                </svg>)
+                                : (<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-heart" viewBox="0 0 16 16">
+                                    <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15" />
+                                </svg>)
+                        }
+                    </button>}
+
+
+
+
+                </div>
+
+
             </div>
         </div>
     );

@@ -69,6 +69,7 @@ module.exports = {
       id: newUser.id,
       email: newUser.email,
       username: newUser.username,
+      type: newUser.type ? newUser.type : "client",
       createdAt: newUser.createdAt,
       updatedAt: newUser.updatedAt,
     };
@@ -79,10 +80,13 @@ module.exports = {
     const isMatch = await bcrypt.compare(password, userFound.password);
     if (!isMatch) throw new Error("Password incorrect");
 
+    console.log(userFound);
+
     return {
       id: userFound.id,
       email: userFound.email,
       username: userFound.username,
+      type: userFound.type ? userFound.type : "client",
       createdAt: userFound.createdAt,
       updatedAt: userFound.updatedAt,
     };
@@ -106,7 +110,7 @@ module.exports = {
       if (err) throw new Error("Unauthorized");
 
       const userFound = await User.findByPk(user.id);
-
+      console.log(userFound);
       if (!userFound) throw new Error("Unauthorized");
       return "hola";
     });

@@ -1,47 +1,29 @@
-
-// App.jsx
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { AuthProvider } from "./context/AuthContext";
-// import ProtectedRoute from "./protectedRoutes/ProtectedRoute";
-import { Cart, Home, Landing, Profile, SignIn, SingUp, UpdatePassword, DetailsAdmin } from "./view";
-
-
+import { Home, Login, Register } from './views'
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { AuthProvider } from './context/AuthContext';
+import ProtectedRoute from './ProtectedRoutes';
 function App() {
+
   return (
+
     <AuthProvider>
       <BrowserRouter>
-        <main>
-          <Routes>
-            <Route path="/" element={<Landing />} />
-            <Route path="/login" element={<SignIn />} />
-            <Route path="/register" element={<SingUp />} />
-            <Route path="/update-password" element={<UpdatePassword />} />
-            <Route path="/home" element={<Home />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/detail/:id" element={<h1>Detalles</h1>} />
-            <Route path="/details-card2/:id" element={<DetailsAdmin />} />
+        <Routes>
+          <Route path='/login' element={<Login />} />
+          <Route path='/register' element={<Register />} />
 
+          <Route path='/home' element={<Home />} />
+          <Route path='/detail/:id' element={<h1>Detais</h1>} />
 
+          <Route element={<ProtectedRoute />}>
+            <Route path='/profile' element={<h1>ADMIN PROFILE</h1>} />
+          </Route>
 
-            {/* <Route element={<ProtectedRoute requiredRole="client" />}>
-              <Route path="/cart" element={<Cart />} />
-              <Route path="/profile" element={<Profile />} />
-            </Route> */}
-
-            {/* <Route element={<ProtectedRoute requiredRole="seller" />} >
-              <Route path="/seller-dashboard" element={<HomeSeller />} />
-            </Route>
-
-            <Route element={<ProtectedRoute requiredRole="admin" />} >
-              <Route path="/admin-dashboard" element={<HomeAdmin />} />
-            </Route> */}
-
-          </Routes>
-        </main>
+        </Routes>
       </BrowserRouter>
     </AuthProvider>
-  );
+
+  )
 }
 
-export default App;
+export default App

@@ -13,6 +13,7 @@
     background-color: white;
     padding-bottom: 15px;
     border: 1px solid grey;
+    margin: 15px;
 }
 
 .cardContent {
@@ -69,3 +70,17 @@
   .buttonCard:active {
     transform: translateY(10px); /* Efecto de hundimiento al hacer clic */
   }
+
+.buttonChat{
+border: none;
+margin-left: 25px;
+margin-right: 25px;
+transition: transform 0.4s;
+}  
+.buttonChat:hover{
+    color: #ff8000;
+}
+.buttonChat:active {
+    transform: translateY(-5px); /* Efecto de hundimiento al hacer clic */
+    transition: transform 0.4s;
+}

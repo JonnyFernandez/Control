@@ -1,11 +1,20 @@
 // ModalLanding.jsx
 import styles from './Modal.module.css';
 
-export const Modal = ({ isOpen, toggleOpen, children }) => (
+const Modal = ({ isOpen, toggleOpen, children }) => {
 
-    <div className={`${styles.overlay} ${isOpen ? styles.open : ''}`} onClick={toggleOpen}>
+    return (
 
-        <div className={styles.modal}>{children}</div>
+        <div className={`${styles.overlay} ${isOpen ? styles.open : ''}`}  >
 
-    </div>
-);
+            <button onClick={toggleOpen} className={styles.close}>X</button>
+            <div className={styles.modal} >
+                {children}
+            </div>
+
+        </div>
+    )
+};
+
+
+export default Modal

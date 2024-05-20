@@ -1,47 +1,39 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, useContext } from "react";
 import { registerRequest, loginRequest, verifyTokenRequest } from "../api/auth";
-import Cookies from 'js-cookie'
-import PropTypes from 'prop-types'
+import Cookies from "js-cookie";
 
-
-export const AuthContex = createContext({})
-
+export const AuthContext = createContext({})
 
 export const AuthProvider = ({ children }) => {
-
-
     const [user, setUser] = useState(null)
-    const [isAutenticated, setIsAutenticated] = useState(false)
+    const [isAuthenticated, setIsAuthenticated] = useState(false)
     const [errors, setErrors] = useState([])
-    const [Loading, setLoading] = useState(true)
-
-
-    const signup = async (values) => {
-        try {
-            const res = await registerRequest(values);
-            setUser(res)
-            setIsAutenticated(true)
-        } catch (error) {
-            setErrors(error.response.data.message)
-        }
-
-    }
+    const [loading, setLoading] = useState(true)
+    // console.log(user?.type);
+    //Login
     const signin = async (values) => {
         try {
             const res = await loginRequest(values);
-
             setUser(res.data)
-            setIsAutenticated(true)
+            setIsAuthenticated(true)
         } catch (error) {
-            if (Array.isArray(error.response.data)) {
-                return setErrors(error.response.data)
-            }
-            setErrors([error.response.data.message])
+            // console.log(error);
+            if (error.message === "Network Error") setErrors(["Servidor desconectado, soporte tecnico: arcancode@gmail.com"]);
+            setErrors(error.response.data.message)
         }
-
-    }
-
-
+    };
+    // register
+    const signup = async (values) => {
+        try {
+            const res = await registerRequest(values);
+            setUser(res.data)
+            setIsAuthenticated(true)
+        } catch (error) {
+            if (error.message === "Network Error") setErrors(["Servidor desconectado, soporte tecnico: arcancode@gmail.com"]);
+            setErrors(error.response.data.message)
+        }
+    };
+    // clear errors 
     useEffect(() => {
         if (errors.length > 0) {
             const timer = setTimeout(() => {
@@ -51,34 +43,30 @@ export const AuthProvider = ({ children }) => {
         }
     }, [errors])
 
-
+    // verificar si el user esta logeado o si no expiro su token
     useEffect(() => {
         async function checkLogin() {
             const cookies = Cookies.get()
-
             if (!cookies.token) {
-                setIsAutenticated(false);
+                setIsAuthenticated(false);
                 setLoading(false)
                 return setUser(null);
             }
-
             try {
                 const res = await verifyTokenRequest(cookies.token);
                 if (!res.data) {
-                    setIsAutenticated(false)
+                    setIsAuthenticated(false)
                     setLoading(false)
                     return
                 }
-                setIsAutenticated(true)
+                setIsAuthenticated(true)
                 setUser(res.data);
                 setLoading(false)
-
             } catch (error) {
                 console.log(error);
-                setIsAutenticated(false)
+                setIsAuthenticated(false)
                 setUser(null)
                 setLoading(false)
-
             }
         }
         checkLogin()
@@ -86,21 +74,15 @@ export const AuthProvider = ({ children }) => {
 
     const logout = () => {
         Cookies.remove("token");
-        setIsAutenticated(false);
+        setIsAuthenticated(false);
         setUser(null);
     }
 
     return (
-        <AuthContex.Provider value={{ logout, signup, signin, user, isAutenticated, errors, Loading }}>
+        <AuthContext.Provider value={{ user, isAuthenticated, errors, loading, signin, signup, logout }}>
             {children}
-        </AuthContex.Provider>
+        </AuthContext.Provider>
     )
 }
 
-AuthProvider.propTypes = {
-    children: PropTypes.node.isRequired,
-};
-
-
-
-
+export const useAuth = () => useContext(AuthContext)

@@ -59,6 +59,7 @@ module.exports = {
         id: userFound.id,
         username: userFound.name,
         email: userFound.email,
+        type: userFound.type ? userFound.type : "client"
       });
     });
   },
