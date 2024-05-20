@@ -15,7 +15,7 @@ module.exports = {
       res.cookie("token", token);
       res.status(200).json(aux);
     } catch (error) {
-      res.status(409).json({ message: [error.message] });
+      res.status(401).json({ message: [error.message] });
     }
   },
   login: async (req, res) => {
@@ -28,7 +28,7 @@ module.exports = {
         res.status(200).json(aux);
       }
     } catch (error) {
-      res.status(401).json({ error: [error.message] });
+      res.status(401).json({ message: [error.message] });
     }
   },
   logout: (req, res) => {
@@ -42,18 +42,18 @@ module.exports = {
       const aux = await auth.profile(req.user.id);
       return res.status(200).json(aux);
     } catch (error) {
-      return res.status(500).json({ message: [error.message] });
+      res.status(401).json({ message: [error.message] });
     }
   },
   verifyToken: async (req, res) => {
     const { token } = req.cookies;
-    if (!token) return res.status(401).json({ message: "Unauthorized" });
+    if (!token) return res.status(401).json({ error: "Unauthorized" });
 
     jwt.verify(token, process.env.TOKEN_SECRET, async (err, user) => {
-      if (err) return res.status(401).json({ message: "Unauthorized" });
+      if (err) return res.status(401).json({ error: "Unauthorized" });
 
       const userFound = await User.findByPk(user.id);
-      if (!userFound) return res.status(401).json({ message: "Unauthorized" });
+      if (!userFound) return res.status(401).json({ error: "Unauthorized" });
 
       return res.json({
         id: userFound.id,

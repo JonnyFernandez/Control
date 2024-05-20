@@ -5,8 +5,7 @@ import Footer from '../../components/footer/Footer'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { searchById } from '../../redux/prodSlice'
-import { getProdById } from '../../api/prod'
-import { updateProduct, updateStatusProd, deleteProd } from '../../api/prod'
+import { updateProduct, updateStatusProd, deleteProd, getProdById } from '../../api/prod'
 import axios from 'axios'
 import Swal from 'sweetalert2'
 
@@ -84,6 +83,8 @@ const DetailsAdmin = () => {
                             'success'
                         );
                         setData({ image: '', description: '', stock: '', cost: '', off: '', iva: '', iibb: '', others: '', gain: '' });
+                        const prodData = await getProdById(id);
+                        dispatch(searchById(prodData));
                         toggleFlipped();
                     }
                 } catch (error) {
@@ -154,20 +155,6 @@ const DetailsAdmin = () => {
         });
     };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     return (
         <div>
             <NavAdmin />
@@ -205,20 +192,20 @@ const DetailsAdmin = () => {
                                 </div>
                                 <div className={d.divInfo}>
                                     <h6>Descuento:</h6>
-                                    <span>$ {prod?.discount}</span>
+                                    <span>${prod?.discount}</span>
                                 </div>
 
                                 <div className={d.divInfo}>
                                     <h6>Precio Venta: </h6>
-                                    <span>$ {prod?.price}</span>
+                                    <span>${prod?.price}</span>
                                 </div>
                                 <div className={d.divInfo}>
                                     <h6>Precio Bruto:</h6>
-                                    <span>$ {prod?.realPrice}</span>
+                                    <span>${prod?.realPrice}</span>
                                 </div>
                                 <div className={d.divInfo}>
                                     <h6>Costo Neto</h6>
-                                    <span>{prod?.cost}</span>
+                                    <span>${prod?.cost}</span>
                                 </div>
                                 <div className={d.divInfo}>
                                     <h6>Off Aplicado:</h6>
