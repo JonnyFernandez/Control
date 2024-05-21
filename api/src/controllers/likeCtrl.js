@@ -16,14 +16,25 @@ module.exports = {
 
 
     },
-    removeLike: async (likeId) => {
-        const like = await Like.findByPk(likeId);
+    removeLikeFromProduct: async (prodId, userId) => {
+        const prod = await Product.findByPk(prodId);
+        if (!prod) throw new Error('Product not found');
 
+        const like = await Like.findOne({
+            where: {
+                like: userId,
+                ProductId: prodId
+            }
+        });
         if (!like) {
-            throw new Error('Like not found'); // Manejar el caso en que el like no se encuentra
+            throw new Error('Like not found for this user and product');
         }
-
-        await like.destroy(); // Eliminar el like
-        return 'Like removed successfully'; // Devolver un mensaje indicando que el like se eliminó correctamente
+        await like.destroy();
+        return 'Like removed successfully from the product';
     }
 }
+
+
+
+
+

@@ -12,8 +12,9 @@ module.exports = {
     },
     removeLike: async (req, res) => {
         const { id } = req.params;
+
         try {
-            const aux = await Ctrl.removeLike(id)
+            const aux = await Ctrl.removeLikeFromProduct(id, req.user.id)
             res.status(201).json(aux)
         } catch (error) {
             res.status(400).json({ message: [error.message] });

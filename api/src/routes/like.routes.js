@@ -44,13 +44,13 @@ like.post('/', [validateToken.authRequire], validateSchema(likeSchema), [handle.
  * @swagger
  * /api/like/{id}:
  *   delete:
- *     summary: Eliminar Producto
- *     description: Elimina un Producto existente.
+ *     summary: Eliminar Like de Producto
+ *     description: Eliminar Like de Producto.
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
- *         description: ID del Like a eliminar.
+ *         description: ID del Producto.
  *         schema:
  *           type: string
  *     security:
