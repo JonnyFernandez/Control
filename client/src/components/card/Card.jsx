@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import style from './Card.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { addFav, removeFav, resetPro, addCart, removeCard } from "../../redux/prodSlice";
+import { addFav, removeFav, addCart, removeCard } from "../../redux/prodSlice";
 
 // import { addToCart } from '../../redux/slices/productsData';
 
@@ -22,7 +22,7 @@ const Card = (products) => {
 
 
     useEffect(() => {
-        dispatch(resetPro())
+        // dispatch(resetPro())
         favorites.forEach((el) => {
             if (el.id === id) {
                 setFav(true);
@@ -31,7 +31,7 @@ const Card = (products) => {
     }, [favorites]);
 
     useEffect(() => {
-        dispatch(resetPro())
+        // dispatch(resetPro())
 
         shoppingCart.forEach((item) => {
             if (item.id === id) {

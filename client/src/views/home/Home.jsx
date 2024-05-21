@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react'
 import { Nav, Card, Paginado, Modal } from '../../components'
 import h from './Home.module.css'
-import { apiAllProd } from '../../api/backup'
+import Swal from 'sweetalert2';
 import { useDispatch, useSelector } from 'react-redux'
 import { getProd, setFavItems, setCartItems } from '../../redux/prodSlice'
+import { apiGetProd } from '../../api/prod'
 
 
 
@@ -15,14 +16,23 @@ const Home = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const prodData = await apiAllProd()
-                dispatch(getProd(prodData))
+                const prodData = await apiGetProd();
+                dispatch(getProd(prodData.data));
             } catch (error) {
                 console.error('Error fetching user data:', error);
+                if (error.message) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error de conexión',
+                        text: 'Servidor desconectado. Por favor, contacta al soporte técnico.',
+                        footer: 'soporte tecnico "arcancode@gmail.com"',
+                    });
+                }
             }
-        }
-        fetchData()
-    }, [])
+        };
+
+        fetchData();
+    }, [dispatch]);
 
     const { product, currentPage } = useSelector(state => state.prod)
     const filteredProd = product.filter(item => item.status === true);

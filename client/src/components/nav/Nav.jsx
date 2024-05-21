@@ -1,9 +1,9 @@
 import React, { useEffect, useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setDarkMode } from '../../redux/darkmodeSlice';
-import { searchByName, resetPro, getProd } from '../../redux/prodSlice';
+import { getProd } from '../../redux/prodSlice';
 import n from './Nav.module.css';
-import { apiAllProd } from '../../api/backup';
+import { apiGetProd, apiGetProdByName } from '../../api/prod';
 
 const Nav = ({ handleDark, handleSelector }) => {
     const dispatch = useDispatch();
@@ -28,29 +28,24 @@ const Nav = ({ handleDark, handleSelector }) => {
 
     const resetProd = async () => {
         try {
-            const prodData = await apiAllProd();
-            dispatch(getProd(prodData));
+            const prodData = await apiGetProd();
+            dispatch(getProd(prodData.data));
         } catch (error) {
             console.error('Error fetching user data:', error);
         }
         setSearch('');
     };
 
-    useEffect(() => {
-        if (search.trim() === '') {
-            dispatch(resetPro());
-        } else {
-            dispatch(searchByName(search));
+    const searchFuction = async () => {
+        try {
+            const aux = await apiGetProdByName(search)
+            dispatch(getProd(aux.data));
+        } catch (error) {
+            console.error('Error fetching user data:', error);
         }
-    }, [search, dispatch]);
-
-    const handleChange = (e) => {
-        setSearch(e.target.value);
     };
 
-    const deleteInp = () => {
-        setSearch('');
-    };
+
 
     return (
         <div className={n.nav}>
@@ -63,10 +58,11 @@ const Nav = ({ handleDark, handleSelector }) => {
                     type='text'
                     placeholder='¿Qué estás buscando?'
                     value={search}
-                    onChange={handleChange}
+                    onChange={(event) => setSearch(event.target.value)}
                     className={n.nav_search_input}
                 />
-                <div className={`${n.deleteInput}`} onClick={deleteInp} >{search && "x"}</div>
+                <div className={`${n.deleteInput}`} onClick={resetProd} >{search && "x"}</div>
+                {search && <button className={`${n.searchProd}`} onClick={searchFuction}>Buscar</button>}
             </div>
 
             <div className={n.div2}>

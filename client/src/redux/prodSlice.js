@@ -31,19 +31,6 @@ const prodSlice = createSlice({
             const name = action.payload;
             state.product = state.backup.filter(products => products.category.toLowerCase().includes(name.toLowerCase()))
         },
-        searchByName: (state, action) => {
-            const name = action.payload;
-            console.log(name);
-            if (name === null || name.trim() === "") {
-                state.product = state.backup;
-            } else {
-                state.product = state.backup.filter(product => product.name.toLowerCase().includes(name.toLowerCase()));
-            }
-        },
-
-        resetPro: (state, action) => {
-            state.product = state.backup;
-        },
         addFav: (state, action) => {
             state.favorites.push(action.payload);
         },
@@ -74,5 +61,5 @@ const prodSlice = createSlice({
 })
 
 
-export const { getProd, setCurrentPage, setPrevPage, setNextPage, searchCategory, searchByName, resetPro, addFav, removeFav, addCart, removeCard, setFavItems, setCartItems } = prodSlice.actions
+export const { getProd, setCurrentPage, setPrevPage, setNextPage, searchCategory, addFav, removeFav, addCart, removeCard, setFavItems, setCartItems } = prodSlice.actions
 export default prodSlice.reducer
