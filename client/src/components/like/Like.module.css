@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+.like{
+    width: 750px;
+    height: 550px;   
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+}
+.title{
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: xx-large;
+    font-family: 'Roboto', sans-serif;
+    margin-top: 10px;
+    
+}
+
+@media (max-width:600px){
+    .like{
+        
+        width: auto;
+        height: 450px;
+    }
+   
+}

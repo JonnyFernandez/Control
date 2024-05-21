@@ -4,7 +4,7 @@ import Card from "./card/Card";
 import Paginado from "./paginate/Paginate";
 import Modal from "./modal/Modal";
 import Cart from "./cart/Cart";
+import Like from "./like/Like";
 
 
-
-export { Nav, Sidebar1, Card, Paginado, Modal, Cart }
+export { Nav, Sidebar1, Card, Paginado, Modal, Cart, Like }

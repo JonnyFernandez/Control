@@ -3,14 +3,17 @@ import { Link } from 'react-router-dom';
 import style from './Card.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { addFav, removeFav, addCart, removeCard } from "../../redux/prodSlice";
+// import { apiPostLike } from "../../api/prod";
 
 // import { addToCart } from '../../redux/slices/productsData';
 
 const Card = (products) => {
-    const { id, name, price, image } = products;
+    const { id, name, price, image, status } = products;
 
     const [autorized, setAutorized] = useState(true)
-    const numeroFormateado = price.toLocaleString('es-ES');
+
+
+    const numeroFormateado = Number(price).toLocaleString('es-ES');
     const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
     const storedFav = JSON.parse(localStorage.getItem('fav')) || [];
 
@@ -19,6 +22,7 @@ const Card = (products) => {
 
     const [fav, setFav] = useState(false)
     const [cart, setCart] = useState(false)
+    // post like
 
 
     useEffect(() => {
@@ -49,6 +53,7 @@ const Card = (products) => {
         } else {
             setFav(true)
             dispatch(addFav(products))
+
         };
 
         const updatedFav = fav

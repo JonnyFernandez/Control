@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setDarkMode } from '../../redux/darkmodeSlice';
 import { getProd } from '../../redux/prodSlice';
 import n from './Nav.module.css';
+// import Like from '../like/Like';
 import { apiGetProd, apiGetProdByName } from '../../api/prod';
 
 const Nav = ({ handleDark, handleSelector }) => {

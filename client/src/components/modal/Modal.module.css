@@ -78,3 +78,13 @@
     visibility: visible;
     animation: modal-in 1s;
 }
+
+@media (max-width:600px){
+    .modal{
+        /* background-color: red; */
+        margin-top: 50px;
+        width: 90%;
+
+    }
+   
+}

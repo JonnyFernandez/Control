@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Nav, Card, Paginado, Modal } from '../../components'
+import { Nav, Card, Paginado, Modal, Like } from '../../components'
 import h from './Home.module.css'
 import Swal from 'sweetalert2';
 import { useDispatch, useSelector } from 'react-redux'
@@ -47,7 +47,14 @@ const Home = () => {
 
 
 
-    const handleSelector = (data) => {
+    const handleSelector = async (data) => {
+        // try {
+        //     const prodData = await apiGetProd();
+        //     dispatch(getProd(prodData.data));
+        // } catch (error) {
+        //     console.log(error);
+        // }
+
         if (data === '' || null || undefined) {
             setshowCart(false);
             setshowLikes(false);
@@ -55,12 +62,13 @@ const Home = () => {
             setshowPurchase(false)
             setshowProfile(false)
         }
-
         setshowCart(data === 'cart');
         setshowLikes(data === 'likes');
         setshowFilters(data === 'filters');
         setshowPurchase(data === 'purchase')
         setshowProfile(data === 'profile')
+
+
     };
 
 
@@ -82,7 +90,7 @@ const Home = () => {
         if (cardsShowed.length >= 1) {
             return cardsShowed.map(item => (
                 <div key={item.id}>
-                    <Card id={item.id} name={item.name} price={item.price} image={item.image} />
+                    <Card id={item.id} name={item.name} price={item.price} image={item.image} status={item.status} />
                 </div>
             ));
         } else {
@@ -138,7 +146,7 @@ const Home = () => {
 
                     {renderProducts()}
                     <Modal isOpen={showCart} toggleOpen={handleSelector} children={<h1>Carrito</h1>} />
-                    <Modal isOpen={showLikes} toggleOpen={handleSelector} children={<h1>Likes</h1>} />
+                    <Modal isOpen={showLikes} toggleOpen={handleSelector} children={<Like />} />
                     <Modal isOpen={showFilters} toggleOpen={handleSelector} children={<h1>Filtros</h1>} />
                     <Modal isOpen={showPurchase} toggleOpen={handleSelector} children={<h1>compras</h1>} />
                     <Modal isOpen={showProfile} toggleOpen={handleSelector} children={<h1>Profile</h1>} />
