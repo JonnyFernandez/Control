@@ -9,12 +9,6 @@ module.exports = {
         const like = await Like.create({ like: userId })
         await like.setProduct(prod)
         return "Like successfully"
-
-
-
-
-
-
     },
     removeLikeFromProduct: async (prodId, userId) => {
         const prod = await Product.findByPk(prodId);

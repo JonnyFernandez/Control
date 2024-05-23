@@ -1,0 +1,65 @@
+.cartSlice {
+    position: fixed;
+    top: 0;
+    right: -300px; /* inicialmente fuera de la pantalla */
+    width: 300px;
+    height: 100%;
+    background-color: #ff8000;
+    transition: right 0.3s ease-in-out; /* animación de deslizamiento */
+  }
+  
+  .cartSlice.open {
+    right: 0; /* muestra el carrito al deslizar a la derecha */
+  }
+  
+  .toggleButton {
+    position: fixed;
+    top: 5%;
+    right: 0;
+    transform: translateY(-50%);
+  }
+  
+  .content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+ }
+ 
+ .content h2{
+    margin-top: 50px;
+ }   
+ .items{
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    height: 420px;
+    overflow: auto;
+    /* background-color: red; */
+} 
+.footer{
+    width: 300px;
+    height: 100px;
+    /* background-color: aliceblue; */
+}
+.total{
+    display: flex;
+    justify-content: end;
+    margin-right: 20px;
+}    
+.buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.footer p{
+    background-color: red;
+    margin-top: 30px;
+}
+
+@media (min-width:600px){
+    .items{
+        height: 500px;
+    }
+}

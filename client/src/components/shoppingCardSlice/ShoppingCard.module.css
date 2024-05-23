@@ -1,0 +1,99 @@
+.shoppingCard{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 110px;
+    background-color: #fff0eb;
+    padding: 5px;
+    position: relative;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.786);
+    border-radius: 5px;
+}
+.imageContainer{
+    display: flex;
+    width: 30%;
+    height: 100%;
+    /* background-color: aqua; */
+}
+
+.infoContainer{
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    height: 100%;
+    background-color: #eee7ce;
+}
+.name{
+    display: flex;
+    width: 100%;
+    height: 30%;
+    /* background-color: blue; */
+    overflow: hidden;
+    color: #232323;
+}
+.price{
+    display: flex;
+    justify-content: start;
+    width: 100%;
+    height: 30%;
+    color: #232323;
+    overflow: hidden;
+}
+p{
+    margin-left: 10px;
+}
+.quantyAndDelete{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 40%;
+    color: #232323;
+}
+.quantyDiv{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+.less, .more{
+    cursor: pointer;
+    /* background-color: #47C7FC; */
+    width: 20px;
+    /* border: 1px solid black; */
+
+}
+.deleteDiv{
+    width: 50%;
+    height: 100%;
+    /* background-color: rgb(42, 110, 165); */
+    padding: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.deleteItem{
+    cursor: pointer;
+    font-size:small;
+}
+.deleteItem:hover{
+    color: red;
+}  
+
+
+
+
+span{
+    position: absolute;
+    bottom: 0;
+    left: 10px;
+    color: #232323;
+    background-color: #47C7FC;
+    /* padding: 2px; */
+    width: auto;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.786);
+
+}

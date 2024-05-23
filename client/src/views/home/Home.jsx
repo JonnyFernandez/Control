@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Nav, Card, Paginado, Modal, Like } from '../../components'
+import { Nav, Card, Paginado, Modal, Like, CartSlice } from '../../components'
 import h from './Home.module.css'
 import Swal from 'sweetalert2';
 import { useDispatch, useSelector } from 'react-redux'
@@ -48,12 +48,7 @@ const Home = () => {
 
 
     const handleSelector = async (data) => {
-        // try {
-        //     const prodData = await apiGetProd();
-        //     dispatch(getProd(prodData.data));
-        // } catch (error) {
-        //     console.log(error);
-        // }
+
 
         if (data === '' || null || undefined) {
             setshowCart(false);
@@ -145,7 +140,7 @@ const Home = () => {
                 <div className={h.content}>
 
                     {renderProducts()}
-                    <Modal isOpen={showCart} toggleOpen={handleSelector} children={<h1>Carrito</h1>} />
+                    {<CartSlice />}
                     <Modal isOpen={showLikes} toggleOpen={handleSelector} children={<Like />} />
                     <Modal isOpen={showFilters} toggleOpen={handleSelector} children={<h1>Filtros</h1>} />
                     <Modal isOpen={showPurchase} toggleOpen={handleSelector} children={<h1>compras</h1>} />
