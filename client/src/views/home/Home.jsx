@@ -34,6 +34,23 @@ const Home = () => {
         fetchData();
     }, [dispatch]);
 
+    // const refresHome = async () => {
+    //     try {
+    //         const prodData = await apiGetProd();
+    //         dispatch(getProd(prodData.data));
+    //     } catch (error) {
+    //         console.error('Error fetching user data:', error);
+    //         if (error.message) {
+    //             Swal.fire({
+    //                 icon: 'error',
+    //                 title: 'Error de conexión',
+    //                 text: 'Servidor desconectado. Por favor, contacta al soporte técnico.',
+    //                 footer: 'soporte tecnico "arcancode@gmail.com"',
+    //             });
+    //         }
+    //     }
+    // }
+
     const { product, currentPage } = useSelector(state => state.prod)
     const filteredProd = product.filter(item => item.status === true);
 
@@ -85,7 +102,7 @@ const Home = () => {
         if (cardsShowed.length >= 1) {
             return cardsShowed.map(item => (
                 <div key={item.id}>
-                    <Card id={item.id} name={item.name} price={item.price} image={item.image} status={item.status} />
+                    <Card id={item.id} name={item.name} price={item.price} image={item.image} stock={item.stock} />
                 </div>
             ));
         } else {

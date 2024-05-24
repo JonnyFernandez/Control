@@ -5,7 +5,8 @@ const initialState = {
     backup: [],
     currentPage: 1,
     favorites: [],
-    shoppingCart: []
+    shoppingCart: [],
+
 }
 
 
@@ -49,17 +50,13 @@ const prodSlice = createSlice({
         setCartItems: (state, action) => {
             state.shoppingCart = action.payload
         },
+        cleanCart: (state, action) => {
+            state.shoppingCart = []
 
-
-
-
-
-
-
-
+        }
     }
 })
 
 
-export const { getProd, setCurrentPage, setPrevPage, setNextPage, searchCategory, addFav, removeFav, addCart, removeCard, setFavItems, setCartItems } = prodSlice.actions
+export const { getProd, setCurrentPage, setPrevPage, setNextPage, searchCategory, addFav, removeFav, addCart, removeCard, setFavItems, setCartItems, cleanCart } = prodSlice.actions
 export default prodSlice.reducer

@@ -88,12 +88,8 @@ p{
 
 span{
     position: absolute;
-    bottom: 0;
-    left: 10px;
-    color: #232323;
-    background-color: #47C7FC;
-    /* padding: 2px; */
-    width: auto;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.786);
-
+    margin-top: 40px; 
+    color: #232323f4;
+    background-color: rgba(255, 255, 0, 0.61);
+    padding: 3px;
 }

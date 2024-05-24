@@ -1,11 +1,22 @@
 import { useState } from 'react';
 import style from './ShoppingCard.module.css';
+import { removeCard } from '../../redux/prodSlice';
+import { useDispatch } from 'react-redux';
+
 
 const ShoppingCard = (props) => {
+    const dispatch = useDispatch()
+    const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
     const { id, name, image, price, stock } = props
     const [quanty, setQuanty] = useState(1);
 
-    const deleteIntem = () => alert('borrando item')
+    const deleteIntem = () => {
+        dispatch(removeCard(id))
+        const updatedCart = storedCart.filter(item => item.id !== id)
+        localStorage.setItem('cart', JSON.stringify(updatedCart));
+    }
+
+
 
     return (
         <div className={style.shoppingCard}>
@@ -20,7 +31,7 @@ const ShoppingCard = (props) => {
                 </div>
 
                 <div className={style.price}>
-                    <p>Precio: ${price}</p>
+                    <p>Precio: ${Number(price).toLocaleString('es-ES')}</p>
                 </div>
 
                 <div className={style.quantyAndDelete}>
@@ -35,7 +46,7 @@ const ShoppingCard = (props) => {
                     </div>
                 </div>
 
-                <span>stock:{stock}</span>
+                <span>Stock: {stock}</span>
             </div>
 
         </div>

@@ -5,10 +5,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addFav, removeFav, addCart, removeCard } from "../../redux/prodSlice";
 import { api_Like, api_DisLike } from "../../api/prod";
 
-// import { addToCart } from '../../redux/slices/productsData';
+
 
 const Card = (products) => {
-    const { id, name, price, image, status } = products;
+    const { id, name, price, image, stock } = products;
 
     const [autorized, setAutorized] = useState(true)
     const data = { prodId: id }
@@ -72,7 +72,7 @@ const Card = (products) => {
 
         } else {
             setCart(true)
-            dispatch(addCart(products))
+            dispatch(addCart({ id, name, price, image, stock, quanty: 1 }))
         }
 
         const updatedCart = cart

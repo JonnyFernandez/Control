@@ -14,7 +14,7 @@
   
   .toggleButton {
     position: fixed;
-    top: 5%;
+    top: 12%;
     right: 0;
     transform: translateY(-50%);
   }

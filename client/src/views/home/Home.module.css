@@ -25,11 +25,11 @@
   position: fixed;
   top: 2px;
   background-color: var(--whiteSecondColor);
-  transition: 0.2s;
+  transition: 0.02s;
 }
 .headerDark{
   background-color: var(--darkPrimaryColorBg);
-  transition: 0.2s;
+  transition: 0.02s;
 }
   
 
@@ -53,12 +53,12 @@
   margin-top: 75px; /* Mover cuerpo hacia abajo para evitar solapamiento con la barra fija */
   overflow: hidden;
   background-color: var(--whiteSecondColor);
-  transition: 0.2s;
+  transition: 0.02s;
 
 }
 .darkBody{
   background-color: var(--darkSecondColorBg);
-  transition: 0.2s;
+  transition: 0.02s;
 }
 .botonera{
   display: flex;
