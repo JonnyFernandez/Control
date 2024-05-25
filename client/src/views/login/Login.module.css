@@ -89,19 +89,16 @@ label {
     grid-template-areas: "input";
 }
 
-span {
+.spanLogin {
     position: absolute; /* Posición absoluta para el span */
     top: 50%; /* Lo posicionamos en la mitad vertical */
     left: 1.5rem; /* Ajustamos la distancia desde el borde izquierdo */
-    transform: translateY(-50%); /* Lo centramos verticalmente */
+    transform: translateY(-210%);
     transition: transform 0.3s ease-in-out; /* Añadimos una transición */
+    /* background-color: red; */
 }
 
-input:focus + span,
-input:not(:placeholder-shown) + span {
-    top: 0; /* Movemos el span hacia arriba cuando el input está enfocado o tiene contenido */
-    transform: translateY(-150%); /* También podemos ajustar la posición vertical */
-}
+
 
 .footer{
     display: flex;

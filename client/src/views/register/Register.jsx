@@ -38,18 +38,18 @@ const Register = () => {
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <label htmlFor="">
                             <input type="name"  {...register('username', { required: true })} />
-                            <span>Ingresar Nombre</span>
+                            <p className={style.spanRegister}>Ingresar Nombre</p>
                         </label>
                         {errors.username && <p className={style.errorStr}>Nombre requerido</p>}
                         <label htmlFor="">
                             <input type="email"  {...register('email', { required: true })} />
-                            <span>Ingresar Email</span>
+                            <p className={style.spanRegister}>Ingresar Email</p>
                         </label>
                         {errors.email && <p className={style.errorStr}>Email requerido</p>}
 
                         <label htmlFor="">
                             <input type="password"  {...register('password', { required: true })} />
-                            <span>Ingresar Contraseña</span>
+                            <p className={style.spanRegister}>Ingresar Contraseña</p>
                         </label>
                         {errors.password && <p className={style.errorStr}>Contraseña requerida</p>}
                         <button type='submit' className={style.enviar}>Enviar</button>

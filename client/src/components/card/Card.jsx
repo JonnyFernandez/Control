@@ -4,10 +4,12 @@ import style from './Card.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { addFav, removeFav, addCart, removeCard } from "../../redux/prodSlice";
 import { api_Like, api_DisLike } from "../../api/prod";
-
+import { useAuth } from '../../context/AuthContext'
+import Swal from 'sweetalert2'
 
 
 const Card = (products) => {
+    const { isAuthenticated } = useAuth()
     const { id, name, price, image, stock } = products;
 
     const [autorized, setAutorized] = useState(true)
@@ -47,6 +49,23 @@ const Card = (products) => {
 
 
     const handleFav = async () => {
+        if (!isAuthenticated) {
+            Swal.fire({
+                title: 'Debes estar registrado',
+                text: 'Debes estar registrado para operar en la plataforma.',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ir al inicio de sesión'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Redirige al usuario al inicio de sesión
+                    window.location.href = '/login';
+                }
+            });
+            return; // Termina la ejecución de la función si no está autenticado
+        }
         if (fav) {
             setFav(false)
             dispatch(removeFav(id))
@@ -61,11 +80,28 @@ const Card = (products) => {
         const updatedFav = fav
             ? storedFav.filter(item => item.id !== id)
             : [...storedFav, products];
-
         localStorage.setItem('fav', JSON.stringify(updatedFav));
     };
 
+
     const handleCart = () => {
+        if (!isAuthenticated) {
+            Swal.fire({
+                title: 'Debes estar registrado',
+                text: 'Debes estar registrado para operar en la plataforma.',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ir al inicio de sesión'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Redirige al usuario al inicio de sesión
+                    window.location.href = '/login';
+                }
+            });
+            return; // Termina la ejecución de la función si no está autenticado
+        }
         if (cart) {
             setCart(false)
             dispatch(removeCard(id))

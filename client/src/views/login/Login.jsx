@@ -40,12 +40,12 @@ const Login = () => {
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <label htmlFor="">
                             <input type="email"  {...register('email', { required: true })} />
-                            <span>Ingresar Email</span>
+                            <p className={p.spanLogin}>Ingresar Email</p>
                         </label>
                         {errors.email && <p className={p.errorStr}>Email requerido</p>}
                         <label htmlFor="">
                             <input type="password"   {...register('password', { required: true })} />
-                            <span>Ingresar Contraseña</span>
+                            <p className={p.spanLogin}>Ingresar Contraseña</p>
                         </label>
                         {errors.password && <p className={p.errorStr}>Contraseña requerida</p>}
                         <button type='submit' className={p.enviar}>Enviar</button>
