@@ -3,29 +3,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setDarkMode } from '../../redux/darkmodeSlice';
 import { getProd } from '../../redux/prodSlice';
 import n from './Nav.module.css';
-// import Like from '../like/Like';
 import { apiGetProd, apiGetProdByName } from '../../api/prod';
 
-const Nav = ({ handleDark, handleSelector }) => {
+const Nav = ({ handleSelector }) => {
     const dispatch = useDispatch();
     const dark = useSelector(state => state.dark.dark);
     const [search, setSearch] = useState('');
 
-
-    useEffect(() => {
-        const localMode = JSON.parse(localStorage.getItem('darkMode')) || false;
-        if (localMode !== dark) {
-            dispatch(setDarkMode(localMode));
-            handleDark(localMode);
-        }
-    }, [dark, dispatch, handleDark]);
-
     const darkmode = useCallback(() => {
-        const newDarkMode = !dark;
-        dispatch(setDarkMode(newDarkMode));
-        localStorage.setItem('darkMode', JSON.stringify(newDarkMode));
-        handleDark(newDarkMode);
-    }, [dark, dispatch, handleDark]);
+        dispatch(setDarkMode(!dark));
+    }, [dark, dispatch]);
 
     const resetProd = async () => {
         try {

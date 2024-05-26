@@ -7,4 +7,5 @@ import Like from "./like/Like";
 import CartSlice from "./cartSlice/CartSlice";
 
 
+
 export { Nav, Sidebar1, Card, Paginado, Modal, Like, CartSlice }

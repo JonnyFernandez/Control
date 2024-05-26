@@ -5,15 +5,35 @@ import { useSelector, useDispatch } from 'react-redux';
 import { cleanCart } from '../../redux/prodSlice';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom'
+import { useAuth } from '../../context/AuthContext';
 
 
 const CartSlice = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const { isAuthenticated } = useAuth()
+
     const [isOpen, setIsOpen] = useState(false);
     const cart = useSelector(state => state.prod.shoppingCart)
 
     const toggleCart = () => {
+        if (!isAuthenticated) {
+            Swal.fire({
+                title: 'Debes estar registrado',
+                text: 'Debes estar registrado para comprar en la plataforma.',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ir al inicio de sesión'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Redirige al usuario al inicio de sesión
+                    window.location.href = '/login';
+                }
+            });
+            return; // Termina la ejecución de la función si no está autenticado
+        }
         setIsOpen(!isOpen);
     };
 
