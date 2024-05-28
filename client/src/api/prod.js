@@ -8,5 +8,6 @@ export const api_DisLike = async (id) => await axios.delete(`/like/${id}`); //di
 
 
 export const api_prod_details = async (id) => await axios(`/prod/${id}`); //get by id
-export const api_post_review = async (data) => await axios.post(`/review/`, data); //get by id
+export const api_post_review = async (data) => await axios.post(`/review/`, data); //crear comentaria
 
+export const api_post_cart = async (data) => await axios.post(`/cart/`, data); //hacer una compra

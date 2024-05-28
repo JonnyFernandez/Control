@@ -3,23 +3,34 @@ import { useParams, NavLink } from "react-router-dom";
 import { postDetails } from '../../redux/prodSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { api_prod_details, api_post_review } from '../../api/prod';
+import { api_prod_details, api_post_review, api_post_cart } from '../../api/prod';
 import Swal from 'sweetalert2';
 import { useForm } from 'react-hook-form';
+import { useAuth } from '../../context/AuthContext';
 
 const Details = () => {
-    const dispatch = useDispatch();
     const { id } = useParams();
+
+    const dispatch = useDispatch();
+    const { register, handleSubmit, reset } = useForm();
+    const { isAuthenticated } = useAuth()
     const [quantityOptions, setQuantityOptions] = useState([]);
     const [openComments, setOpenComments] = useState(false);
     const [commentInputOpen, setCommentInputOpen] = useState(false);
-    const { register, handleSubmit, reset } = useForm();
+    const [data, setData] = useState();
+
+
     const details = useSelector(state => state.prod.details);
     const uniqueLikes = new Set(details.likes?.map(like => like.like));
     const numUniqueLikes = uniqueLikes.size > 0 ? uniqueLikes.size : '';
     const prodComment = details.reviews?.length || ''
-    // console.log(prodComment);
 
+    const handleQuantity = (event) => {
+        const { value } = event.target
+        setData(
+            value
+        )
+    }
 
     useEffect(() => {
         const fetchData = async () => {
@@ -37,6 +48,7 @@ const Details = () => {
     }, [dispatch, id, commentInputOpen]);
 
     const handleCommentToggle = () => {
+
         if (details.reviews.length === 0) {
             Swal.fire({
                 title: 'Este producto aún no tiene comentarios',
@@ -56,10 +68,44 @@ const Details = () => {
     };
 
     const handleCommentInputChange = () => {
+        if (!isAuthenticated) {
+            Swal.fire({
+                title: 'Debes estar registrado',
+                text: 'Debes estar registrado para comprar en la plataforma.',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ir al inicio de sesión'
+            }).then((result) => {
+                if (result.isConfirmed) {
+
+                    window.location.href = '/login';
+                }
+            });
+            return;
+        }
         setCommentInputOpen(prev => !prev);
     };
 
     const onSubmit = async (values) => {
+        if (!isAuthenticated) {
+            Swal.fire({
+                title: 'Debes estar registrado',
+                text: 'Debes estar registrado para comprar en la plataforma.',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ir al inicio de sesión'
+            }).then((result) => {
+                if (result.isConfirmed) {
+
+                    window.location.href = '/login';
+                }
+            });
+            return;
+        }
         // Mostrar SweetAlert para confirmar
         Swal.fire({
             title: '¿Estás seguro?',
@@ -86,6 +132,54 @@ const Details = () => {
             }
         });
     };
+
+    const handleBuy = async () => {
+        // if (!isAuthenticated) {
+        //     Swal.fire({
+        //         title: 'Debes estar registrado',
+        //         text: 'Debes estar registrado para comprar en la plataforma.',
+        //         icon: 'warning',
+        //         showCancelButton: true,
+        //         confirmButtonColor: '#3085d6',
+        //         cancelButtonColor: '#d33',
+        //         confirmButtonText: 'Ir al inicio de sesión'
+        //     }).then((result) => {
+        //         if (result.isConfirmed) {
+
+        //             window.location.href = '/login';
+        //         }
+        //     });
+        //     return;
+        // }
+        if (!data || data === 0) {
+            Swal.fire({
+                title: 'Ingresar Cantidad',
+                text: 'Debes ingresar la cantidad que deseas de este producto.',
+                icon: 'warning',
+            })
+            return;
+        }
+        let info = { items: [{ id: id, count: data }] }
+        try {
+
+            let aux = await api_post_cart(info)
+
+        } catch (error) {
+
+            console.log(error.response.status);
+            if (error.response.status === 401) {
+                Swal.fire({
+                    // icon: 'error',
+                    title: 'Error de autenticación',
+                    text: 'Debe iniciar sesión con su nombre de usuario y contraseña.',
+                    footer: 'Contacte a soporte técnico: arcancode@gmail.com',
+                });
+            }
+        }
+    };
+
+
+
 
     return (
         <div className={z.Details}>
@@ -134,7 +228,7 @@ const Details = () => {
                             <div className={z.divInside}>Stock: {details.stock}</div>
                             <div className={z.divQuanty}>
                                 <div>Cantidad:</div>
-                                <select name="quantity" id="quantity">
+                                <select name="quantity" id="quantity" onChange={handleQuantity}>
                                     <option value="">Cantidad</option>
                                     {quantityOptions.map(option => (
                                         <option key={option} value={option}>{option}</option>
@@ -142,8 +236,8 @@ const Details = () => {
                                 </select>
                             </div>
                         </div>
-                        <button className={z.addToCart}>Agregar al carrito</button>
-                        <button className={z.comprar}>Comprar ahora</button>
+                        {/* <button className={z.addToCart}>Agregar al carrito</button> */}
+                        <button className={z.comprar} onClick={handleBuy}>Comprar ahora</button>
                     </div>
                 </div>
             </div>

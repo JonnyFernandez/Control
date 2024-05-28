@@ -119,27 +119,9 @@ const Card = (products) => {
     }
 
 
-    const handleBuy = () => {
-        if (!isAuthenticated) {
-            Swal.fire({
-                title: 'Debes estar registrado',
-                text: 'Debes estar registrado para comprar en la plataforma.',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Ir al inicio de sesión'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // Redirige al usuario al inicio de sesión
-                    window.location.href = '/login';
-                }
-            });
-            return; // Termina la ejecución de la función si no está autenticado
-        }
 
 
-    }
+
 
 
 
@@ -172,7 +154,7 @@ const Card = (products) => {
                     </button>}
 
                     <NavLink to={`/detail/${id}`} className={style.buy}>
-                        <button className={`${style.buttonCard} ${style.addEffect}`} onClick={handleBuy} >
+                        <button className={`${style.buttonCard} ${style.addEffect}`}  >
                             Comprar
                         </button>
                     </NavLink>
