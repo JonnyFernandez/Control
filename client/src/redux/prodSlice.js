@@ -6,6 +6,8 @@ const initialState = {
     currentPage: 1,
     favorites: [],
     shoppingCart: [],
+    details: {},
+    categories: []
 
 }
 
@@ -52,11 +54,19 @@ const prodSlice = createSlice({
         },
         cleanCart: (state, action) => {
             state.shoppingCart = []
+        },
+        postDetails: (state, action) => {
+
+            state.details = action.payload;
+
 
         }
+
+
+
     }
 })
 
 
-export const { getProd, setCurrentPage, setPrevPage, setNextPage, searchCategory, addFav, removeFav, addCart, removeCard, setFavItems, setCartItems, cleanCart } = prodSlice.actions
+export const { getProd, setCurrentPage, setPrevPage, setNextPage, searchCategory, addFav, removeFav, addCart, removeCard, setFavItems, setCartItems, cleanCart, postDetails } = prodSlice.actions
 export default prodSlice.reducer
