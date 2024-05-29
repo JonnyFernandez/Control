@@ -82,7 +82,7 @@ module.exports = (sequelize) => {
       type: DataTypes.DECIMAL(10, 2),
 
       get() {
-        return parseFloat(this.cost) * (1 + parseFloat(this.iva) + parseFloat(this.iibb) + parseFloat(this.others) + parseFloat(this.gain) - parseFloat(this.off))
+        return parseFloat(this.cost) * (1 + parseFloat(this.iva) + parseFloat(this.iibb) + parseFloat(this.others) + parseFloat(this.gain))
       },
 
     },

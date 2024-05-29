@@ -43,9 +43,12 @@ module.exports = {
           status: item.status && item.stock >= 1 ? true : false,
           code: item.code,
           stock: item.stock,
-          price: Number(item.price).toFixed(2),
+
+          price: (parseFloat(item.price) * (1 - parseFloat(item.off))).toFixed(2),
+          realPrice: (parseFloat(item.price)).toFixed(2),
+          discount: item.off > 0 ? parseFloat(item.price * item.off).toFixed(2) : 0,
+
           off: item.off,
-          discount: item.off > 0 ? Number(item.cost * item.off).toFixed(2) : 0,
           category: item.category,
           user: item.user,
           iva: item.iva,
@@ -71,8 +74,7 @@ module.exports = {
           },
         ],
       });
-      // console.log(aux);
-      // return aux
+
 
       return aux.map(item => {
 
@@ -87,10 +89,12 @@ module.exports = {
           status: item.status && item.stock >= 1 ? true : false,
           code: item.code,
           stock: parseFloat(item.stock),
-          price: Number(item.price).toFixed(2),
+
+          price: (parseFloat(item.price) * (1 - parseFloat(item.off))).toFixed(2),
+          realPrice: (parseFloat(item.price)).toFixed(2),
+          discount: item.off > 0 ? parseFloat(item.price * item.off).toFixed(2) : 0,
+
           off: parseFloat(item.off),
-          discount: item.off > 0 ? parseFloat(item.cost * item.off) : 0,
-          realPrice: (parseFloat(item.price) + parseFloat(item.cost * item.off)).toFixed(2),
           category: item.category,
           user: item.user,
           iva: parseFloat(item.iva),
@@ -105,8 +109,6 @@ module.exports = {
 
     }
   },
-
-
 
   update: async (id, name, image, description, brand, distributor, stock, cost, off, category, iva, iibb, others, gain, user) => {
     const userDB = await User.findByPk(user)
@@ -143,7 +145,6 @@ module.exports = {
     return Prod.status ? `Codigo ${Prod.code} Activado` : `Codigo ${Prod.code} Pausado`
 
   },
-
 
   UpdateByCategory: async (off, category) => {
     const res = await Product.update({ off: off }, {
@@ -202,10 +203,12 @@ module.exports = {
       status: aux.status && aux.stock >= 1 ? true : false,
       code: aux.code,
       stock: parseFloat(aux.stock),
-      price: Number(aux.price).toFixed(2),
+
+      price: (parseFloat(aux.price) * (1 - parseFloat(aux.off))).toFixed(2),
+      realPrice: (parseFloat(aux.price)).toFixed(2),
+      discount: aux.off > 0 ? parseFloat(aux.price * aux.off).toFixed(2) : 0,
+
       off: parseFloat(aux.off),
-      discount: aux.off > 0 ? parseFloat(aux.cost * aux.off) : 0,
-      realPrice: (parseFloat(aux.price) + parseFloat(aux.cost * aux.off)).toFixed(2),
       category: aux.category,
       user: aux.user,
       iva: parseFloat(aux.iva),

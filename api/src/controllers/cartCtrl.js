@@ -33,7 +33,7 @@ module.exports = {
         for (let i = 0; i < items.length; i++) {
             const product = await Product.findByPk(items[i].id);
             const cantidad = items[i].count;
-            arr.push({ name: product.name, code: product.code, price: product.price, count: cantidad })
+            arr.push({ name: product.name, code: product.code, price: product.off > 0 ? product.price * (1 - product.off) : product.price, count: cantidad })
         }
 
         // Construir la cadena HTML para los detalles de los productos y calcular el monto total de la compra
@@ -135,11 +135,14 @@ module.exports = {
                         code: item.code,
                         name: item.name,
                         quantity: item.CartItem.cantidad,
-                        price: parseFloat(item.price),
-                        discount: parseFloat(item.cost * item.off) * item.CartItem.cantidad,
-                        realPrice: parseFloat(item.price) + parseFloat(item.cost * item.off),
+
+                        price: (parseFloat(item.price * (1 - item.off))).toFixed(2),
+                        realPrice: parseFloat(item.price).toFixed(2),
+                        discount: parseFloat(item.price * (item.off) * item.CartItem.cantidad),
+                        off: parseFloat(item.off),
+
                         image: item.image,
-                        Subtotal: item.CartItem.cantidad * (parseFloat(item.price)),
+                        Subtotal: item.CartItem.cantidad * (parseFloat(item.price * (1 - item.off))).toFixed(2),
                     }
                 }),
             }
@@ -171,21 +174,27 @@ module.exports = {
 
         })
         if (!aux) throw new Error(`CodeCart: ${code}, non-existent`)
+        // return aux
         return {
             id: aux.id,
             code: aux.code,
             date: aux.createdAt,
             userCart: aux.user,
+
+
             products: aux.Products.map(item => {
                 return {
                     code: item.code,
                     name: item.name,
                     quantity: item.CartItem.cantidad,
-                    price: parseFloat(item.price),
-                    discount: parseFloat(item.cost * item.off) * item.CartItem.cantidad,
-                    realPrice: parseFloat(item.price) + parseFloat(item.cost * item.off),
+
+                    price: (parseFloat(item.price * (1 - item.off))).toFixed(2),
+                    realPrice: parseFloat(item.price).toFixed(2),
+                    discount: parseFloat(item.price * (item.off) * item.CartItem.cantidad),
+                    off: parseFloat(item.off),
+
                     image: item.image,
-                    Subtotal: item.CartItem.cantidad * (parseFloat(item.price)),
+                    Subtotal: item.CartItem.cantidad * (parseFloat(item.price * (1 - item.off))).toFixed(2),
                 }
             }),
         }

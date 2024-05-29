@@ -33,7 +33,7 @@ let capsEntries = entries.map((entry) => [
 sequelize.models = Object.fromEntries(capsEntries);
 
 const { User, Review, Product, ShoppingCart, Like } = sequelize.models;
-console.log(sequelize.models);
+// console.log(sequelize.models);
 
 ShoppingCart.belongsToMany(Product, { through: "CartItem" })
 Product.belongsToMany(ShoppingCart, { through: "CartItem" })

@@ -80,7 +80,7 @@ module.exports = {
     const isMatch = await bcrypt.compare(password, userFound.password);
     if (!isMatch) throw new Error("Password incorrect");
 
-    console.log(userFound);
+    // console.log(userFound);
 
     return {
       id: userFound.id,
