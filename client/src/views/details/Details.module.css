@@ -4,8 +4,9 @@
     width: 100%;
     height: 100vh;
     font-family: 'Roboto', sans-serif;
-    background-image: url("https://i.pinimg.com/564x/4b/c7/d2/4bc7d20b823cee31158a6fa6450b9cfb.jpg");
-    background-size: cover;
+    /* background-image: url("https://i.pinimg.com/564x/4b/c7/d2/4bc7d20b823cee31158a6fa6450b9cfb.jpg");
+    background-size: cover; */
+    background-color: #fffcf6;
 }
 
 .header{
@@ -15,17 +16,34 @@
     align-items: center;
     width: 100%;
     height: 80px;
-    background-color: #fff0eb07;
+    background-color: #064439;
     box-shadow: 0px 0px 15px black;
     margin-bottom: 10px;
+    color: #fffcf6;
 }
 
+.imageIcon{
+    height: 100%;
+    width: 4%;
+    margin-left: 20px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.imageIcon img {
+    width: 100%; /* Ajustar el ancho de la imagen al 100% del contenedor */
+    height: auto; /* Mantener la relación de aspecto */
+    object-fit: cover; /* Ajustar la imagen dentro del contenedor manteniendo la relación de aspecto y recortando según sea necesario */
+    cursor: pointer;
+}
 .body{
     display: flex;
     flex-direction: column;    
+    background-color: #fffcf6;
 
-    background-image: url("https://i.pinimg.com/564x/4b/c7/d2/4bc7d20b823cee31158a6fa6450b9cfb.jpg");
-    background-size: cover;
+    /* background-image: url("https://i.pinimg.com/564x/4b/c7/d2/4bc7d20b823cee31158a6fa6450b9cfb.jpg");
+    background-size: cover; */
 }
 
 .prodContainer{
@@ -161,28 +179,76 @@
     border-radius: 15px;
     background-color: white;
 }
-.divInside{
+.Inside{
     border-bottom: 1px solid rgba(0, 0, 0, 0.571);
 }
 .divQuanty{
     display: flex;
     flex-direction: row;
     width: 100%;
+  
+} 
+.total{
     /* background-color: red; */
-}  
+    display: flex;
+    justify-content: center;
+    font-weight: 700;
+    border-bottom: 1px solid black;
+
+} 
 select{
     /* background-color: red; */
     margin-left: 10px;
     text-align: center;
 }  
-.reviews{
+.allReviews{
     width: 100%;
     height: 200px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    background-color: brown;
+    display: grid; 
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    padding: 0 10px;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+    overflow-x: hidden;  
+    background-color: #064439;
+    box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.736);
 }
+/* Comentarios de usuarios */
+/* Estilos para el contenedor de todos los comentarios */
+.allReviews {
+    margin-top: 20px;
+  }
+  
+  /* Estilos para cada comentario individual */
+  .userComment {
+    width: 300px;
+    height: 80px;
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #f7f7f7;
+    border: 1px solid #ddd;
+    overflow: auto;
+  }
+  
+  /* Estilos para el texto del comentario */
+  .userComment p {
+    margin: 0;
+  }
+  
+  /* Estilos para el texto del comentario */
+  .userComment .author {
+    font-weight: bold;
+    color: #333;
+  }
+  
+  /* Estilos para el texto del comentario */
+  .userComment .date {
+    font-size: 0.8em;
+    color: #888;
+  }
+  
 
 .similarProd{
     display: flex;
@@ -316,12 +382,12 @@ select{
     }
    
 }
-
+/* componente details */
 
 @media(max-width:600px){
     .header{
-        width: 360px;
-        background-color: red;
+        width: 100%;
+        /* background-color: red; */
     }
     .prodContainer{
         display: flex;
@@ -350,4 +416,39 @@ select{
         right: 50px; 
        
     }
+    .imageIcon{      
+        width: 10%;      
+    }
+    .allReviews{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .userComment {
+        margin-top: 20px;
+    }
+    .titleContainer{
+      width: 200px;
+      /* background-color: red; */
+      overflow: hidden; /* Para ocultar el desbordamiento del título */ 
+   
+    }
+    .title1 {
+        display: inline-block; /* Para que la animación funcione correctamente */
+    white-space: nowrap; /* Evita que el texto se divida en varias líneas */
+    animation: slide 5s linear infinite; /* Agrega una animación de desplazamiento horizontal */
+    }
+    
+    /* Definición de la animación */
+@keyframes slide {
+    0% {
+        transform: translateX(100%); /* Inicia fuera del contenedor */
+    }
+    100% {
+        transform: translateX(-100%); /* Se desplaza hacia la izquierda hasta que todo el título esté dentro del contenedor */
+    }
+}
+    
+    
+   
 } 

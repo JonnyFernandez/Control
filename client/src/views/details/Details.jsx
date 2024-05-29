@@ -18,6 +18,7 @@ const Details = () => {
     const [openComments, setOpenComments] = useState(false);
     const [commentInputOpen, setCommentInputOpen] = useState(false);
     const [data, setData] = useState();
+    const [update, setUpdate] = useState(0)
 
 
     const details = useSelector(state => state.prod.details);
@@ -45,7 +46,7 @@ const Details = () => {
         };
 
         fetchData();
-    }, [dispatch, id, commentInputOpen]);
+    }, [dispatch, id, commentInputOpen, update]);
 
     const handleCommentToggle = () => {
 
@@ -134,42 +135,50 @@ const Details = () => {
     };
 
     const handleBuy = async () => {
-        // if (!isAuthenticated) {
-        //     Swal.fire({
-        //         title: 'Debes estar registrado',
-        //         text: 'Debes estar registrado para comprar en la plataforma.',
-        //         icon: 'warning',
-        //         showCancelButton: true,
-        //         confirmButtonColor: '#3085d6',
-        //         cancelButtonColor: '#d33',
-        //         confirmButtonText: 'Ir al inicio de sesión'
-        //     }).then((result) => {
-        //         if (result.isConfirmed) {
-
-        //             window.location.href = '/login';
-        //         }
-        //     });
-        //     return;
-        // }
+        if (!isAuthenticated) {
+            Swal.fire({
+                title: 'Debes estar registrado',
+                text: 'Debes estar registrado para comprar en la plataforma.',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ir al inicio de sesión'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '/login';
+                }
+            });
+            return;
+        }
         if (!data || data === 0) {
             Swal.fire({
                 title: 'Ingresar Cantidad',
                 text: 'Debes ingresar la cantidad que deseas de este producto.',
                 icon: 'warning',
-            })
+            });
             return;
         }
-        let info = { items: [{ id: id, count: data }] }
+        let info = { items: [{ id: Number(id), count: Number(data) }] };
         try {
+            await api_post_cart(info);
+            setUpdate(prev => prev + 1);
 
-            let aux = await api_post_cart(info)
-
+            Swal.fire({
+                title: 'Compra Exitosa',
+                text: '¡Gracias por tu compra!',
+                icon: 'success',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Ir al inicio',
+            }).then((result) => {
+                if (result.isConfirmed || result.isDismissed) {
+                    window.location.href = '/home';
+                }
+            });
         } catch (error) {
-
-            console.log(error.response.status);
+            console.log(error.response.data);
             if (error.response.status === 401) {
                 Swal.fire({
-                    // icon: 'error',
                     title: 'Error de autenticación',
                     text: 'Debe iniciar sesión con su nombre de usuario y contraseña.',
                     footer: 'Contacte a soporte técnico: arcancode@gmail.com',
@@ -178,14 +187,28 @@ const Details = () => {
         }
     };
 
+    const priceProd = Number(details.price)
+    const quantityProd = Number(data)
+    const totalMount = priceProd * (quantityProd ? quantityProd : 1).toLocaleString('es-ES')
 
 
 
     return (
         <div className={z.Details}>
             <div className={z.header}>
-                <NavLink to={'/home'}>Back</NavLink>
-                <div>Logo</div>
+                <NavLink to={'/home'}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#fffcf6" className="bi bi-arrow-left-square" viewBox="0 0 16 16">
+                        <path fillRule="evenodd" d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm11.5 5.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z" />
+                    </svg>
+                </NavLink>
+                <div className={z.titleContainer}>
+
+                    <h2 className={z.title1}>{details.name}</h2>
+                </div>
+                {/* <h2>Compras</h2> */}
+                <div div className={z.imageIcon}>
+                    <img src="../../IconOrange.ico" alt="" />
+                </div>
             </div>
             <div className={z.body}>
                 <div className={z.prodContainer}>
@@ -220,12 +243,12 @@ const Details = () => {
                     </div>
                     <div className={z.right}>
                         <div className={z.infoProd}>
-                            <div className={z.divInside}>{details.description}</div>
-                            <div className={z.divInside}>Categoria: {details.category}</div>
-                            {details.off !== 0 && <div className={z.divInside}>Precio Real: ${Number(details.realPrice).toLocaleString('es-ES')}</div>}
-                            <div className={z.divInside}>Precio: ${Number(details.price).toLocaleString('es-ES')}</div>
-                            {details.off !== 0 && <div className={z.divInside}>Ahorros en cada unidad: ${details.discount}</div>}
-                            <div className={z.divInside}>Stock: {details.stock}</div>
+                            <h4 className={z.Inside}>{details.description}</h4>
+                            <div className={z.Inside}>Categoria: {details.category}</div>
+                            {details.off !== 0 && <div className={z.Inside}>Precio Real: ${Number(details.realPrice).toLocaleString('es-ES')}</div>}
+                            <div className={z.Inside}>Precio: ${Number(details.price)}</div>
+                            {details.off !== 0 && <div className={z.Inside}>Ahorros en cada unidad: ${details.discount}</div>}
+                            <div className={z.Inside}>Stock: {details.stock}</div>
                             <div className={z.divQuanty}>
                                 <div>Cantidad:</div>
                                 <select name="quantity" id="quantity" onChange={handleQuantity}>
@@ -235,6 +258,7 @@ const Details = () => {
                                     ))}
                                 </select>
                             </div>
+                            <div className={z.total}>Total: $ {totalMount.toLocaleString('es-ES')}</div>
                         </div>
                         {/* <button className={z.addToCart}>Agregar al carrito</button> */}
                         <button className={z.comprar} onClick={handleBuy}>Comprar ahora</button>
@@ -257,9 +281,13 @@ const Details = () => {
             </div>
             {
                 openComments && (
-                    <div className={z.reviews}>
+                    <div className={z.allReviews}>
                         {details.reviews.length > 0 ? (
-                            details.reviews.map((item, index) => <div key={index}>{item}</div>)
+                            details.reviews.map((item, index) =>
+                                <div className={z.userComment} key={index}>
+                                    <div className={z.author}>Usuario: </div>
+                                    <p>{item}</p>
+                                </div>)
                         ) : (
                             <div>Este producto aún no tiene comentarios</div>
                         )}
