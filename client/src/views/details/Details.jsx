@@ -1,6 +1,6 @@
 import z from './Details.module.css';
 import { useParams, NavLink } from "react-router-dom";
-import { postDetails } from '../../redux/prodSlice';
+import { postDetails, removeCard, addCart } from '../../redux/prodSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { api_prod_details, api_post_review, api_post_cart } from '../../api/prod';
@@ -14,17 +14,30 @@ const Details = () => {
     const dispatch = useDispatch();
     const { register, handleSubmit, reset } = useForm();
     const { isAuthenticated } = useAuth()
-    const [quantityOptions, setQuantityOptions] = useState([]);
-    const [openComments, setOpenComments] = useState(false);
-    const [commentInputOpen, setCommentInputOpen] = useState(false);
+
     const [data, setData] = useState();
+    const [cart, setCart] = useState(false)
     const [update, setUpdate] = useState(0)
+    const [openComments, setOpenComments] = useState(false);
+    const [quantityOptions, setQuantityOptions] = useState([]);
+    const [commentInputOpen, setCommentInputOpen] = useState(false);
 
 
-    const details = useSelector(state => state.prod.details);
+    const { details, shoppingCart } = useSelector(state => state.prod)
     const uniqueLikes = new Set(details.likes?.map(like => like.like));
     const numUniqueLikes = uniqueLikes.size > 0 ? uniqueLikes.size : '';
     const prodComment = details.reviews?.length || ''
+    const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    // console.log(shoppingCart);
+
+    useEffect(() => {
+        shoppingCart.forEach((item) => {
+            if (item.id === Number(id)) {
+                setCart(true);
+            }
+        });
+    }, [shoppingCart, dispatch]);
 
     const handleQuantity = (event) => {
         const { value } = event.target
@@ -187,6 +200,40 @@ const Details = () => {
         }
     };
 
+    const handleCart = () => {
+        if (!isAuthenticated) {
+            Swal.fire({
+                title: 'Debes estar registrado',
+                text: 'Debes estar registrado para operar en la plataforma.',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ir al inicio de sesión'
+            }).then((result) => {
+                if (result.isConfirmed) {
+
+                    window.location.href = '/login';
+                }
+            });
+            return;
+        }
+        if (cart) {
+            setCart(false)
+            dispatch(removeCard(Number(id)))
+
+        } else {
+            setCart(true)
+            dispatch(addCart({ id: details.id, name: details.name, price: details.price, image: details.image, stock: details.stock, }))
+        }
+
+        const updatedCart = cart
+            ? storedCart.filter(item => item.id !== Number(id))
+            : [...storedCart, { id: details.id, name: details.name, price: details.price, image: details.image, stock: details.stock, }];
+
+        localStorage.setItem('cart', JSON.stringify(updatedCart));
+    }
+
     const priceProd = Number(details.price)
     const quantityProd = Number(data)
     const totalMount = priceProd * (quantityProd ? quantityProd : 1).toLocaleString('es-ES')
@@ -202,10 +249,8 @@ const Details = () => {
                     </svg>
                 </NavLink>
                 <div className={z.titleContainer}>
-
                     <h2 className={z.title1}>{details.name}</h2>
                 </div>
-                {/* <h2>Compras</h2> */}
                 <div div className={z.imageIcon}>
                     <img src="../../IconOrange.ico" alt="" />
                 </div>
@@ -216,7 +261,6 @@ const Details = () => {
                         <img src={details.image || "https://i.pinimg.com/564x/c9/36/cd/c936cdc3b4004f05bf4f5cfa0a671524.jpg"} alt="" />
                         <div className={z.code}>Cod: {details.code}</div>
                         {details.off !== 0 && <div className={z.off}>Descuento: {details.off * 100}%</div>}
-
                         <div className={z.icons}>
                             <div className={z.likes}>
                                 <div ><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" className="bi bi-heart" viewBox="0 0 16 16">
@@ -224,29 +268,23 @@ const Details = () => {
                                 </svg></div>
                                 <div className={z.numberLike}>{numUniqueLikes}</div>
                             </div>
-
                             <div onClick={handleCommentInputChange} className={z.comment}>Comentar</div>
                             <div className={z.addComment} onClick={handleCommentToggle}>
-
                                 <div>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" className="bi bi-chat" viewBox="0 0 16 16">
                                         <path d="M2.678 11.894a1 1 0 0 1 .287.801 11 11 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8 8 0 0 0 8 14c3.996 0 7-2.807 7-6s-3.004-6-7-6-7 2.808-7 6c0 1.468.617 2.83 1.678 3.894m-.493 3.905a22 22 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a10 10 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9 9 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105" />
                                     </svg>
                                 </div>
                                 <div className={z.commentNumber}>{prodComment}</div>
-
                             </div>
                         </div>
-
-
-
                     </div>
                     <div className={z.right}>
                         <div className={z.infoProd}>
                             <h4 className={z.Inside}>{details.description}</h4>
                             <div className={z.Inside}>Categoria: {details.category}</div>
-                            {details.off !== 0 && <div className={z.Inside}>Precio Real: ${Number(details.realPrice).toLocaleString('es-ES')}</div>}
-                            <div className={z.Inside}>Precio: ${Number(details.price)}</div>
+                            {details.off !== 0 && <div className={z.InsideR}>Precio Real: ${Number(details.realPrice).toLocaleString('es-ES')}</div>}
+                            <div className={z.Inside}>Precio: ${Number(details.price).toLocaleString('es-ES')}</div>
                             {details.off !== 0 && <div className={z.Inside}>Ahorros en cada unidad: ${details.discount}</div>}
                             <div className={z.Inside}>Stock: {details.stock}</div>
                             <div className={z.divQuanty}>
@@ -260,7 +298,11 @@ const Details = () => {
                             </div>
                             <div className={z.total}>Total: $ {totalMount.toLocaleString('es-ES')}</div>
                         </div>
-                        {/* <button className={z.addToCart}>Agregar al carrito</button> */}
+                        {
+                            cart
+                                ? <button className={z.addToCart} onClick={handleCart}>Agregado al Carrito ☑️</button>
+                                : <button className={z.addToCart} onClick={handleCart}>Agregar al carrito</button>
+                        }
                         <button className={z.comprar} onClick={handleBuy}>Comprar ahora</button>
                     </div>
                 </div>
