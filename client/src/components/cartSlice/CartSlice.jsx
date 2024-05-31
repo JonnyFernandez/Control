@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './CartSlice.module.css';
 import ShoppingCard from '../shoppingCardSlice/ShoppingCard';
 import { useSelector, useDispatch } from 'react-redux';
-import { cleanCart } from '../../redux/prodSlice';
+import { cleanCart, priceFinal } from '../../redux/prodSlice';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext';
@@ -14,7 +14,13 @@ const CartSlice = () => {
     const { isAuthenticated } = useAuth()
 
     const [isOpen, setIsOpen] = useState(false);
-    const cart = useSelector(state => state.prod.shoppingCart)
+    const { shoppingCart, prodQuantity } = useSelector(state => state.prod)
+    const [refresh, setRefresh] = useState(true)
+
+    console.log(prodQuantity);
+    useEffect(() => {
+        dispatch(priceFinal())
+    }, [dispatch])
 
     const toggleCart = () => {
         if (!isAuthenticated) {
@@ -35,12 +41,14 @@ const CartSlice = () => {
             return; // Termina la ejecución de la función si no está autenticado
         }
         setIsOpen(!isOpen);
+        dispatch(priceFinal())
+        { isOpen && navigate('/login') }
     };
 
 
     const showCards = () => {
-        if (cart.length >= 1) {
-            return cart.map(item => (
+        if (shoppingCart.length >= 1) {
+            return shoppingCart.map(item => (
                 <div key={item.id}>
                     <ShoppingCard id={item.id} name={item.name} price={item.price} image={item.image} stock={item.stock} />
                 </div>
@@ -74,6 +82,17 @@ const CartSlice = () => {
             }
         });
     }
+
+    const total = () => {
+        let num = 0;
+        for (let i = 0; i < prodQuantity.length; i++) {
+            const product = shoppingCart.find(item => item.id === prodQuantity[i].id);
+            if (product) num += prodQuantity[i].count * product.price
+
+        }
+        return num
+    }
+    let totalPrice = total()
     return (
         <div className={`${styles.cartSlice} ${isOpen ? styles.open : ''}`}>
             <button className={styles.toggleButton} onClick={toggleCart}>
@@ -88,10 +107,14 @@ const CartSlice = () => {
 
                 </div>
                 <div className={styles.footer}>
-                    <div className={styles.total}> <h3>Total</h3> </div>
+
+                    <div className={styles.total} onClick={() => setRefresh(prev => !prev)}>
+                        {refresh && <h4>Total: ${totalPrice.toLocaleString('es-ES')}</h4>}
+                    </div>
+
                     <div className={styles.buttons}>
-                        <h3 onClick={cleanShoppingCard}> vaciar carrito</h3>
-                        <h3> pagar</h3>
+                        <h3 onClick={cleanShoppingCard} className={styles.itemButton1}> vaciar carrito</h3>
+                        <h3 className={styles.itemButton2}> pagar</h3>
                     </div>
                     <p>Wsp para envios</p>
                 </div>

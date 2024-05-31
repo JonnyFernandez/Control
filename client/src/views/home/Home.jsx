@@ -3,7 +3,7 @@ import { Nav, Card, Paginado, Modal, Like, CartSlice } from '../../components'
 import h from './Home.module.css'
 import Swal from 'sweetalert2';
 import { useDispatch, useSelector } from 'react-redux'
-import { getProd, setFavItems, setCartItems } from '../../redux/prodSlice'
+import { getProd, setFavItems, setCartItems, setQuantyItems } from '../../redux/prodSlice'
 import { apiGetProd } from '../../api/prod'
 
 
@@ -36,7 +36,7 @@ const Home = () => {
 
 
 
-    const { product, currentPage } = useSelector(state => state.prod)
+    const { product, currentPage, prodQuantity } = useSelector(state => state.prod)
     const dark = useSelector(state => state.dark.dark);
     const filteredProd = product.filter(item => item.status === true);
 
@@ -96,9 +96,11 @@ const Home = () => {
     };
 
     useEffect(() => {
-        // dispatch(getProd())
         const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
         const storedFav = JSON.parse(localStorage.getItem('fav')) || [];
+        const storedQuantity = JSON.parse(localStorage.getItem('quanty')) || [];
+
+        dispatch(setQuantyItems(storedQuantity))
         dispatch(setCartItems(storedCart));
         dispatch(setFavItems(storedFav))
     }, [dispatch])

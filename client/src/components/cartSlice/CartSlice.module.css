@@ -40,8 +40,12 @@
 } 
 .footer{
     width: 300px;
-    height: 100px;
-    /* background-color: aliceblue; */
+    height: 150px;
+    background-color: aliceblue;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
 }
 .total{
     display: flex;
@@ -52,7 +56,22 @@
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    width: 100%;
+    /* background-color: red; */
+    margin-top: 15px;
 }
+.itemButton1, .itemButton2{
+    display: flex;
+    width: 50%;
+    /* background-color: red; */
+}
+.itemButton2{
+    display: flex;
+    justify-content: center;
+}
+
+
+
 .footer p{
     background-color: red;
     margin-top: 30px;

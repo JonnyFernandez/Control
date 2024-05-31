@@ -1,21 +1,43 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import style from './ShoppingCard.module.css';
-import { removeCard } from '../../redux/prodSlice';
+import { removeCard, deleteQuantity, updateQuantity } from '../../redux/prodSlice';
 import { useDispatch } from 'react-redux';
+
 
 
 const ShoppingCard = (props) => {
     const dispatch = useDispatch()
+
     const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
+    const storedQuantity = JSON.parse(localStorage.getItem('quanty')) || [];
+
     const { id, name, image, price, stock } = props
-    const [quanty, setQuanty] = useState(1);
+    const [quantityOptions, setQuantityOptions] = useState([]);
+
 
     const deleteIntem = () => {
         dispatch(removeCard(id))
+        dispatch(deleteQuantity(id))
+
         const updatedCart = storedCart.filter(item => item.id !== id)
+        const updatedQuanty = storedQuantity.filter(item => item.id !== id)
+
         localStorage.setItem('cart', JSON.stringify(updatedCart));
+        localStorage.setItem('quanty', JSON.stringify(updatedQuanty));
     }
 
+    useEffect(() => {
+        const options = Array.from({ length: stock }, (_, i) => i + 1)
+        setQuantityOptions(options)
+    }, [])
+
+    const handleQuantity = (event) => {
+        const { value } = event.target
+        const data = { id: id, count: Number(value) }
+
+        dispatch(updateQuantity(data))
+
+    }
 
 
     return (
@@ -36,9 +58,16 @@ const ShoppingCard = (props) => {
 
                 <div className={style.quantyAndDelete}>
                     <div className={style.quantyDiv}>
-                        {quanty > 1 ? <div className={style.less} onClick={() => setQuanty(prev => prev - 1)}>-</div> : ''}
+                        <div>Cantidad:</div>
+                        <select name="quantity" id="quantity" onChange={handleQuantity}>
+                            <option value="">Cantidad</option>
+                            {quantityOptions.map(option => (
+                                <option key={option} value={option}>{option}</option>
+                            ))}
+                        </select>
+                        {/* {quanty > 1 ? <div className={style.less} onClick={() => setQuanty(prev => prev - 1)}>-</div> : ''}
                         <div>{quanty}</div>
-                        <div className={style.more} onClick={() => setQuanty(prev => prev + 1)}>+</div>
+                        <div className={style.more} onClick={() => setQuanty(prev => prev + 1)}>+</div> */}
 
                     </div>
                     <div className={style.deleteDiv}>
@@ -46,7 +75,7 @@ const ShoppingCard = (props) => {
                     </div>
                 </div>
 
-                <span>Stock: {stock}</span>
+                {/* <span>Stock: {stock}</span> */}
             </div>
 
         </div>

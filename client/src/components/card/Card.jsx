@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, NavLink } from 'react-router-dom';
 import style from './Card.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { addFav, removeFav, addCart, removeCard } from "../../redux/prodSlice";
+import { addFav, removeFav, addCart, removeCard, addQuantity, deleteQuantity } from "../../redux/prodSlice";
 import { api_Like, api_DisLike } from "../../api/prod";
 import { useAuth } from '../../context/AuthContext'
 import Swal from 'sweetalert2'
@@ -12,15 +12,19 @@ const Card = (products) => {
     const { isAuthenticated } = useAuth()
     const { id, name, price, image, stock } = products;
 
-    const [autorized, setAutorized] = useState(true)
-    const data = { prodId: id }
+
+    const data = {
+        "id": id,
+        "count": 1
+    }
     // console.log(data);
     const numeroFormateado = Number(price).toLocaleString('es-ES');
     const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
     const storedFav = JSON.parse(localStorage.getItem('fav')) || [];
+    const storedQuantity = JSON.parse(localStorage.getItem('quanty')) || [];
 
     const dispatch = useDispatch();
-    const { favorites, shoppingCart } = useSelector(state => state.prod)
+    const { favorites, shoppingCart, } = useSelector(state => state.prod)
 
     const [fav, setFav] = useState(false)
     const [cart, setCart] = useState(false)
@@ -28,7 +32,6 @@ const Card = (products) => {
 
 
     useEffect(() => {
-        // dispatch(resetPro())
         favorites.forEach((el) => {
             if (el.id === id) {
                 setFav(true);
@@ -37,8 +40,6 @@ const Card = (products) => {
     }, [favorites]);
 
     useEffect(() => {
-        // dispatch(resetPro())
-
         shoppingCart.forEach((item) => {
             if (item.id === id) {
                 setCart(true);
@@ -105,23 +106,24 @@ const Card = (products) => {
         if (cart) {
             setCart(false)
             dispatch(removeCard(id))
+            dispatch(deleteQuantity(id))
 
         } else {
             setCart(true)
             dispatch(addCart({ id, name, price, image, stock, quanty: 1 }))
+            dispatch(addQuantity(data))
         }
 
         const updatedCart = cart
             ? storedCart.filter(item => item.id !== id)
             : [...storedCart, products];
+        const updatedQuanty = cart
+            ? storedQuantity.filter(item => item.id !== id)
+            : [...storedQuantity, data];
 
         localStorage.setItem('cart', JSON.stringify(updatedCart));
+        localStorage.setItem('quanty', JSON.stringify(updatedQuanty));
     }
-
-
-
-
-
 
 
 
@@ -132,13 +134,12 @@ const Card = (products) => {
                     {image ? <img src={image} alt="product" className={style.image} /> : <img src="https://i.pinimg.com/564x/c9/36/cd/c936cdc3b4004f05bf4f5cfa0a671524.jpg" alt="image" className={style.image} />}
                     <div className={style.textcenter}>
                         <h4>{name}</h4>
-                        {autorized && <p>Precio: {numeroFormateado}</p>}
+                        {<p>Precio: {numeroFormateado}</p>}
 
                     </div>
                 </Link>
-
                 <div>
-                    {autorized && <button className={`${style.buttonChat} ${style.ChatEffect}`} value={'review'} onClick={handleCart}>
+                    {<button className={`${style.buttonChat} ${style.ChatEffect}`} value={'review'} onClick={handleCart}>
                         {cart
                             ? (
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="rgb(41, 132, 244)" className="bi bi-cart-fill" viewBox="0 0 16 16">
@@ -152,21 +153,12 @@ const Card = (products) => {
                             )
                         }
                     </button>}
-
                     <NavLink to={`/detail/${id}`} className={style.buy}>
                         <button className={`${style.buttonCard} ${style.addEffect}`}  >
                             Comprar
                         </button>
                     </NavLink>
-
-
-
-
-
-
-
-
-                    {autorized && <button className={`${style.buttonChat} ${style.ChatEffect}`} value={'mark'} onClick={handleFav}>
+                    {<button className={`${style.buttonChat} ${style.ChatEffect}`} value={'mark'} onClick={handleFav}>
                         {
                             fav ?
                                 (<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="rgb(41, 132, 244)" className="bi bi-heart-fill" viewBox="0 0 16 16">
@@ -177,10 +169,6 @@ const Card = (products) => {
                                 </svg>)
                         }
                     </button>}
-
-
-
-
                 </div>
 
 

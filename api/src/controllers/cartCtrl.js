@@ -121,8 +121,6 @@ module.exports = {
             }]
         });
 
-
-        // return carts
         return carts.map(item => {
             return {
                 id: item.id,
@@ -147,10 +145,6 @@ module.exports = {
                 }),
             }
         })
-
-
-
-
     },
     deleteCart: async (id) => {
         const aux = await ShoppingCart.destroy({ where: { id } })
