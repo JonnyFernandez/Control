@@ -58,19 +58,18 @@ const ShoppingCard = (props) => {
 
                 <div className={style.quantyAndDelete}>
                     <div className={style.quantyDiv}>
-                        <div>Cantidad:</div>
+                        <div className={style.cantidad}>Cantidad:</div>
                         <select name="quantity" id="quantity" onChange={handleQuantity}>
                             <option value="">Cantidad</option>
                             {quantityOptions.map(option => (
                                 <option key={option} value={option}>{option}</option>
                             ))}
                         </select>
-                        {/* {quanty > 1 ? <div className={style.less} onClick={() => setQuanty(prev => prev - 1)}>-</div> : ''}
-                        <div>{quanty}</div>
-                        <div className={style.more} onClick={() => setQuanty(prev => prev + 1)}>+</div> */}
+
 
                     </div>
                     <div className={style.deleteDiv}>
+                        <div className={style.stock}>stock: {stock}</div>
                         <div onClick={deleteIntem} className={style.deleteItem}>Eliminar</div>
                     </div>
                 </div>

@@ -147,58 +147,6 @@ const Details = () => {
         });
     };
 
-    const handleBuy = async () => {
-        if (!isAuthenticated) {
-            Swal.fire({
-                title: 'Debes estar registrado',
-                text: 'Debes estar registrado para comprar en la plataforma.',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Ir al inicio de sesión'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = '/login';
-                }
-            });
-            return;
-        }
-        if (!data || data === 0) {
-            Swal.fire({
-                title: 'Ingresar Cantidad',
-                text: 'Debes ingresar la cantidad que deseas de este producto.',
-                icon: 'warning',
-            });
-            return;
-        }
-        let info = { items: [{ id: Number(id), count: Number(data) }] };
-        try {
-            await api_post_cart(info);
-            setUpdate(prev => prev + 1);
-
-            Swal.fire({
-                title: 'Compra Exitosa',
-                text: '¡Gracias por tu compra!',
-                icon: 'success',
-                confirmButtonColor: '#3085d6',
-                confirmButtonText: 'Ir al inicio',
-            }).then((result) => {
-                if (result.isConfirmed || result.isDismissed) {
-                    window.location.href = '/home';
-                }
-            });
-        } catch (error) {
-            console.log(error.response.data);
-            if (error.response.status === 401) {
-                Swal.fire({
-                    title: 'Error de autenticación',
-                    text: 'Debe iniciar sesión con su nombre de usuario y contraseña.',
-                    footer: 'Contacte a soporte técnico: arcancode@gmail.com',
-                });
-            }
-        }
-    };
 
     const handleCart = () => {
         if (!isAuthenticated) {
@@ -236,8 +184,61 @@ const Details = () => {
 
     const priceProd = Number(details.price)
     const quantityProd = Number(data)
-    const totalMount = priceProd * (quantityProd ? quantityProd : 1).toLocaleString('es-ES')
+    const totalMount = priceProd * (quantityProd ? quantityProd : 1)
 
+    const handleBuy = async () => {
+        if (!isAuthenticated) {
+            Swal.fire({
+                title: 'Debes estar registrado',
+                text: 'Debes estar registrado para comprar en la plataforma.',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ir al inicio de sesión'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '/login';
+                }
+            });
+            return;
+        }
+        if (!data || data === 0) {
+            Swal.fire({
+                title: 'Ingresar Cantidad',
+                text: 'Debes ingresar la cantidad que deseas de este producto.',
+                icon: 'warning',
+            });
+            return;
+        }
+        let info = { items: [{ id: Number(id), count: Number(data) }], total: totalMount };
+        try {
+            const aux = await api_post_cart(info);
+            // console.log(aux.data);
+            setUpdate(prev => prev + 1);
+
+            Swal.fire({
+                title: 'Compra Exitosa',
+                text: '¡Gracias por tu compra!',
+                icon: 'success',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Ir al inicio',
+            }).then((result) => {
+                if (result.isConfirmed || result.isDismissed) {
+                    window.location.href = '/home';
+                }
+            });
+        } catch (error) {
+            console.log(error.response.data);
+            if (error.response.status === 401) {
+                Swal.fire({
+                    title: 'Error de autenticación',
+                    text: 'Debe iniciar sesión con su nombre de usuario y contraseña.',
+                    footer: 'Contacte a soporte técnico: arcancode@gmail.com',
+                });
+            }
+        }
+    };
 
 
     return (

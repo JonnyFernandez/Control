@@ -1,23 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+:root{
+    --primaryColor:#064439;
+    --secondColor:#fffcf6;
+    --letter:#232323;
+}
+
+
 .cartSlice {
     position: fixed;
     top: 0;
     right: -300px; /* inicialmente fuera de la pantalla */
     width: 300px;
     height: 100%;
-    background-color: #ff8000;
-    transition: right 0.3s ease-in-out; /* animación de deslizamiento */
-  }
+    font-family: 'Roboto', sans-serif;
+ }
   
-  .cartSlice.open {
+ .cartSlice.open {
     right: 0; /* muestra el carrito al deslizar a la derecha */
-  }
+    transition: right 0.5s ease-in-out; /* animación de deslizamiento al abrir */
+}
+
   
   .toggleButton {
     position: fixed;
-    top: 12%;
-    right: 0;
+    top: 3%;
+    right: 10px;
     transform: translateY(-50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    height: 40px;
+    margin-top: 16px;
+    border: none;
+    transition: transform 0.2s, border-radius 0.2s, background-color 0.2s;
+    font-size: large;
+    font-weight: 500;
+    padding: 5px;
+    /* color: var(--secondColor); */
+    border-radius: 15px;
+    cursor: pointer;
   }
+
+.cartIcon{
+   position: absolute;
+}
+.numProds{
+    position: fixed;
+    bottom: 0;
+    right: 8px;
+    font-size: small;
+
+}
+
   
   .content {
     padding: 20px;
@@ -25,52 +60,109 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-color: var(--whitePrimaryColor);
+    /* background-color: red; */
+
  }
  
  .content h2{
     margin-top: 50px;
- }   
+ } 
+ .titleCart{
+    width: 100%;
+    height: 80px;
+    color: var(--secondColor);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 900;
+    font-size: xx-large;
+ }  
  .items{
     display: flex;
     flex-direction: column;
     width: 300px;
     height: 420px;
     overflow: auto;
-    /* background-color: red; */
+
 } 
 .footer{
     width: 300px;
-    height: 150px;
-    background-color: aliceblue;
+    height: 150px;    
     display: flex;
     flex-direction: column;
-    /* justify-content: center; */
     align-items: center;
 }
 .total{
     display: flex;
     justify-content: end;
     margin-right: 20px;
+    margin-top: 10px;
+    color: var(--secondColor);
+
 }    
 .buttons{
     display: flex;
-    flex-direction: row;
-    justify-content: space-around;
+    flex-direction: column;
+    justify-content: center;align-items: center;
     width: 100%;
     /* background-color: red; */
-    margin-top: 15px;
+    margin-top: 10px;
 }
-.itemButton1, .itemButton2{
+.itemButton1{
     display: flex;
     width: 50%;
-    /* background-color: red; */
+    margin-left: 10px;
+    color: var(--secondColor);   
+    justify-content: center;
+    border-bottom: 1px solid black;
+    font-weight:200;
+    transition: transform 0.2s, border-radius 0.2s, background-color 0.2s;
 }
+.itemButton1:hover{
+    color: rgba(255, 0, 0, 0.855);
+    border-bottom: 1px solid red;
+}
+    
 .itemButton2{
     display: flex;
     justify-content: center;
+    align-items: center;
+    width: 75%;
+    height: 40px;
+    margin-bottom: 5px;
+    margin-top: 10px;
+    border: none;
+    transition: transform 0.2s, border-radius 0.2s, background-color 0.2s;
+    font-size: large;
+    font-weight: 500;
+    padding: 5px;
+    color: var(--secondColor);
+    border-radius: 15px;
+    cursor: pointer;
+   
+}
+.itemButton2 {
+    background-color: #28a745; /* Verde */
+}
+.itemButton2:hover {
+    transform: scale(0.98);
+    border-radius: 9px;
+    border: 1px solid white;
+}
+.itemButton2:active {
+    transform: scale(0.95);
 }
 
-
+.empty{
+    display: flex;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    color: var(--secondColor);
+  
+}
 
 .footer p{
     background-color: red;

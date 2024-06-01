@@ -41,7 +41,10 @@ const Nav = ({ handleSelector }) => {
                 <div className={n.image} onClick={resetProd}>
                     <img src="../../IconOrange.ico" alt="" />
                 </div>
-                <div className={`${n.title} ${dark ? n.darkTitle : ''}`} onClick={resetProd}>Cost Price</div>
+                <div className={`${n.title} ${dark ? n.darkTitle : ''}`} onClick={resetProd}>
+                    {/* Cost Price */}
+                    Marelyss
+                </div>
                 <input
                     type='text'
                     placeholder='¿Qué estás buscando?'
@@ -61,20 +64,15 @@ const Nav = ({ handleSelector }) => {
                     </svg>}
                 </div>
 
-                {/* Carrito */}
-                {/* <div className={`${n.item} ${dark ? n.darkitem : ''}`} onClick={() => handleSelector('cart')} >
-                    {<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-cart-fill" viewBox="0 0 16 16">
-                        <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
-                    </svg>}
-                </div> */}
+
 
 
                 {/* Likes */}
-                <div className={`${n.item} ${dark ? n.darkitem : ''}`} onClick={() => handleSelector('likes')} >
+                {/* <div className={`${n.item} ${dark ? n.darkitem : ''}`} onClick={() => handleSelector('likes')} >
                     {<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-heart-fill" viewBox="0 0 16 16">
                         <path fillRule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314" />
                     </svg>}
-                </div>
+                </div> */}
 
                 {/* filtros */}
                 <div className={`${n.item} ${dark ? n.darkitem : ''}`} onClick={() => handleSelector('filters')}>
@@ -97,7 +95,7 @@ const Nav = ({ handleSelector }) => {
                     </svg>}
                 </div>
 
-                <div className={`${n.item} ${dark ? n.darkitem : ''}`} onClick={darkmode}>
+                {/* <div className={`${n.item} ${dark ? n.darkitem : ''}`} onClick={darkmode}>
                     {dark
                         ? <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#edad0c" className="bi bi-brightness-high-fill" viewBox="0 0 16 16">
                             <path d="M12 8a4 4 0 1 1-8 0 4 4 0 0 1 8 0M8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0m0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13m8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5M3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8m10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0m-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0m9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707M4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708" />
@@ -105,7 +103,7 @@ const Nav = ({ handleSelector }) => {
                         : <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="steelblue" className="bi bi-moon-fill" viewBox="0 0 16 16">
                             <path d="M6 .278a.77.77 0 0 1 .08.858 7.2 7.2 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277q.792-.001 1.533-.16a.79.79 0 0 1 .81.316.73.73 0 0 1-.031.893A8.35 8.35 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.75.75 0 0 1 6 .278" />
                         </svg>}
-                </div>
+                </div> */}
             </div>
         </div>
     );

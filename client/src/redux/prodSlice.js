@@ -9,7 +9,7 @@ const initialState = {
     details: {},
     categories: [],
     prodQuantity: [],
-    total: 0
+
 
 }
 
@@ -79,20 +79,7 @@ const prodSlice = createSlice({
         setQuantyItems: (state, action) => {
             state.prodQuantity = action.payload
         },
-        priceFinal: (state, action) => {
-            const prodAndQuantity = state.prodQuantity;
-            const prod = state.shoppingCart;
-            let total = 0;
 
-            for (let i = 0; i < prodAndQuantity.length; i++) {
-                const product = prod.find(item => item.id === prodAndQuantity[i].id);
-
-                if (product) {
-                    total += prodAndQuantity[i].count * product.price;
-                }
-            }
-            state.total = total;
-        }
     },
 
 })
@@ -103,5 +90,5 @@ const prodSlice = createSlice({
 
 
 
-export const { getProd, setCurrentPage, setPrevPage, setNextPage, searchCategory, addFav, removeFav, addCart, removeCard, setFavItems, setCartItems, cleanCart, postDetails, addQuantity, deleteQuantity, updateQuantity, setQuantyItems, priceFinal } = prodSlice.actions
+export const { getProd, setCurrentPage, setPrevPage, setNextPage, searchCategory, addFav, removeFav, addCart, removeCard, setFavItems, setCartItems, cleanCart, postDetails, addQuantity, deleteQuantity, updateQuantity, setQuantyItems } = prodSlice.actions
 export default prodSlice.reducer

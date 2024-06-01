@@ -13,11 +13,6 @@ const Card = (products) => {
     const { id, name, price, image, stock } = products;
 
 
-    const data = {
-        "id": id,
-        "count": 1
-    }
-    // console.log(data);
     const numeroFormateado = Number(price).toLocaleString('es-ES');
     const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
     const storedFav = JSON.parse(localStorage.getItem('fav')) || [];
@@ -110,8 +105,8 @@ const Card = (products) => {
 
         } else {
             setCart(true)
-            dispatch(addCart({ id, name, price, image, stock, quanty: 1 }))
-            dispatch(addQuantity(data))
+            dispatch(addCart({ id, name, price, image, stock }))
+            dispatch(addQuantity({ id: id, count: 1 }))
         }
 
         const updatedCart = cart
@@ -119,7 +114,7 @@ const Card = (products) => {
             : [...storedCart, products];
         const updatedQuanty = cart
             ? storedQuantity.filter(item => item.id !== id)
-            : [...storedQuantity, data];
+            : [...storedQuantity, { id: id, count: 1 }];
 
         localStorage.setItem('cart', JSON.stringify(updatedCart));
         localStorage.setItem('quanty', JSON.stringify(updatedQuanty));

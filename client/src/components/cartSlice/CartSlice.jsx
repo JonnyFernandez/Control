@@ -1,12 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import styles from './CartSlice.module.css';
 import ShoppingCard from '../shoppingCardSlice/ShoppingCard';
 import { useSelector, useDispatch } from 'react-redux';
-import { cleanCart, priceFinal } from '../../redux/prodSlice';
+import { cleanCart } from '../../redux/prodSlice';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext';
-
+import { api_post_cart } from '../../api/prod';
 
 const CartSlice = () => {
     const dispatch = useDispatch()
@@ -15,12 +15,8 @@ const CartSlice = () => {
 
     const [isOpen, setIsOpen] = useState(false);
     const { shoppingCart, prodQuantity } = useSelector(state => state.prod)
-    const [refresh, setRefresh] = useState(true)
 
     console.log(prodQuantity);
-    useEffect(() => {
-        dispatch(priceFinal())
-    }, [dispatch])
 
     const toggleCart = () => {
         if (!isAuthenticated) {
@@ -35,16 +31,16 @@ const CartSlice = () => {
             }).then((result) => {
                 if (result.isConfirmed) {
                     // Redirige al usuario al inicio de sesión
-                    window.location.href = '/login';
+                    navigate('/login');
                 }
             });
             return; // Termina la ejecución de la función si no está autenticado
         }
         setIsOpen(!isOpen);
-        dispatch(priceFinal())
-        { isOpen && navigate('/login') }
+        if (isOpen) {
+            navigate('/login');
+        }
     };
-
 
     const showCards = () => {
         if (shoppingCart.length >= 1) {
@@ -54,10 +50,10 @@ const CartSlice = () => {
                 </div>
             ));
         } else {
-            return <h2>No hay Productos que mostrar </h2>;
+            return <h2 className={styles.empty}>No hay Productos que mostrar </h2>;
         }
     }
-    // volver a cargar los prod desde el back y hacer un dispatca con la info
+
     const cleanShoppingCard = () => {
         Swal.fire({
             title: '¿Estás seguro?',
@@ -70,10 +66,9 @@ const CartSlice = () => {
         }).then((result) => {
             if (result.isConfirmed) {
                 // Si el usuario confirma, limpiar el carrito
-                setIsOpen(!isOpen);
                 dispatch(cleanCart());
                 localStorage.removeItem('cart');
-                navigate('/login')
+                localStorage.removeItem('quanty');
                 Swal.fire(
                     '¡Limpieza exitosa!',
                     'El carrito ha sido limpiado.',
@@ -87,36 +82,63 @@ const CartSlice = () => {
         let num = 0;
         for (let i = 0; i < prodQuantity.length; i++) {
             const product = shoppingCart.find(item => item.id === prodQuantity[i].id);
-            if (product) num += prodQuantity[i].count * product.price
-
+            if (product) num += prodQuantity[i].count * product.price;
         }
-        return num
+        return num;
+    };
+    const totalPrice = total();
+
+    const pay = async () => {
+        try {
+            const aux = await api_post_cart({ items: prodQuantity, total: totalPrice });
+            // console.log(aux.data);
+            if (aux.status === 201) {
+                dispatch(cleanCart());
+                localStorage.removeItem('cart');
+                localStorage.removeItem('quanty');
+
+                Swal.fire({
+                    title: '¡Compra realizada!',
+                    text: '¡Tu compra se ha completado exitosamente!',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                }).then(() => {
+                    navigate('/login');
+                });
+            }
+        } catch (error) {
+            console.log(error);
+        }
     }
-    let totalPrice = total()
+
+    let prodNumber = shoppingCart.length > 0 ? shoppingCart.length : ''
     return (
-        <div className={`${styles.cartSlice} ${isOpen ? styles.open : ''}`}>
+        <div className={`${styles.cartSlice} ${isOpen ? styles.open : ''} `}>
             <button className={styles.toggleButton} onClick={toggleCart}>
-                {isOpen ? 'Cerrar Carrito' : 'Abrir Carrito'}
+                {isOpen
+                    ? "✖️"
+                    : <div className={styles.cartIcon}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" className="bi bi-cart4" viewBox="0 0 16 16">
+                            <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5M3.14 5l.5 2H5V5zM6 5v2h2V5zm3 0v2h2V5zm3 0v2h1.36l.5-2zm1.11 3H12v2h.61zM11 8H9v2h2zM8 8H6v2h2zM5 8H3.89l.5 2H5zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0m9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0" />
+                        </svg>
+                        <p className={styles.numProds}>{prodNumber}</p>
+                    </div>
+
+                }
             </button>
             <div className={styles.content}>
-                <h2>Carrito</h2>
+                <div className={styles.titleCart}>Carrito</div>
                 <div className={styles.items}>
                     {showCards()}
-
-
-
                 </div>
                 <div className={styles.footer}>
-
-                    <div className={styles.total} onClick={() => setRefresh(prev => !prev)}>
-                        {refresh && <h4>Total: ${totalPrice.toLocaleString('es-ES')}</h4>}
+                    <div className={styles.total}>
+                        <h4>Total: ${totalPrice.toLocaleString('es-ES')}</h4>
                     </div>
-
                     <div className={styles.buttons}>
-                        <h3 onClick={cleanShoppingCard} className={styles.itemButton1}> vaciar carrito</h3>
-                        <h3 className={styles.itemButton2}> pagar</h3>
+                        <h3 className={styles.itemButton2} onClick={pay}>Pagar</h3>
+                        <h4 onClick={cleanShoppingCard} className={styles.itemButton1}>Vaciar Carrito</h4>
                     </div>
-                    <p>Wsp para envios</p>
                 </div>
             </div>
         </div>

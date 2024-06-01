@@ -1,11 +1,15 @@
 :root {
-    /* Dark variables */
+/* Dark variables */
 --darkPrimaryColorBg: #242424;
 --darkSecondColorBg: rgb(61, 62, 62);
 --boxShadow: 4px 12px 40px 6px #9b989817;
-    /* white variables */
+/* white variables */
 --whitePrimaryColor: #ff5900;
---whiteSecondColor: rgb(234, 234, 234);
+--secondColor:#fffcf6;
+--whiteSecondColor: rgba(215, 209, 209, 0.571);
+/* new colors */
+ --primaryColor:#064439;
+ --letter:#232323;
 }
 .nav{
     width: 100%;
@@ -14,6 +18,7 @@
     flex-direction: row;
     align-items: center;
     /* background-color: steelblue; */
+    background-color: var(--whitePrimaryColor);
 }
 
 
@@ -41,14 +46,14 @@
 .searchProd{
     width: 70px;
     height: 30px;
-    color:steelblue;
+    color:var(--secondColor);
     margin-left: 20px;
     transition: 0.2s;
     cursor: pointer;
     border: none;
     background-color: transparent;
     border: 1px solid white;
-    box-shadow: 0px 0px 7px black;
+    box-shadow: 0px 0px 5px rgb(207, 202, 202);
     border-radius: 5px;
 }
 .nav_search_input {

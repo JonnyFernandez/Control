@@ -1,5 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
-
+:root {
+    /* Dark variables */
+    --darkPrimaryColorBg: #242424;
+    --darkSecondColorBg: rgb(61, 62, 62);
+    --boxShadow: 4px 12px 40px 6px #9b989817;
+    /* white variables */
+    --whitePrimaryColor: #ff5900;
+    --secondColor:#fffcf6;
+    --whiteSecondColor: rgba(215, 209, 209, 0.571);
+    /* new colors */
+     --primaryColor:#064439;
+     --letter:#232323;
+    }
 .Details {
     width: 100%;
     height: 100vh;
@@ -16,7 +28,7 @@
     align-items: center;
     width: 100%;
     height: 80px;
-    background-color: #064439;
+    background-color: var(--whitePrimaryColor);
     box-shadow: 0px 0px 15px black;
     margin-bottom: 10px;
     color: #fffcf6;
@@ -40,10 +52,8 @@
 .body{
     display: flex;
     flex-direction: column;    
-    /* background-color: #fffcf6; */
-
-    background-image: url("https://i.pinimg.com/564x/82/14/15/821415898d95d8abee51aac2fe846577.jpg");
-    background-size: cover;
+    background-color: #fffcf6;
+  
     box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.736);
 
 }
@@ -55,7 +65,7 @@
     align-items: center;
     margin-top: 20px;
     height: 600px;
-    /* background-color: red; */
+
 }
 
 .icons{
@@ -219,7 +229,8 @@ select{
     padding: 0 10px;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
     overflow-x: hidden;  
-    background-color: #064439;
+    background-color: var(--whitePrimaryColor);
+
     box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.736);
 }
 /* Comentarios de usuarios */

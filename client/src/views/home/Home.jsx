@@ -113,7 +113,7 @@ const Home = () => {
                 <div className={h.nav}> <Nav handleSelector={handleSelector} /> </div>
                 <div className={h.dropdown}>DropDown</div>
             </div>
-            <div className={`${h.body} ${dark ? h.darkBody : ''}`}>
+            <div className={`${h.body} ${dark ? h.body : ''}`}>
 
                 <div className={h.botonera}>
                     <Paginado cardsInPage={cardsInPage} totalCards={totalCards} currentPage={currentPage} />

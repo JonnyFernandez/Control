@@ -1,55 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+:root{
+    --primaryColor:#064439;
+    --secondColor:#fffcf6;
+    --letter:#232323;
+}
+
+
 .shoppingCard{
     display: flex;
     flex-direction: row;
     width: 100%;
-    height: 110px;
-    background-color: #fff0eb;
+    height: 110px; 
+    background-color: var(--secondColor);
     padding: 5px;
     position: relative;
     margin-bottom: 5px;
     margin-top: 5px;
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.786);
     border-radius: 5px;
+    font-family: 'Roboto', sans-serif;
 }
 .imageContainer{
     display: flex;
     width: 30%;
     height: 100%;
-    /* background-color: aqua; */
 }
+  
 
 .infoContainer{
     display: flex;
     flex-direction: column;
     width: 70%;
     height: 100%;
-    background-color: #eee7ce;
+    background-color: var(--secondColor);
+    /* background-color: red; */
+
 }
 .name{
     display: flex;
     width: 100%;
-    height: 30%;
+    height: 20%;
     /* background-color: blue; */
     overflow: hidden;
-    color: #232323;
+    color: var(--letter);
 }
 .price{
     display: flex;
     justify-content: start;
     width: 100%;
     height: 30%;
-    color: #232323;
+    color: var(--letter);
     overflow: hidden;
+    /* background-color: red; */
+    align-items: center;
 }
 p{
     margin-left: 10px;
 }
 .quantyAndDelete{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     width: 100%;
-    height: 40%;
-    color: #232323;
+    height: 60%;
+    color: var(--letter);
+
+}
+.cantidad{
+    margin-left: 10px;
 }
 .quantyDiv{
     width: 50%;
@@ -58,21 +75,15 @@ p{
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
+    
 }
-.less, .more{
-    cursor: pointer;
-    /* background-color: #47C7FC; */
-    width: 20px;
-    /* border: 1px solid black; */
 
-}
 .deleteDiv{
-    width: 50%;
-    height: 100%;
-    /* background-color: rgb(42, 110, 165); */
+    width: 100%;
+    height: 100%; 
     padding: auto;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
 }
 .deleteItem{
@@ -86,10 +97,9 @@ p{
 
 
 
-span{
-    position: absolute;
-    margin-top: 40px; 
-    color: #232323f4;
-    background-color: rgba(255, 255, 0, 0.61);
-    padding: 3px;
+.stock{
+    cursor: pointer;
+    font-size:small;
+    color: var(--letter);
+   
 }
