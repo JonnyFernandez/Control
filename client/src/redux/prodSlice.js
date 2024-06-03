@@ -79,6 +79,26 @@ const prodSlice = createSlice({
         setQuantyItems: (state, action) => {
             state.prodQuantity = action.payload
         },
+        filterCategory: (state, action) => {
+            const filterPro = state.backup.filter(item => item.category === action.payload)
+            const reset = state.backup
+            state.product = filterPro.length > 0 ? filterPro : reset
+
+        },
+        filterPrice: (state, action) => {
+            let sortA = action.payload === 'min' ?
+                state.backup.sort(function (a, b) {
+                    if (a.price > b.price) { return 1 }
+                    if (b.price > a.price) { return -1 }
+                    return 0;
+                }) :
+                state.backup.sort(function (a, b) {
+                    if (a.price < b.price) { return 1 }
+                    if (b.price < a.price) { return -1 }
+                    return 0;
+                })
+            state.product = sortA
+        },
 
     },
 
@@ -90,5 +110,5 @@ const prodSlice = createSlice({
 
 
 
-export const { getProd, setCurrentPage, setPrevPage, setNextPage, searchCategory, addFav, removeFav, addCart, removeCard, setFavItems, setCartItems, cleanCart, postDetails, addQuantity, deleteQuantity, updateQuantity, setQuantyItems } = prodSlice.actions
+export const { getProd, setCurrentPage, setPrevPage, setNextPage, searchCategory, addFav, removeFav, addCart, removeCard, setFavItems, setCartItems, cleanCart, postDetails, addQuantity, deleteQuantity, updateQuantity, setQuantyItems, filterCategory, filterPrice } = prodSlice.actions
 export default prodSlice.reducer

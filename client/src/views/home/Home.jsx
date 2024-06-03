@@ -3,7 +3,7 @@ import { Nav, Card, Paginado, Modal, Like, CartSlice } from '../../components'
 import h from './Home.module.css'
 import Swal from 'sweetalert2';
 import { useDispatch, useSelector } from 'react-redux'
-import { getProd, setFavItems, setCartItems, setQuantyItems } from '../../redux/prodSlice'
+import { getProd, setFavItems, setCartItems, setQuantyItems, filterCategory, filterPrice } from '../../redux/prodSlice'
 import { apiGetProd } from '../../api/prod'
 
 
@@ -68,20 +68,12 @@ const Home = () => {
 
     };
 
-
-
-
-
-
-
     // ---------------------------------Paginado--------------------------
     const cardsInPage = 10;
     const totalCards = filteredProd.length;
     const lastIndex = currentPage * cardsInPage;
     const firstIndex = lastIndex - cardsInPage;
     const cardsShowed = filteredProd.slice(firstIndex, lastIndex);
-
-
 
     const renderProducts = () => {
         if (cardsShowed.length >= 1) {
@@ -105,7 +97,14 @@ const Home = () => {
         dispatch(setFavItems(storedFav))
     }, [dispatch])
 
-
+    const handleCategory = (e) => {
+        const value = e.target.value
+        dispatch(filterCategory(value))
+    }
+    const handlePrice = (e) => {
+        const value = e.target.value
+        dispatch(filterPrice(value))
+    }
 
     return (
         <div className={h.container}>
@@ -116,7 +115,32 @@ const Home = () => {
             <div className={`${h.body} ${dark ? h.body : ''}`}>
 
                 <div className={h.botonera}>
+                    <div className={h.filter}>
+                        <div className={h.filterTitle}>Precios:</div>
+                        <select name="" id="" onChange={handlePrice}>
+                            <option value="">Precios</option>
+                            <option value="min">Menor</option>
+                            <option value="max">Mayor</option>
+                        </select>
+                    </div>
                     <Paginado cardsInPage={cardsInPage} totalCards={totalCards} currentPage={currentPage} />
+                    <div className={h.filter}>
+                        <div className={h.filterTitle}>Categoria:</div>
+                        <select name="" id="" onChange={handleCategory}>
+                            <option value="all">Categoria</option>
+                            <option value="libreria">libreria</option>
+                            <option value="limpieza">limpieza</option>
+                            <option value="otros">otros</option>
+                            <option value="jugueteria">jugueteria</option>
+                            <option value="quimica">quimica</option>
+                            <option value="sueltos">sueltos</option>
+                            <option value="piscina">piscina</option>
+                            <option value="bazar">bazar</option>
+                            <option value="plasticos">plasticos</option>
+                            <option value="perfumeria">perfumeria</option>
+                            <option value="indumentaria">indumentaria</option>
+                        </select>
+                    </div>
                 </div>
 
                 <div className={h.content}>
