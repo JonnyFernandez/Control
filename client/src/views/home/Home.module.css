@@ -94,7 +94,7 @@
 }
 
 /* Estilo para el select */
-select {
+.select {
   width: 100%; /* Ocupa todo el ancho disponible */
   padding: 5px; /* Espaciado dentro del select */
   border-radius: 5px; /* Bordes redondeados */
@@ -104,7 +104,7 @@ select {
 }
 
 /* Estilo para las opciones del select */
-select option {
+.select option {
   font-size: 14px;
 }
 

@@ -37,9 +37,10 @@
     font-size: large;
     font-weight: 500;
     padding: 5px;
-    /* color: var(--secondColor); */
     border-radius: 15px;
     cursor: pointer;
+    background-color: transparent;
+   color: var(--secondColor);
   }
 
 .cartIcon{

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Nav, Card, Paginado, Modal, Like, CartSlice } from '../../components'
+import { Nav, Card, Paginado, CartSlice } from '../../components'
 import h from './Home.module.css'
 import Swal from 'sweetalert2';
 import { useDispatch, useSelector } from 'react-redux'
@@ -9,9 +9,9 @@ import { apiGetProd } from '../../api/prod'
 
 
 const Home = () => {
-
-
     const dispatch = useDispatch()
+    const [update, setUpdate] = useState(0);
+
 
     useEffect(() => {
         const fetchData = async () => {
@@ -32,21 +32,11 @@ const Home = () => {
         };
 
         fetchData();
-    }, [dispatch]);
-
-
+    }, [dispatch, update]);
 
     const { product, currentPage, prodQuantity } = useSelector(state => state.prod)
     const dark = useSelector(state => state.dark.dark);
     const filteredProd = product.filter(item => item.status === true);
-
-
-    const [showCart, setshowCart] = useState(false);
-    const [showLikes, setshowLikes] = useState(false);
-    const [showFilters, setshowFilters] = useState(false);
-    const [showPurchase, setshowPurchase] = useState(false);
-    const [showProfile, setshowProfile] = useState(false);
-
 
 
     const handleSelector = async (data) => {
@@ -67,7 +57,7 @@ const Home = () => {
 
 
     };
-
+    const handleUpdate = () => setUpdate(prev => prev + 1)
     // ---------------------------------Paginado--------------------------
     const cardsInPage = 10;
     const totalCards = filteredProd.length;
@@ -109,7 +99,7 @@ const Home = () => {
     return (
         <div className={h.container}>
             <div className={`${h.header} ${dark ? h.headerDark : ''}`}>
-                <div className={h.nav}> <Nav handleSelector={handleSelector} /> </div>
+                <div className={h.nav}> <Nav handleSelector={handleSelector} handleUpdate={handleUpdate} /> </div>
                 <div className={h.dropdown}>DropDown</div>
             </div>
             <div className={`${h.body} ${dark ? h.body : ''}`}>
@@ -117,7 +107,7 @@ const Home = () => {
                 <div className={h.botonera}>
                     <div className={h.filter}>
                         <div className={h.filterTitle}>Precios:</div>
-                        <select name="" id="" onChange={handlePrice}>
+                        <select className={h.select} name="" id="" onChange={handlePrice}>
                             <option value="">Precios</option>
                             <option value="min">Menor</option>
                             <option value="max">Mayor</option>
@@ -126,7 +116,7 @@ const Home = () => {
                     <Paginado cardsInPage={cardsInPage} totalCards={totalCards} currentPage={currentPage} />
                     <div className={h.filter}>
                         <div className={h.filterTitle}>Categoria:</div>
-                        <select name="" id="" onChange={handleCategory}>
+                        <select className={h.select} name="" id="" onChange={handleCategory}>
                             <option value="all">Categoria</option>
                             <option value="libreria">libreria</option>
                             <option value="limpieza">limpieza</option>
@@ -147,10 +137,7 @@ const Home = () => {
 
                     {renderProducts()}
                     {<CartSlice />}
-                    <Modal isOpen={showLikes} toggleOpen={handleSelector} children={<Like />} />
-                    <Modal isOpen={showFilters} toggleOpen={handleSelector} children={<h1>Filtros</h1>} />
-                    <Modal isOpen={showPurchase} toggleOpen={handleSelector} children={<h1>compras</h1>} />
-                    <Modal isOpen={showProfile} toggleOpen={handleSelector} children={<h1>Profile</h1>} />
+
                 </div>
             </div>
         </div>

@@ -32,9 +32,13 @@ const prodSlice = createSlice({
         setNextPage: (state, action) => {
             state.currentPage++
         },
-        searchCategory: (state, action) => {
+        searchName: (state, action) => {
             const name = action.payload;
-            state.product = state.backup.filter(products => products.category.toLowerCase().includes(name.toLowerCase()))
+            const info = state.backup
+            const aux = info.filter(products => products.name.toLowerCase().includes(name.toLowerCase()))
+
+            state.product = aux.length > 0 ? aux : info
+
         },
         addFav: (state, action) => {
             state.favorites.push(action.payload);
@@ -86,17 +90,23 @@ const prodSlice = createSlice({
 
         },
         filterPrice: (state, action) => {
-            let sortA = action.payload === 'min' ?
+            let sortA = action.payload === 'min'
+                ?
                 state.backup.sort(function (a, b) {
                     if (a.price > b.price) { return 1 }
                     if (b.price > a.price) { return -1 }
                     return 0;
-                }) :
-                state.backup.sort(function (a, b) {
-                    if (a.price < b.price) { return 1 }
-                    if (b.price < a.price) { return -1 }
-                    return 0;
-                })
+                }) : action.payload === 'max'
+                    ?
+                    state.backup.sort(function (a, b) {
+                        if (a.price < b.price) { return 1 }
+                        if (b.price < a.price) { return -1 }
+                        return 0;
+                    })
+                    : ''
+
+
+
             state.product = sortA
         },
 
@@ -110,5 +120,5 @@ const prodSlice = createSlice({
 
 
 
-export const { getProd, setCurrentPage, setPrevPage, setNextPage, searchCategory, addFav, removeFav, addCart, removeCard, setFavItems, setCartItems, cleanCart, postDetails, addQuantity, deleteQuantity, updateQuantity, setQuantyItems, filterCategory, filterPrice } = prodSlice.actions
+export const { getProd, setCurrentPage, setPrevPage, setNextPage, searchName, addFav, removeFav, addCart, removeCard, setFavItems, setCartItems, cleanCart, postDetails, addQuantity, deleteQuantity, updateQuantity, setQuantyItems, filterCategory, filterPrice } = prodSlice.actions
 export default prodSlice.reducer
