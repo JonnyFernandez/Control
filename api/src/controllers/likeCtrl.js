@@ -2,7 +2,6 @@ const { Like, Product } = require('../db')
 
 module.exports = {
     createLike: async (prodId, userId) => {
-        // const pepe = '1e776af5-d83f-4397-9f83-10e7ca5a7f15'
         const prod = await Product.findByPk(prodId)
         if (!prod) throw new Error('Prod not found')
 

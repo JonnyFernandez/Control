@@ -8,14 +8,17 @@ const LandingPage = () => {
 
             <div className={styles.LandingLeft}>
                 <img className={styles.logoLand} src="../../distriW.png" alt="" />
-
             </div>
+
             <div className={styles.LandingRight}>
-                <div>Que tu compra no este limitada por la distancia.</div>
-                <div>Desde tu computadora oo dispositivo movil, a la puerta de tu casa</div>
-
-
+                <div className={styles.info1}> <h4>Que tu compra no este limitada por la distancia.</h4> </div>
+                <div className={styles.info1}> <h4>Desde tu computadora o dispositivo movil, a la puerta de tu casa.</h4> </div>
+                <div className={styles.info1}>
+                    <h4>Jugueteria | Bazar | Piscinas | Plasticos | Escolar  </h4>
+                </div>
             </div>
+
+
 
 
 
