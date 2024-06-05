@@ -26,12 +26,11 @@ const Nav = ({ handleSelector, handleUpdate }) => {
         <div className={n.nav}>
             <div className={n.div1}>
                 <div className={n.image} onClick={resetProd}>
-                    <img src="../../IconOrange.ico" alt="" />
+                    <img src="../../distriW.png" alt="" />
                 </div>
-                <div className={`${n.title} ${dark ? n.darkTitle : ''}`} onClick={resetProd}>
-                    {/* Cost Price */}
-                    Marelyss
-                </div>
+                {/* <div className={`${n.title} ${dark ? n.darkTitle : ''}`} onClick={resetProd}>
+
+                </div> */}
                 <input
                     type='text'
                     placeholder='¿Qué estás buscando?'

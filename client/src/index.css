@@ -5,7 +5,12 @@
   --boxShadow: 4px 12px 40px 6px #9b989817;
   /* white variables */
   --whitePrimaryColor: #ff5900;
+  --secondColor:#fffcf6;
   --whiteSecondColor: rgba(215, 209, 209, 0.571);
+  /* new colors */
+   --primaryColor:#064439;
+   --letter:#232323;
+   --boxShadowBasic: 0px 0px 15px black;
 }
 
 

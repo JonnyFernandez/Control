@@ -31,7 +31,7 @@
     height: 100%;
 }
 .div1{
-   justify-content: space-evenly;
+   justify-content: space-around;
    /* background-color: rebeccapurple; */
 }
 /* -----------------imputs */
@@ -76,19 +76,21 @@
 /* -----------------imputs */
 
 .image{
-    height: 100%;
-    width: 6%;
+    height: 50px;
+    width: 30%;
     margin-left: 20px;
     overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
+    /* background-color: red; */
 }
 .image img {
-    width: 100%; /* Ajustar el ancho de la imagen al 100% del contenedor */
-    height: auto; /* Mantener la relación de aspecto */
-    object-fit: cover; /* Ajustar la imagen dentro del contenedor manteniendo la relación de aspecto y recortando según sea necesario */
+    width: 100%; 
+    height: auto;
+    /* object-fit: cover;  */
     cursor: pointer;
+    
 
 }
 

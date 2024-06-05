@@ -1,4 +1,4 @@
-import { Home, Login, Register, Details } from './views'
+import { Home, Login, Register, Details, LandingPage } from './views'
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './ProtectedRoutes';
@@ -9,6 +9,7 @@ function App() {
     <AuthProvider>
       <BrowserRouter>
         <Routes>
+          <Route path='/' element={<LandingPage />} />
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
 
