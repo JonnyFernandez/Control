@@ -39,24 +39,7 @@ const Home = () => {
     const filteredProd = product.filter(item => item.status === true);
 
 
-    // const handleSelector = async (data) => {
 
-
-    //     if (data === '' || null || undefined) {
-    //         setshowCart(false);
-    //         setshowLikes(false);
-    //         setshowFilters(false)
-    //         setshowPurchase(false)
-    //         setshowProfile(false)
-    //     }
-    //     setshowCart(data === 'cart');
-    //     setshowLikes(data === 'likes');
-    //     setshowFilters(data === 'filters');
-    //     setshowPurchase(data === 'purchase')
-    //     setshowProfile(data === 'profile')
-
-
-    // };
     const handleUpdate = () => setUpdate(prev => prev + 1)
     // ---------------------------------Paginado--------------------------
     const cardsInPage = 10;
@@ -100,7 +83,6 @@ const Home = () => {
         <div className={h.container}>
             <div className={`${h.header} ${dark ? h.headerDark : ''}`}>
                 <div className={h.nav}> <Nav handleUpdate={handleUpdate} /> </div>
-                <div className={h.dropdown}>DropDown</div>
             </div>
             <div className={`${h.body} ${dark ? h.body : ''}`}>
 

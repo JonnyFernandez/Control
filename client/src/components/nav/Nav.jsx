@@ -41,23 +41,17 @@ const Nav = ({ handleUpdate }) => {
                 {search && <button className={`${n.searchProd}`} onClick={searchFuction}>Buscar</button>}
             </div>
 
+
             <div className={n.div2}>
-                <div className={`${n.item} ${dark ? n.darkitem : ''}`} onClick={resetProd}>
-                    Home
-                </div>
-
-                <div className={`${n.item} ${dark ? n.darkitem : ''}`}>
-                    Historial
-                </div>
-
-
-
                 <NavLink to={'/profile'} className={`${n.item} ${dark ? n.darkitem : ''}`}>
                     Perfil
                 </NavLink>
-
-
             </div>
+
+
+
+
+
         </div>
     );
 };

@@ -69,12 +69,12 @@ const Card = (products) => {
         } else {
             setFav(true)
             dispatch(addFav(products))
-            await api_Like(data)
+            await api_Like({ "prodId": id })
 
         };
 
         const updatedFav = fav
-            ? storedFav.filter(item => item.id !== id)
+            ? storedFav.filter(item => item.id !== Number(id))
             : [...storedFav, products];
         localStorage.setItem('fav', JSON.stringify(updatedFav));
     };
