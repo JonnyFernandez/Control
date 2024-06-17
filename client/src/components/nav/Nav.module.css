@@ -121,14 +121,16 @@ cursor: pointer;
 font-size:medium;
 cursor: pointer;
 transition: 0.2s;
+/* background-color: red; */
+text-decoration: none;
 }
 
 .darkitem{
 color:  rgb(255, 255, 255);
 transition: 0.2s;
-
-
 }
+
+
 
 @media (max-width:600px){
     .nav{

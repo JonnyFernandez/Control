@@ -8,9 +8,13 @@
   --secondColor:#fffcf6;
   --whiteSecondColor: rgba(215, 209, 209, 0.571);
   /* new colors */
-   --primaryColor:#064439;
-   --letter:#232323;
-   --boxShadowBasic: 0px 0px 15px black;
+  --primaryColor:#064439;
+  --letter:rgb(255 255 255 / 16%);
+  --boxShadowBasic: 0px 0px 15px black;
+  
+  --colorBorder: rgb(255 255 255 / 16%);
+  --color-background: #181818;
+   
 }
 
 

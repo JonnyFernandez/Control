@@ -6,9 +6,12 @@ const ProtectedRoute = () => {
 
     if (loading) return <h1>Cargando...</h1>;
 
-    if (!isAuthenticated || (user && user.type !== "admin")) {
+    if (!isAuthenticated) {
         return <Navigate to="/login" replace />;
     }
+    // if (!isAuthenticated || (user && user.type !== "admin")) {
+    //     return <Navigate to="/login" replace />;
+    // }
 
     return <Outlet />;
 };

@@ -16,7 +16,7 @@ const CartSlice = () => {
     const [isOpen, setIsOpen] = useState(false);
     const { shoppingCart, prodQuantity } = useSelector(state => state.prod)
 
-    console.log(prodQuantity);
+    // console.log(prodQuantity);
 
     const toggleCart = () => {
         if (!isAuthenticated) {

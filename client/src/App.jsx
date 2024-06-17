@@ -1,4 +1,4 @@
-import { Home, Login, Register, Details, LandingPage } from './views'
+import { Home, Login, Register, Details, LandingPage, Profile } from './views'
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './ProtectedRoutes';
@@ -18,7 +18,7 @@ function App() {
 
 
           <Route element={<ProtectedRoute />}>
-            <Route path='/profile' element={<h1>ADMIN PROFILE</h1>} />
+            <Route path='/profile' element={<Profile />} />
           </Route>
 
         </Routes>

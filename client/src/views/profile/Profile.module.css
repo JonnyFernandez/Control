@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+
+.profile{
+    height: 100vh;
+    font-family: 'Roboto', sans-serif;
+}
+
+.header{
+    height: 15vh;
+    background-color: var(--whitePrimaryColor);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.dropdown {
+    position: relative;
+    cursor: pointer;
+}
+
+.dropdown > a {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    height: 72px;
+}
+
+.dropdown > a > span {
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.434);
+    translate: 0 2px;
+}
+
+.menu {
+    position: absolute;
+    top: 60px;
+    right: -20px;
+    width: 180px;
+    border-radius: 10px;
+    border: 1px solid var(--color-border);
+    padding: 8px 0;
+    display: grid;
+    background: var(--letter);
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.3s;
+    
+    
+}
+
+.menu::before {
+    content: "";
+    position: absolute;
+    background: inherit;
+    border-top: 1px solid var(--color-border);
+    border-right: 1px solid var(--color-border);
+    top: -7px;
+    right: 22px;
+    width: 12px;
+    height: 12px;
+    rotate: -45deg;
+}
+
+.dropdown:hover .menu {
+    opacity: 1;
+    visibility: visible;
+}
+
+.menu > a {
+    padding: 12px 20px;
+    font-size: 14px;
+}
+
+.menu > a:hover {
+    background: rgb(144, 140, 140);
+}
+
+
+
+
+
+.body{
+    height: 85vh;
+    background-color: var(--secondColor);
+}
